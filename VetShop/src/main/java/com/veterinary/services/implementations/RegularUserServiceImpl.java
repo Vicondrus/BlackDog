@@ -1,5 +1,6 @@
 package com.veterinary.services.implementations;
 
+import com.veterinary.entities.Animal;
 import com.veterinary.entities.RegularUser;
 import com.veterinary.repositories.RegularUserRepository;
 import com.veterinary.services.RegularUserService;
@@ -15,6 +16,19 @@ public class RegularUserServiceImpl implements RegularUserService {
     private RegularUserRepository regUserRepo;
 
     @Override
+    public List<Animal> getAllAnimalsConsultedBy(RegularUser regularUser){
+        RegularUser user = regUserRepo.findById(regularUser.getIdUser()).orElse(null);
+        if(user == null)
+            return null;
+        return user.getConsultedAnimals();
+    }
+
+    @Override
+    public RegularUser getByUsername(String username) {
+        return regUserRepo.findByUsername(username);
+    }
+
+    @Override
     public List<RegularUser> getAll() {
         return  regUserRepo.findAll();
     }
@@ -26,7 +40,15 @@ public class RegularUserServiceImpl implements RegularUserService {
 
     @Override
     public RegularUser update(RegularUser regularUser) {
-        return null;
+        if(regularUser == null)
+            return null;
+        RegularUser found = regUserRepo.findById(regularUser.getIdUser()).orElse(null);
+        if(found == null)
+            return null;
+        regularUser.setConsultations(found.getConsultations());
+        regularUser.setIdUser(found.getIdUser());
+        regularUser.setUserType(found.getUserType());
+        return regUserRepo.save(regularUser);
     }
 
     @Override

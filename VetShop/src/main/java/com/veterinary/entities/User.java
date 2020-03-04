@@ -7,19 +7,20 @@ import javax.persistence.*;
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "userType")
+@DiscriminatorColumn(name = "userType", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class User {
 
     @Id
-    private int idUser;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected int idUser;
 
-    private String username;
+    protected String username;
 
-    private String password;
+    protected String password;
 
-    private String fullName;
+    protected String fullName;
 
     @Column(name = "userType", insertable = false, updatable = false)
-    private UserType userType;
+    protected UserType userType;
 
 }

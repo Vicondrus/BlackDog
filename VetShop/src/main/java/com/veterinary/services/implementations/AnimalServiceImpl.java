@@ -33,4 +33,9 @@ public class AnimalServiceImpl implements AnimalService {
     public Animal remove(Animal animal) {
         return null;
     }
+
+    @Override
+    public Animal getByName(String name) {
+        return animalRepo.findByName(name);
+    }
 }

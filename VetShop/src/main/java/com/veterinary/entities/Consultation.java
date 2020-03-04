@@ -3,12 +3,14 @@ package com.veterinary.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
 public class Consultation {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int consultationId;
 
     @ManyToOne
@@ -22,5 +24,21 @@ public class Consultation {
     private String details;
 
     private String diagnostic;
+
+    private String recommendations;
+
+    private Date date;
+
+    public String getDoctorName(){
+        return doctor.getFullName();
+    }
+
+    public String getAnimalName(){
+        return animal.getName();
+    }
+
+    public String getOwnerName(){
+        return animal.getOwner();
+    }
 
 }

@@ -16,4 +16,6 @@ public interface AnimalService {
 
     Animal remove(Animal animal);
 
+    Animal getByName(String name);
+
 }

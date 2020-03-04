@@ -1,10 +1,14 @@
 package com.veterinary.reports;
 
+import com.itextpdf.text.DocumentException;
 import com.veterinary.entities.Consultation;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class ReportFactory {
 
-    public void generateReport(ReportType reportType, Consultation consultation){
+    public void generateReport(ReportType reportType, Consultation consultation, String path) throws IOException, DocumentException {
 
         Report r = null;
 
@@ -14,7 +18,7 @@ public class ReportFactory {
             r = new TxtReport();
         }
 
-        r.generateReport(consultation);
+        r.generateReport(consultation, path);
     }
 
 }
