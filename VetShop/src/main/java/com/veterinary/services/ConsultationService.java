@@ -1,7 +1,6 @@
 package com.veterinary.services;
 
 import com.veterinary.entities.Consultation;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

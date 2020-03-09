@@ -23,4 +23,8 @@ public abstract class User {
     @Column(name = "userType", insertable = false, updatable = false)
     protected UserType userType;
 
+    protected User(){
+        super();
+    }
+
 }

@@ -22,6 +22,7 @@ public class TxtReport implements Report {
         printWriter.println("Diagnostic: " + consultation.getDiagnostic());
         printWriter.println("Recommendations: " + consultation.getRecommendations());
         printWriter.close();
+        fileWriter.close();
 
     }
 }

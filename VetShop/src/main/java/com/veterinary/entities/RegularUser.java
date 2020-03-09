@@ -1,7 +1,6 @@
 package com.veterinary.entities;
 
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

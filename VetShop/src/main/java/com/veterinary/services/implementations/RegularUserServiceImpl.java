@@ -18,8 +18,9 @@ public class RegularUserServiceImpl implements RegularUserService {
     @Override
     public List<Animal> getAllAnimalsConsultedBy(RegularUser regularUser){
         RegularUser user = regUserRepo.findById(regularUser.getIdUser()).orElse(null);
-        if(user == null)
+        if(user == null) {
             return null;
+        }
         return user.getConsultedAnimals();
     }
 
@@ -40,11 +41,13 @@ public class RegularUserServiceImpl implements RegularUserService {
 
     @Override
     public RegularUser update(RegularUser regularUser) {
-        if(regularUser == null)
+        if(regularUser == null) {
             return null;
+        }
         RegularUser found = regUserRepo.findById(regularUser.getIdUser()).orElse(null);
-        if(found == null)
+        if(found == null) {
             return null;
+        }
         regularUser.setConsultations(found.getConsultations());
         regularUser.setIdUser(found.getIdUser());
         regularUser.setUserType(found.getUserType());

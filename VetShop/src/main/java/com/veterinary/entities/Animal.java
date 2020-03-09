@@ -18,6 +18,8 @@ public class Animal {
 
     private String owner;
 
+    private String species;
+
     @OneToMany(mappedBy = "animal", fetch = FetchType.EAGER)
     private List<Consultation> consultationList = new ArrayList<Consultation>();
 
