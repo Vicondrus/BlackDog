@@ -1,10 +1,13 @@
 package com.veterinary.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@AllArgsConstructor
+@ToString
+@Getter
+@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "userType", discriminatorType = DiscriminatorType.INTEGER)

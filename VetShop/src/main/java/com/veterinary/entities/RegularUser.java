@@ -1,6 +1,6 @@
 package com.veterinary.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -10,7 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
+@Getter
+@Setter
 @Entity
 @DiscriminatorValue("1")
 public class RegularUser extends User{

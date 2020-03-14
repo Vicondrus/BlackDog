@@ -1,5 +1,6 @@
 package com.veterinary.controllers;
 
+import com.veterinary.dtos.AnimalDTO;
 import com.veterinary.entities.Animal;
 import com.veterinary.entities.Consultation;
 import com.veterinary.entities.RegularUser;
@@ -68,7 +69,7 @@ public class CommandLineController implements CommandLineRunner {
         String animalName = scanner.next().trim();
         System.out.println("Doctor name:");
         String doctor = scanner.next().trim();
-        Animal animal = animalService.getByName(animalName);
+        AnimalDTO animal = animalService.getByName(animalName);
         RegularUser regularUser = regularUserService.getByUsername(doctor);
         System.out.println("Details:");
         String details = scanner.next().trim();
@@ -77,7 +78,7 @@ public class CommandLineController implements CommandLineRunner {
         System.out.println("Recommendation:");
         String recommendation = scanner.next().trim();
         Consultation consultation = new Consultation();
-        consultation.setAnimal(animal);
+        //consultation.setAnimal(animalService.get);
         consultation.setDate(new Date());
         consultation.setDetails(details);
         consultation.setDoctor(regularUser);
@@ -95,10 +96,9 @@ public class CommandLineController implements CommandLineRunner {
         String name = scanner.next().trim();
         System.out.println("Owner:");
         String owner = scanner.next().trim();
-        Animal animal = new Animal();
-        animal.setName(name);
-        animal.setOwner(owner);
-        System.out.println("Created animal: " + animalService.save(animal) + ".");
+        System.out.println("Species:");
+        String species = scanner.next().trim();
+        System.out.println("Created animal: " + animalService.save(name, owner, species) + ".");
     }
 
 

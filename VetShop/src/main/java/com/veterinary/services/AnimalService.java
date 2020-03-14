@@ -1,5 +1,6 @@
 package com.veterinary.services;
 
+import com.veterinary.dtos.AnimalDTO;
 import com.veterinary.entities.Animal;
 import org.springframework.stereotype.Service;
 
@@ -8,14 +9,14 @@ import java.util.List;
 @Service
 public interface AnimalService {
 
-    List<Animal> getAll();
+    List<AnimalDTO> getAll();
 
-    Animal save(Animal animal);
+    AnimalDTO save(String name, String owner, String species);
 
-    Animal update(Animal animal);
+    AnimalDTO update(int id, String name, String owner, String species);
 
-    Animal remove(Animal animal);
+    AnimalDTO removeById(int id);
 
-    Animal getByName(String name);
+    AnimalDTO getByName(String name);
 
 }

@@ -1,12 +1,18 @@
 package com.veterinary.entities;
 
-import lombok.Data;
+import lombok.*;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
+@Getter
+@Setter
 @Entity
 public class Animal {
 

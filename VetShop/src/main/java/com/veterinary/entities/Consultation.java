@@ -1,11 +1,16 @@
 package com.veterinary.entities;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
+@Getter
+@Setter
 @Entity
 public class Consultation {
 
