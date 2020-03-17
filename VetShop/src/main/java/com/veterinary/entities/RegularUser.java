@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = "consultations",callSuper = true)
 @Builder
 @Getter
 @Setter

@@ -22,20 +22,21 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public AnimalDTO save(String name, String owner) {
+    public AnimalDTO save(String name, String owner, String species) {
         Animal animal = new Animal();
         animal.setName(name);
         animal.setOwner(owner);
+        animal.setSpecies(species);
         return new AnimalDTO(animalRepo.save(animal));
     }
 
     @Override
-    public AnimalDTO update(Animal animal) {
+    public AnimalDTO update(int id, String name, String owner, String species) {
         return null;
     }
 
     @Override
-    public AnimalDTO remove(Animal animal) {
+    public AnimalDTO removeById(int id) {
         return null;
     }
 

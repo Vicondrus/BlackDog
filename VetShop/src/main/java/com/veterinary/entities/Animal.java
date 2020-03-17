@@ -9,7 +9,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = "consultationList")
 @Builder
 @Getter
 @Setter
