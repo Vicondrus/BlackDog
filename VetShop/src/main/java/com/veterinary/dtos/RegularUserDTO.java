@@ -19,7 +19,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @Setter
 @Data
-public class RegularUserDTO {
+public class RegularUserDTO implements DTO{
 
     private int idUser;
 
@@ -31,7 +31,6 @@ public class RegularUserDTO {
 
     private UserType userType;
 
-    private List<ConsultationDTO> consultations;
 
     public RegularUserDTO(RegularUser user){
         idUser = user.getIdUser();
@@ -39,7 +38,6 @@ public class RegularUserDTO {
         password = user.getUsername();
         fullName = user.getFullName();
         userType = user.getUserType();
-        consultations = user.getConsultations().stream().map(ConsultationDTO::new).collect(Collectors.toList());
     }
 
 }

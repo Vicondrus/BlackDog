@@ -17,7 +17,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @Setter
 @Data
-public class AnimalDTO {
+public class AnimalDTO implements DTO{
 
     private int animalId;
 
@@ -27,13 +27,10 @@ public class AnimalDTO {
 
     private String species;
 
-    private List<ConsultationDTO> consultations;
-
     public AnimalDTO(Animal animal) {
         this.animalId = animal.getAnimalId();
         this.name = animal.getName();
         this.owner = animal.getOwner();
         this.species = animal.getSpecies();
-        consultations = animal.getConsultationList().stream().map(ConsultationDTO::new).collect(Collectors.toList());
     }
 }

@@ -1,5 +1,7 @@
 package com.veterinary.services;
 
+import com.veterinary.dtos.AnimalDTO;
+import com.veterinary.dtos.RegularUserDTO;
 import com.veterinary.entities.Animal;
 import com.veterinary.entities.RegularUser;
 import org.springframework.stereotype.Service;
@@ -9,16 +11,16 @@ import java.util.List;
 @Service
 public interface RegularUserService {
 
-    List<RegularUser> getAll();
+    List<RegularUserDTO> getAll();
 
-    RegularUser save(RegularUser regularUser);
+    RegularUserDTO save(RegularUser regularUser);
 
-    RegularUser update(RegularUser regularUser);
+    RegularUserDTO update(RegularUser regularUser);
 
-    RegularUser delete(RegularUser regularUser);
+    RegularUserDTO delete(RegularUser regularUser);
 
-    List<Animal> getAllAnimalsConsultedBy(RegularUser regularUser);
+    List<AnimalDTO> getAllAnimalsConsultedBy(RegularUser regularUser);
 
-    RegularUser getByUsername(String username);
+    RegularUserDTO getByUsername(String username);
 
 }

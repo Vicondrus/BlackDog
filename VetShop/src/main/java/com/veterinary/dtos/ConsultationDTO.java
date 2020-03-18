@@ -1,6 +1,8 @@
 package com.veterinary.dtos;
 
 import com.veterinary.entities.Consultation;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -16,7 +18,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @Setter
 @Data
-public class ConsultationDTO {
+public class ConsultationDTO implements DTO{
 
     private int consultationId;
 
@@ -42,6 +44,12 @@ public class ConsultationDTO {
 
     public String getOwnerName(){
         return animal.getOwner();
+    }
+
+    public StringProperty animalProperty(){
+        StringProperty sp = new SimpleStringProperty();
+        sp.setValue(getAnimalName());
+        return sp;
     }
 
     public ConsultationDTO(Consultation consultation){

@@ -1,6 +1,7 @@
 package com.veterinary.controllers;
 
 import com.veterinary.dtos.AnimalDTO;
+import com.veterinary.dtos.RegularUserDTO;
 import com.veterinary.entities.Animal;
 import com.veterinary.entities.Consultation;
 import com.veterinary.entities.RegularUser;
@@ -70,7 +71,7 @@ public class CommandLineController implements CommandLineRunner {
         System.out.println("Doctor name:");
         String doctor = scanner.next().trim();
         AnimalDTO animal = animalService.getByName(animalName);
-        RegularUser regularUser = regularUserService.getByUsername(doctor);
+        RegularUserDTO regularUser = regularUserService.getByUsername(doctor);
         System.out.println("Details:");
         String details = scanner.next().trim();
         System.out.println("Diagnostic:");
@@ -81,7 +82,7 @@ public class CommandLineController implements CommandLineRunner {
         //consultation.setAnimal(animalService.get);
         consultation.setDate(new Date());
         consultation.setDetails(details);
-        consultation.setDoctor(regularUser);
+        //consultation.setDoctor(regularUser);
         consultation.setRecommendations(recommendation);
         consultation.setDiagnostic(diagnostic);
         System.out.println("Created consultation: " + consultationService.save(consultation) + ".");

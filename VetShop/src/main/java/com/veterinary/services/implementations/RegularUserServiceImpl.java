@@ -1,5 +1,7 @@
 package com.veterinary.services.implementations;
 
+import com.veterinary.dtos.AnimalDTO;
+import com.veterinary.dtos.RegularUserDTO;
 import com.veterinary.entities.Animal;
 import com.veterinary.entities.RegularUser;
 import com.veterinary.repositories.RegularUserRepository;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RegularUserServiceImpl implements RegularUserService {
@@ -16,31 +19,31 @@ public class RegularUserServiceImpl implements RegularUserService {
     private RegularUserRepository regUserRepo;
 
     @Override
-    public List<Animal> getAllAnimalsConsultedBy(RegularUser regularUser){
+    public List<AnimalDTO> getAllAnimalsConsultedBy(RegularUser regularUser){
         RegularUser user = regUserRepo.findById(regularUser.getIdUser()).orElse(null);
         if(user == null) {
             return null;
         }
-        return user.getConsultedAnimals();
+        return user.getConsultedAnimals().stream().map(AnimalDTO::new).collect(Collectors.toList());
     }
 
     @Override
-    public RegularUser getByUsername(String username) {
-        return regUserRepo.findByUsername(username);
+    public RegularUserDTO getByUsername(String username) {
+        return new RegularUserDTO(regUserRepo.findByUsername(username));
     }
 
     @Override
-    public List<RegularUser> getAll() {
-        return  regUserRepo.findAll();
+    public List<RegularUserDTO> getAll() {
+        return  regUserRepo.findAll().stream().map(RegularUserDTO::new).collect(Collectors.toList());
     }
 
     @Override
-    public RegularUser save(RegularUser regularUser) {
-        return regUserRepo.save(regularUser);
+    public RegularUserDTO save(RegularUser regularUser) {
+        return new RegularUserDTO(regUserRepo.save(regularUser));
     }
 
     @Override
-    public RegularUser update(RegularUser regularUser) {
+    public RegularUserDTO update(RegularUser regularUser) {
         if(regularUser == null) {
             return null;
         }
@@ -51,11 +54,11 @@ public class RegularUserServiceImpl implements RegularUserService {
         regularUser.setConsultations(found.getConsultations());
         regularUser.setIdUser(found.getIdUser());
         regularUser.setUserType(found.getUserType());
-        return regUserRepo.save(regularUser);
+        return new RegularUserDTO(regUserRepo.save(regularUser));
     }
 
     @Override
-    public RegularUser delete(RegularUser regularUser) {
+    public RegularUserDTO delete(RegularUser regularUser) {
         return null;
     }
 }

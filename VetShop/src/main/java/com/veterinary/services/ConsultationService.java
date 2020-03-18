@@ -1,5 +1,6 @@
 package com.veterinary.services;
 
+import com.veterinary.dtos.ConsultationDTO;
 import com.veterinary.entities.Consultation;
 import org.springframework.stereotype.Service;
 
@@ -8,12 +9,14 @@ import java.util.List;
 @Service
 public interface ConsultationService {
 
-    List<Consultation> findAll();
+    List<ConsultationDTO> findAll();
 
-    Consultation save(Consultation consultation);
+    ConsultationDTO save(Consultation consultation);
 
-    Consultation update(Consultation consultation);
+    ConsultationDTO update(Consultation consultation);
 
-    Consultation delete(Consultation consultation);
+    ConsultationDTO delete(int id);
+
+    List<ConsultationDTO> findAllForLoggedUser();
 
 }

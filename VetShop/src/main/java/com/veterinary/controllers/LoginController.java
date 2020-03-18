@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @FxmlView("main-stage.fxml")
-public class LoginController {
+public class LoginController implements Controller{
 
     @FXML
     private TextField username;
