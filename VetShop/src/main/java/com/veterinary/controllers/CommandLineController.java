@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.Scanner;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class CommandLineController implements CommandLineRunner {
 
