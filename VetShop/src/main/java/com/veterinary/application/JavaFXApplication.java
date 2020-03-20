@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -50,11 +51,6 @@ public class JavaFXApplication extends Application {
 
         Stage stage = new Stage();
 
-        stage.setOnCloseRequest(we -> {
-            Controller controller = fxWeaver.loadController(c);
-            controller.refresh();
-        });
-
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
@@ -62,23 +58,17 @@ public class JavaFXApplication extends Application {
 
     public static <T extends DTOController> void changeScene(Class<T> c, DTO dto){
         FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
+
+        DTOController controller = fxWeaver.loadController(c);
+        controller.setDTO(dto);
+
         Parent pane = fxWeaver.loadView(c);
 
-        if(dto != null){
-            DTOController controller = fxWeaver.loadController(c);
-            controller.setDTO(dto);
-            controller.refresh();
-        }
-
         Stage stage = new Stage();
-
-        stage.setOnCloseRequest(we -> {
-            Controller controller = fxWeaver.loadController(c);
-            controller.refresh();
-        });
-
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
+
+        controller.refresh();
     }
 }

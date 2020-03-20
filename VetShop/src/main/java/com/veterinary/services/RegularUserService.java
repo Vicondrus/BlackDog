@@ -19,8 +19,6 @@ public interface RegularUserService {
 
     RegularUserDTO delete(RegularUser regularUser);
 
-    List<AnimalDTO> getAllAnimalsConsultedBy(RegularUser regularUser);
-
     RegularUserDTO getByUsername(String username);
 
 }

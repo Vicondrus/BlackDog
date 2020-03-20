@@ -85,7 +85,7 @@ public class CommandLineController implements CommandLineRunner {
         //consultation.setDoctor(regularUser);
         consultation.setRecommendations(recommendation);
         consultation.setDiagnostic(diagnostic);
-        System.out.println("Created consultation: " + consultationService.save(consultation) + ".");
+        //System.out.println("Created consultation: " + consultationService.save(consultation) + ".");
     }
 
     private void handleList() {

@@ -13,7 +13,7 @@ public class RegularUserController implements Controller{
     }
 
     public void getAnimalsWindow(){
-
+        JavaFXApplication.changeScene(InspectAnimalsController.class);
     }
 
 

@@ -9,11 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Side;
 import javafx.scene.Node;
-import javafx.scene.control.Cell;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -66,17 +64,22 @@ public class InspectConsultationsController implements Controller, Initializable
     }
 
     public void create(){
+        Stage stage = (Stage) table.getScene().getWindow();
+        stage.close();
         JavaFXApplication.changeScene(CreateConsultationController.class);
     }
 
     public void update(){
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
-        JavaFXApplication.changeScene(UpdateConsultationController.class,consultationDTO);
+        Stage stage = (Stage) table.getScene().getWindow();
+        stage.close();
+        JavaFXApplication.changeScene(UpdateConsultationController.class, consultationDTO);
     }
 
     public void delete(){
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
         consultationService.delete(consultationDTO.getConsultationId());
+        refresh();
     }
 
     public void view(){

@@ -19,15 +19,6 @@ public class RegularUserServiceImpl implements RegularUserService {
     private RegularUserRepository regUserRepo;
 
     @Override
-    public List<AnimalDTO> getAllAnimalsConsultedBy(RegularUser regularUser){
-        RegularUser user = regUserRepo.findById(regularUser.getIdUser()).orElse(null);
-        if(user == null) {
-            return null;
-        }
-        return user.getConsultedAnimals().stream().map(AnimalDTO::new).collect(Collectors.toList());
-    }
-
-    @Override
     public RegularUserDTO getByUsername(String username) {
         return new RegularUserDTO(regUserRepo.findByUsername(username));
     }
