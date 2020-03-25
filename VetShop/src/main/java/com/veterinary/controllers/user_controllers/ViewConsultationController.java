@@ -1,5 +1,6 @@
-package com.veterinary.controllers;
+package com.veterinary.controllers.user_controllers;
 
+import com.veterinary.controllers.DTOController;
 import com.veterinary.dtos.AnimalDTO;
 import com.veterinary.dtos.ConsultationDTO;
 import com.veterinary.dtos.DTO;

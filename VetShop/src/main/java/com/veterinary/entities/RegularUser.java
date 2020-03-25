@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Entity
-@DiscriminatorValue("1")
+@DiscriminatorValue("0")
 public class RegularUser extends User{
 
     @OneToMany(mappedBy = "doctor", fetch = FetchType.EAGER)

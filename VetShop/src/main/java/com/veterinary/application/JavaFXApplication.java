@@ -2,17 +2,13 @@ package com.veterinary.application;
 
 import com.veterinary.controllers.Controller;
 import com.veterinary.controllers.DTOController;
-import com.veterinary.controllers.LoginController;
-import com.veterinary.controllers.RegularUserController;
+import com.veterinary.controllers.common_controllers.LoginController;
 import com.veterinary.dtos.DTO;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import net.rgielen.fxweaver.core.FxControllerAndView;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;

@@ -26,6 +26,10 @@ public abstract class User {
     @Column(name = "userType", insertable = false, updatable = false)
     protected UserType userType;
 
+    public String getUserTypeAsString(){
+        return userType.toString();
+    }
+
     protected User(){
         super();
     }

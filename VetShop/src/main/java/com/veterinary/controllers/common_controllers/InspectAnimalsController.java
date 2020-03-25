@@ -1,9 +1,8 @@
-package com.veterinary.controllers;
+package com.veterinary.controllers.common_controllers;
 
 import com.veterinary.application.JavaFXApplication;
+import com.veterinary.controllers.Controller;
 import com.veterinary.dtos.AnimalDTO;
-import com.veterinary.dtos.ConsultationDTO;
-import com.veterinary.entities.Animal;
 import com.veterinary.services.AnimalService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 @Component
@@ -55,7 +53,7 @@ public class InspectAnimalsController implements Controller, Initializable {
     public void create(){
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
-        JavaFXApplication.changeScene(CreateConsultationController.class);
+        JavaFXApplication.changeScene(CreateAnimalController.class);
     }
 
     public void update(){

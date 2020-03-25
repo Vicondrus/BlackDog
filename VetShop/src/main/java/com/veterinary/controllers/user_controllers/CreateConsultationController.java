@@ -1,20 +1,17 @@
-package com.veterinary.controllers;
+package com.veterinary.controllers.user_controllers;
 
 import com.veterinary.application.JavaFXApplication;
+import com.veterinary.controllers.Controller;
 import com.veterinary.dtos.AnimalDTO;
 import com.veterinary.dtos.RegularUserDTO;
-import com.veterinary.entities.Animal;
-import com.veterinary.entities.RegularUser;
 import com.veterinary.services.AnimalService;
 import com.veterinary.services.ConsultationService;
 import com.veterinary.services.RegularUserService;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -28,11 +25,10 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 @Component
 @FxmlView("createconsultation-stage.fxml")
-public class CreateConsultationController implements Initializable, Controller{
+public class CreateConsultationController implements Initializable, Controller {
 
     @Autowired
     private RegularUserService regularUserService;

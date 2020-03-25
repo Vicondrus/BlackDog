@@ -1,6 +1,7 @@
-package com.veterinary.controllers;
+package com.veterinary.controllers.user_controllers;
 
 import com.veterinary.application.JavaFXApplication;
+import com.veterinary.controllers.DTOController;
 import com.veterinary.dtos.AnimalDTO;
 import com.veterinary.dtos.ConsultationDTO;
 import com.veterinary.dtos.DTO;
@@ -10,18 +11,15 @@ import com.veterinary.services.ConsultationService;
 import com.veterinary.services.RegularUserService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;

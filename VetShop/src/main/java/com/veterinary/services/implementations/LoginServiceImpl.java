@@ -1,6 +1,9 @@
 package com.veterinary.services.implementations;
 
+import com.veterinary.dtos.TypeDTO;
 import com.veterinary.entities.User;
+import com.veterinary.entities.UserType;
+import com.veterinary.repositories.AdminUserRepository;
 import com.veterinary.repositories.UserRepository;
 import com.veterinary.services.LoginService;
 import com.veterinary.services.exceptions.InvalidCredentialsException;
@@ -17,11 +20,12 @@ public class LoginServiceImpl implements LoginService {
     private UserRepository userRepository;
 
     @Override
-    public void loginUser(String username, String password) throws InvalidCredentialsException {
+    public TypeDTO loginUser(String username, String password) throws InvalidCredentialsException {
         User user = userRepository.findByUsername(username);
         if(user.getPassword().equals(password)){
             Authentication auth = new UsernamePasswordAuthenticationToken(user, null);
             SecurityContextHolder.getContext().setAuthentication(auth);
+            return TypeDTO.valueOf(user.getUserTypeAsString());
         }else{
             throw new InvalidCredentialsException("Wrong Password or Username");
         }

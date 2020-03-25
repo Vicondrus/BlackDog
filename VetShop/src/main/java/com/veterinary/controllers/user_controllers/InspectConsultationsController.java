@@ -1,14 +1,11 @@
-package com.veterinary.controllers;
+package com.veterinary.controllers.user_controllers;
 
 import com.veterinary.application.JavaFXApplication;
+import com.veterinary.controllers.Controller;
 import com.veterinary.dtos.ConsultationDTO;
-import com.veterinary.repositories.ConsultationRepository;
 import com.veterinary.services.ConsultationService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
-import javafx.geometry.Side;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -18,9 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.Date;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 @Component
 @FxmlView("inspectconsultations-stage.fxml")
