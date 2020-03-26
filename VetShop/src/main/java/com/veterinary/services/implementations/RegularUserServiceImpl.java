@@ -9,6 +9,7 @@ import com.veterinary.services.RegularUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,27 +30,28 @@ public class RegularUserServiceImpl implements RegularUserService {
     }
 
     @Override
-    public RegularUserDTO save(RegularUser regularUser) {
+    public RegularUserDTO save(String username, String password, String fullName, String userType) {
+        RegularUser regularUser = RegularUser.builder().consultations(new ArrayList<>()).build();
+        regularUser.setFullName(fullName);
+        regularUser.setPassword(password);
+        regularUser.setUsername(username);
         return new RegularUserDTO(regUserRepo.save(regularUser));
     }
 
     @Override
-    public RegularUserDTO update(RegularUser regularUser) {
-        if(regularUser == null) {
-            return null;
-        }
-        RegularUser found = regUserRepo.findById(regularUser.getIdUser()).orElse(null);
-        if(found == null) {
-            return null;
-        }
-        regularUser.setConsultations(found.getConsultations());
-        regularUser.setIdUser(found.getIdUser());
-        regularUser.setUserType(found.getUserType());
-        return new RegularUserDTO(regUserRepo.save(regularUser));
+    public RegularUserDTO update(int id, String username, String password, String fullName) {
+        RegularUser regularUser = regUserRepo.findById(id).orElse(null);
+        regularUser.setUsername(username);
+        regularUser.setPassword(password);
+        regularUser.setFullName(fullName);
+        regUserRepo.save(regularUser);
+        return new RegularUserDTO(regularUser);
     }
 
     @Override
-    public RegularUserDTO delete(RegularUser regularUser) {
-        return null;
+    public RegularUserDTO delete(int id) {
+        RegularUser regularUser = regUserRepo.findById(id).orElse(null);
+        regUserRepo.delete(regularUser);
+        return new RegularUserDTO(regularUser);
     }
 }

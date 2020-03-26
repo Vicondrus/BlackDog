@@ -2,9 +2,11 @@ package com.veterinary.controllers.admin_controllers;
 
 import com.veterinary.application.JavaFXApplication;
 import com.veterinary.controllers.Controller;
+import com.veterinary.controllers.common_controllers.CreateAnimalController;
 import com.veterinary.controllers.user_controllers.CreateConsultationController;
 import com.veterinary.controllers.user_controllers.UpdateConsultationController;
 import com.veterinary.controllers.user_controllers.ViewConsultationController;
+import com.veterinary.dtos.AnimalDTO;
 import com.veterinary.dtos.ConsultationDTO;
 import com.veterinary.dtos.RegularUserDTO;
 import com.veterinary.services.ConsultationService;
@@ -53,15 +55,29 @@ public class InspectUsersController implements Controller, Initializable {
     }
 
     public void create(){
+        Stage stage = (Stage) table.getScene().getWindow();
+        stage.close();
+        JavaFXApplication.changeScene(CreateUserController.class);
     }
 
     public void update(){
+        RegularUserDTO regularUserDTO = table.getSelectionModel().getSelectedItem();
+        Stage stage = (Stage) table.getScene().getWindow();
+        stage.close();
+        JavaFXApplication.changeScene(UpdateUserController.class, regularUserDTO);
     }
 
     public void delete(){
+        RegularUserDTO regularUserDTO = table.getSelectionModel().getSelectedItem();
+        regularUserService.delete(regularUserDTO.getIdUser());
+        refresh();
     }
 
     public void view(){
+        RegularUserDTO regularUserDTO = table.getSelectionModel().getSelectedItem();
+        Stage stage = (Stage) table.getScene().getWindow();
+        stage.close();
+        JavaFXApplication.changeScene(ViewUserController.class, regularUserDTO);
     }
 
 }

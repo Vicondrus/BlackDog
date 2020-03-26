@@ -117,6 +117,6 @@ public class CommandLineController implements CommandLineRunner {
         regularUser.setPassword(password);
         regularUser.setFullName(fullName);
         regularUser.setUserType(UserType.valueOf(type));
-        System.out.println("Created user: " + regularUserService.save(regularUser) + ".");
+        //System.out.println("Created user: " + regularUserService.save(regularUser) + ".");
     }
 }
