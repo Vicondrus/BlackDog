@@ -46,6 +46,27 @@ public class ConsultationDTO implements DTO{
         return animal.getOwner();
     }
 
+    public StringProperty ownerProperty(){
+        String owner = getOwnerName();
+        StringProperty x = new SimpleStringProperty();
+        x.setValue(owner);
+        return x;
+    }
+
+    public StringProperty doctorProperty(){
+        String doctor = getDoctorName();
+        StringProperty x = new SimpleStringProperty();
+        x.setValue(doctor);
+        return x;
+    }
+
+    public StringProperty patientProperty(){
+        String patient = getAnimalName();
+        StringProperty x = new SimpleStringProperty();
+        x.setValue(patient);
+        return x;
+    }
+
     public StringProperty animalProperty(){
         StringProperty sp = new SimpleStringProperty();
         sp.setValue(getAnimalName());

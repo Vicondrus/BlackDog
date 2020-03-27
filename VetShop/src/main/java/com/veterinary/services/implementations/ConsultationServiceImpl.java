@@ -1,11 +1,12 @@
 package com.veterinary.services.implementations;
 
+import com.itextpdf.text.DocumentException;
 import com.veterinary.dtos.ConsultationDTO;
 import com.veterinary.dtos.RegularUserDTO;
-import com.veterinary.entities.Animal;
-import com.veterinary.entities.Consultation;
-import com.veterinary.entities.RegularUser;
-import com.veterinary.entities.User;
+import com.veterinary.entities.*;
+import com.veterinary.reports.Report;
+import com.veterinary.reports.ReportFactory;
+import com.veterinary.reports.ReportType;
 import com.veterinary.repositories.AnimalRepository;
 import com.veterinary.repositories.ConsultationRepository;
 import com.veterinary.repositories.RegularUserRepository;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -78,8 +80,20 @@ public class ConsultationServiceImpl implements ConsultationService {
     }
 
     @Override
+    public Report reportConsultation(int id, String path, String type) throws IOException, DocumentException {
+        Consultation cons = consultationRepo.findById(id).orElse(null);
+        ReportFactory rf = new ReportFactory();
+        Report report = rf.generateReport(ReportType.valueOf(type));
+        report.generateReport(cons, path);
+        return report;
+    }
+
+    @Override
     public List<ConsultationDTO> findAllForLoggedUser() {
-        RegularUser principal = (RegularUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return consultationRepo.findByDoctor(principal).stream().map(ConsultationDTO::new).collect(Collectors.toList());
+        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal.getUserType().equals(UserType.REGULAR))
+            return consultationRepo.findByDoctor((RegularUser) principal).stream().map(ConsultationDTO::new).collect(Collectors.toList());
+        else
+            return consultationRepo.findAll().stream().map(ConsultationDTO::new).collect(Collectors.toList());
     }
 }

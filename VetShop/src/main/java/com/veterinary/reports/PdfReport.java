@@ -16,7 +16,7 @@ public class PdfReport implements Report{
 
         Document document = new Document();
 
-        PdfWriter.getInstance(document, new FileOutputStream(path+"\\Consultation"+consultation.getConsultationId()+".pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream(path+" - Consultation"+consultation.getConsultationId()+".pdf"));
 
         document.open();
         Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
@@ -25,19 +25,19 @@ public class PdfReport implements Report{
 
         List<Phrase> phrases= new ArrayList<Phrase>();
 
-        phrases.add(new Phrase(consultation.getDate().toString(), font));
+        phrases.add(new Phrase(consultation.getDate().toString() + "\n", font));
 
-        phrases.add(new Phrase("Doctor: " + consultation.getDoctorName(), font));
+        phrases.add(new Phrase("Doctor: " + consultation.getDoctorName() + "\n", font));
 
-        phrases.add(new Phrase("Patient: " + consultation.getAnimalName(), font));
+        phrases.add(new Phrase("Patient: " + consultation.getAnimalName() + "\n", font));
 
-        phrases.add(new Phrase("Owner: " + consultation.getOwnerName(), font));
+        phrases.add(new Phrase("Owner: " + consultation.getOwnerName() + "\n", font));
 
-        phrases.add(new Phrase("Details: " + consultation.getDetails(), font));
+        phrases.add(new Phrase("Details: " + consultation.getDetails() + "\n", font));
 
-        phrases.add(new Phrase("Diagnostic: " + consultation.getDiagnostic(), font));
+        phrases.add(new Phrase("Diagnostic: " + consultation.getDiagnostic() + "\n", font));
 
-        phrases.add(new Phrase("Recommendations: " + consultation.getRecommendations(), font));
+        phrases.add(new Phrase("Recommendations: " + consultation.getRecommendations() + "\n", font));
 
         phrases.forEach(x -> {
             try {

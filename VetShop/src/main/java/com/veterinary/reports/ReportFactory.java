@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class ReportFactory {
 
-    public void generateReport(ReportType reportType, Consultation consultation, String path) throws IOException, DocumentException {
+    public Report generateReport(ReportType reportType) throws IOException, DocumentException {
 
         Report r = null;
 
@@ -17,7 +17,8 @@ public class ReportFactory {
             r = new TxtReport();
         }
 
-        r.generateReport(consultation, path);
+        return r;
+
     }
 
 }
