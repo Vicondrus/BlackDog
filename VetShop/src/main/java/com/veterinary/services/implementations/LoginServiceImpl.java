@@ -22,12 +22,14 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public TypeDTO loginUser(String username, String password) throws InvalidCredentialsException {
         User user = userRepository.findByUsername(username);
-        if(user.getPassword().equals(password)){
+        if(user == null)
+            throw new InvalidCredentialsException("No such user");
+        else if(user.getPassword().equals(password)){
             Authentication auth = new UsernamePasswordAuthenticationToken(user, null);
             SecurityContextHolder.getContext().setAuthentication(auth);
             return TypeDTO.valueOf(user.getUserTypeAsString());
         }else{
-            throw new InvalidCredentialsException("Wrong Password or Username");
+            throw new InvalidCredentialsException("Wrong Password");
         }
     }
 }

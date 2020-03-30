@@ -2,6 +2,7 @@ package com.veterinary.controllers.user_controllers;
 
 import com.veterinary.application.JavaFXApplication;
 import com.veterinary.controllers.Controller;
+import com.veterinary.dialogues.AlertBox;
 import com.veterinary.dtos.ConsultationDTO;
 import com.veterinary.services.ConsultationService;
 import javafx.fxml.FXML;
@@ -66,6 +67,10 @@ public class InspectConsultationsController implements Controller, Initializable
 
     public void update(){
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
+        if(consultationDTO == null){
+            AlertBox.display("ERROR", "A consultation must be selected");
+            return;
+        }
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
         JavaFXApplication.changeScene(UpdateConsultationController.class, consultationDTO);
@@ -73,12 +78,20 @@ public class InspectConsultationsController implements Controller, Initializable
 
     public void delete(){
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
+        if(consultationDTO == null){
+            AlertBox.display("ERROR", "A consultation must be selected");
+            return;
+        }
         consultationService.delete(consultationDTO.getConsultationId());
         refresh();
     }
 
     public void view(){
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
+        if(consultationDTO == null){
+            AlertBox.display("ERROR", "A consultation must be selected");
+            return;
+        }
         JavaFXApplication.changeScene(ViewConsultationController.class,consultationDTO);
     }
 }

@@ -44,7 +44,6 @@ public class UpdateAnimalController implements DTOController {
 
     public void update(){
         animalService.update(animalDTO.getAnimalId(), name.getText(), owner.getText(), species.getText());
-
         Stage stage = (Stage) name.getScene().getWindow();
         stage.close();
         JavaFXApplication.changeScene(InspectAnimalsController.class);

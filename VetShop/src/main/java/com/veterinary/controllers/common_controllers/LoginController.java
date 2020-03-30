@@ -4,6 +4,7 @@ import com.veterinary.application.JavaFXApplication;
 import com.veterinary.controllers.Controller;
 import com.veterinary.controllers.admin_controllers.AdminUserController;
 import com.veterinary.controllers.user_controllers.RegularUserController;
+import com.veterinary.dialogues.AlertBox;
 import com.veterinary.dtos.TypeDTO;
 import com.veterinary.services.LoginService;
 import com.veterinary.services.exceptions.InvalidCredentialsException;
@@ -34,7 +35,7 @@ public class LoginController implements Controller {
             else
                 JavaFXApplication.changeScene(AdminUserController.class);
         } catch (InvalidCredentialsException e) {
-            e.printStackTrace();
+            AlertBox.display("ERROR", e.getMessage());
         }
     }
 

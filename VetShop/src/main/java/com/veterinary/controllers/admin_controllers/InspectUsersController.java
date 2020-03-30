@@ -6,6 +6,7 @@ import com.veterinary.controllers.common_controllers.CreateAnimalController;
 import com.veterinary.controllers.user_controllers.CreateConsultationController;
 import com.veterinary.controllers.user_controllers.UpdateConsultationController;
 import com.veterinary.controllers.user_controllers.ViewConsultationController;
+import com.veterinary.dialogues.AlertBox;
 import com.veterinary.dtos.AnimalDTO;
 import com.veterinary.dtos.ConsultationDTO;
 import com.veterinary.dtos.RegularUserDTO;
@@ -62,6 +63,10 @@ public class InspectUsersController implements Controller, Initializable {
 
     public void update(){
         RegularUserDTO regularUserDTO = table.getSelectionModel().getSelectedItem();
+        if(regularUserDTO == null){
+            AlertBox.display("ERROR", "A user must be selected");
+            return;
+        }
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
         JavaFXApplication.changeScene(UpdateUserController.class, regularUserDTO);
@@ -69,12 +74,20 @@ public class InspectUsersController implements Controller, Initializable {
 
     public void delete(){
         RegularUserDTO regularUserDTO = table.getSelectionModel().getSelectedItem();
+        if(regularUserDTO == null){
+            AlertBox.display("ERROR", "A user must be selected");
+            return;
+        }
         regularUserService.delete(regularUserDTO.getIdUser());
         refresh();
     }
 
     public void view(){
         RegularUserDTO regularUserDTO = table.getSelectionModel().getSelectedItem();
+        if(regularUserDTO == null){
+            AlertBox.display("ERROR", "A user must be selected");
+            return;
+        }
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
         JavaFXApplication.changeScene(ViewUserController.class, regularUserDTO);

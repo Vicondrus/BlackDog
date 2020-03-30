@@ -2,6 +2,7 @@ package com.veterinary.controllers.admin_controllers;
 
 import com.itextpdf.text.DocumentException;
 import com.veterinary.controllers.Controller;
+import com.veterinary.dialogues.AlertBox;
 import com.veterinary.dtos.ConsultationDTO;
 import com.veterinary.services.ConsultationService;
 import javafx.fxml.FXML;
@@ -23,7 +24,7 @@ import java.util.ResourceBundle;
 
 @Component
 @FxmlView("inspectconsultations-stage.fxml")
-public class InspectConsultationsController implements Controller, Initializable {
+public class InspectConsultationsAdminController implements Controller, Initializable {
 
     @Autowired
     private ConsultationService consultationService;
@@ -44,11 +45,15 @@ public class InspectConsultationsController implements Controller, Initializable
     private TableColumn<ConsultationDTO, String> patient;
 
     public void report(String type) {
+        ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
+        if(consultationDTO == null) {
+            AlertBox.display("ERROR", "A consultation must be selected");
+            return;
+        }
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Report");
         File file = fileChooser.showSaveDialog(table.getScene().getWindow());
         if (file != null) {
-            ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
             try {
                 consultationService.reportConsultation(consultationDTO.getConsultationId(), file.getPath(), type);
             } catch (IOException e) {

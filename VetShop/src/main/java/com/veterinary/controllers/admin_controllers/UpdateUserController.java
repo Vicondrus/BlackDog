@@ -2,6 +2,7 @@ package com.veterinary.controllers.admin_controllers;
 
 import com.veterinary.application.JavaFXApplication;
 import com.veterinary.controllers.DTOController;
+import com.veterinary.dialogues.AlertBox;
 import com.veterinary.dtos.DTO;
 import com.veterinary.dtos.RegularUserDTO;
 import com.veterinary.services.RegularUserService;
@@ -36,7 +37,7 @@ public class UpdateUserController implements DTOController {
 
     public void update(){
         if(!password.getText().equals(confirm.getText())){
-            //show a popup
+            AlertBox.display("ERROR", "Password mismatch");
         }else{
             regularUserService.update(regularUserDTO.getIdUser(), username.getText(), password.getText(), fullname.getText());
 

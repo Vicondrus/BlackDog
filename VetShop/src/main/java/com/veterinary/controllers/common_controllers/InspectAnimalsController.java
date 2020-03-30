@@ -2,6 +2,7 @@ package com.veterinary.controllers.common_controllers;
 
 import com.veterinary.application.JavaFXApplication;
 import com.veterinary.controllers.Controller;
+import com.veterinary.dialogues.AlertBox;
 import com.veterinary.dtos.AnimalDTO;
 import com.veterinary.services.AnimalService;
 import javafx.fxml.FXML;
@@ -58,6 +59,10 @@ public class InspectAnimalsController implements Controller, Initializable {
 
     public void update(){
         AnimalDTO animalDTO = table.getSelectionModel().getSelectedItem();
+        if(animalDTO == null){
+            AlertBox.display("ERROR", "An animal must be selected");
+            return;
+        }
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
         JavaFXApplication.changeScene(UpdateAnimalController.class, animalDTO);
@@ -65,12 +70,20 @@ public class InspectAnimalsController implements Controller, Initializable {
 
     public void delete(){
         AnimalDTO animalDTO = table.getSelectionModel().getSelectedItem();
+        if(animalDTO == null){
+            AlertBox.display("ERROR", "An animal must be selected");
+            return;
+        }
         animalService.removeById(animalDTO.getAnimalId());
         refresh();
     }
 
     public void view(){
         AnimalDTO animalDTO = table.getSelectionModel().getSelectedItem();
+        if(animalDTO == null){
+            AlertBox.display("ERROR", "An animal must be selected");
+            return;
+        }
         JavaFXApplication.changeScene(ViewAnimalController.class,animalDTO);
     }
 

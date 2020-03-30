@@ -138,7 +138,7 @@ public class CreateConsultationController implements Initializable, Controller {
                         if (item == null || empty) {
                             setGraphic(null);
                         } else {
-                            setText(item.getName()+" of "+item.getOwner());
+                            setText(item.getName()+ " - " +item.getOwner()+"'s " + item.getSpecies());
                         }
                     }
                 } ;
@@ -151,7 +151,7 @@ public class CreateConsultationController implements Initializable, Controller {
                 if (animal == null){
                     return null;
                 } else {
-                    return animal.getName()+" of "+animal.getOwner();
+                    return animal.getName()+ " - " +animal.getOwner()+"'s " + animal.getSpecies();
                 }
             }
 

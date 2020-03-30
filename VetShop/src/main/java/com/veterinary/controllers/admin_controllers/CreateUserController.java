@@ -3,6 +3,7 @@ package com.veterinary.controllers.admin_controllers;
 import com.veterinary.application.JavaFXApplication;
 import com.veterinary.controllers.Controller;
 import com.veterinary.controllers.common_controllers.InspectAnimalsController;
+import com.veterinary.dialogues.AlertBox;
 import com.veterinary.entities.UserType;
 import com.veterinary.services.RegularUserService;
 import javafx.fxml.FXML;
@@ -34,7 +35,7 @@ public class CreateUserController implements Controller {
 
     public void create(){
         if(!password.getText().equals(confirm.getText())){
-            //show a popup
+            AlertBox.display("ERROR", "Password mismatch");
         }else{
             regularUserService.save(username.getText(), password.getText(), fullname.getText(), "REGULAR");
 

@@ -19,7 +19,7 @@ public class AdminUserController implements Controller {
     }
 
     public void getConsultationsWindow(){
-        JavaFXApplication.changeScene(InspectConsultationsController.class);
+        JavaFXApplication.changeScene(InspectConsultationsAdminController.class);
     }
 
 }
