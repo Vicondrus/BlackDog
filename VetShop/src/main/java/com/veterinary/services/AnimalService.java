@@ -3,6 +3,7 @@ package com.veterinary.services;
 import com.veterinary.dtos.AnimalDTO;
 import com.veterinary.entities.Animal;
 import com.veterinary.entities.RegularUser;
+import com.veterinary.services.exceptions.NoSuchEntityException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,13 +15,13 @@ public interface AnimalService {
 
     AnimalDTO save(String name, String owner, String species);
 
-    AnimalDTO update(int id, String name, String owner, String species);
+    AnimalDTO update(int id, String name, String owner, String species) throws NoSuchEntityException;
 
     AnimalDTO removeById(int id);
 
-    List<AnimalDTO> getAllAnimalsConsultedBy(RegularUser regularUser);
+    List<AnimalDTO> getAllAnimalsConsultedBy(RegularUser regularUser) throws NoSuchEntityException;
 
-    List<AnimalDTO> getCorrespondingAnimals();
+    List<AnimalDTO> getCorrespondingAnimals() throws NoSuchEntityException;
 
     AnimalDTO getByName(String name);
 

@@ -1,6 +1,7 @@
 package com.veterinary.entities;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "consultations",callSuper = true)
-@Builder
+@SuperBuilder
 @Getter
 @Setter
 @Entity

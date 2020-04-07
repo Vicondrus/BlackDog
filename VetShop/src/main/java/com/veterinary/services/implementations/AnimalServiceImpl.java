@@ -8,6 +8,7 @@ import com.veterinary.entities.UserType;
 import com.veterinary.repositories.AnimalRepository;
 import com.veterinary.repositories.RegularUserRepository;
 import com.veterinary.services.AnimalService;
+import com.veterinary.services.exceptions.NoSuchEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,15 @@ import java.util.stream.Collectors;
 @Service
 public class AnimalServiceImpl implements AnimalService {
 
-    @Autowired
     private AnimalRepository animalRepo;
 
-    @Autowired
     private RegularUserRepository regularUserRepository;
+
+    @Autowired
+    public AnimalServiceImpl(AnimalRepository ar, RegularUserRepository rur){
+        animalRepo = ar;
+        regularUserRepository = rur;
+    }
 
     @Override
     public List<AnimalDTO> getAll() {
@@ -30,16 +35,16 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public List<AnimalDTO> getAllAnimalsConsultedBy(RegularUser regularUser){
+    public List<AnimalDTO> getAllAnimalsConsultedBy(RegularUser regularUser) throws NoSuchEntityException {
         RegularUser user = regularUserRepository.findById(regularUser.getIdUser()).orElse(null);
         if(user == null) {
-            return null;
+            throw new NoSuchEntityException("No such user");
         }
         return user.getConsultedAnimals().stream().map(AnimalDTO::new).collect(Collectors.toList());
     }
 
     @Override
-    public List<AnimalDTO> getCorrespondingAnimals() {
+    public List<AnimalDTO> getCorrespondingAnimals() throws NoSuchEntityException {
         User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal.getUserType().equals(UserType.ADMIN)) {
             return getAll();
@@ -59,8 +64,10 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public AnimalDTO update(int id, String name, String owner, String species) {
+    public AnimalDTO update(int id, String name, String owner, String species) throws NoSuchEntityException {
         Animal animal = animalRepo.findById(id).orElse(null);
+        if(animal == null)
+            throw new NoSuchEntityException("The animal doesn't exist");
         animal.setName(name);
         animal.setOwner(owner);
         animal.setSpecies(species);

@@ -1,0 +1,70 @@
+package com.vetshop.application;
+
+import com.vetshop.controllers.Controller;
+import com.vetshop.controllers.DTOController;
+import com.vetshop.controllers.LoginController;
+import com.vetshop.dtos.DTO;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxWeaver;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
+
+public class JavaFXApplication extends Application {
+
+    private static ConfigurableApplicationContext applicationContext;
+
+    @Override
+    public void init() {
+        String[] args = getParameters().getRaw().toArray(new String[0]);
+
+        applicationContext = new SpringApplicationBuilder()
+                .sources(BlackDogClientApplication.class)
+                .run(args);
+    }
+
+    @Override
+    public void stop() {
+        applicationContext.close();
+        Platform.exit();
+    }
+
+    @Override
+    public void start(Stage stage) {
+        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
+        Parent root = fxWeaver.loadView(LoginController.class);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static <T extends Controller> void changeScene(Class<T> c){
+        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
+        Parent pane = fxWeaver.loadView(c);
+
+        Stage stage = new Stage();
+
+        Scene scene = new Scene(pane);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static <T extends DTOController> void changeScene(Class<T> c, DTO dto){
+        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
+
+        DTOController controller = fxWeaver.loadController(c);
+        controller.setDTO(dto);
+
+        Parent pane = fxWeaver.loadView(c);
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(pane);
+        stage.setScene(scene);
+        stage.show();
+
+        controller.refresh();
+    }
+}

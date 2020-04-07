@@ -26,14 +26,18 @@ import java.util.stream.Collectors;
 @Service
 public class ConsultationServiceImpl implements ConsultationService {
 
-    @Autowired
     private ConsultationRepository consultationRepo;
 
-    @Autowired
     private AnimalRepository animalRepository;
 
-    @Autowired
     private RegularUserRepository regularUserRepository;
+
+    @Autowired
+    public ConsultationServiceImpl(ConsultationRepository consultationRepo, AnimalRepository animalRepository, RegularUserRepository regularUserRepository){
+        this.consultationRepo = consultationRepo;
+        this.animalRepository = animalRepository;
+        this.regularUserRepository = regularUserRepository;
+    }
 
     @Override
     public List<ConsultationDTO> findAll() {

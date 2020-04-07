@@ -6,6 +6,7 @@ import com.veterinary.dialogues.AlertBox;
 import com.veterinary.dtos.DTO;
 import com.veterinary.dtos.RegularUserDTO;
 import com.veterinary.services.RegularUserService;
+import com.veterinary.services.exceptions.NoSuchEntityException;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -35,11 +36,15 @@ public class UpdateUserController implements DTOController {
     @FXML
     private PasswordField confirm;
 
-    public void update(){
+    public void update() {
         if(!password.getText().equals(confirm.getText())){
             AlertBox.display("ERROR", "Password mismatch");
         }else{
-            regularUserService.update(regularUserDTO.getIdUser(), username.getText(), password.getText(), fullname.getText());
+            try {
+                regularUserService.update(regularUserDTO.getIdUser(), username.getText(), password.getText(), fullname.getText());
+            } catch (NoSuchEntityException e) {
+                AlertBox.display("ERROR", e.getMessage());
+            }
 
             Stage stage = (Stage) username.getScene().getWindow();
             stage.close();

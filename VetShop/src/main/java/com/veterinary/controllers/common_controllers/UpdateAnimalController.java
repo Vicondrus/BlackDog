@@ -2,9 +2,11 @@ package com.veterinary.controllers.common_controllers;
 
 import com.veterinary.application.JavaFXApplication;
 import com.veterinary.controllers.DTOController;
+import com.veterinary.dialogues.AlertBox;
 import com.veterinary.dtos.AnimalDTO;
 import com.veterinary.dtos.DTO;
 import com.veterinary.services.AnimalService;
+import com.veterinary.services.exceptions.NoSuchEntityException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -43,7 +45,11 @@ public class UpdateAnimalController implements DTOController {
     }
 
     public void update(){
-        animalService.update(animalDTO.getAnimalId(), name.getText(), owner.getText(), species.getText());
+        try {
+            animalService.update(animalDTO.getAnimalId(), name.getText(), owner.getText(), species.getText());
+        } catch (NoSuchEntityException e) {
+            AlertBox.display("ERROR", e.getMessage());
+        }
         Stage stage = (Stage) name.getScene().getWindow();
         stage.close();
         JavaFXApplication.changeScene(InspectAnimalsController.class);

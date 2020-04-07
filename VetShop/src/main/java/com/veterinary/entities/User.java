@@ -1,11 +1,13 @@
 package com.veterinary.entities;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @AllArgsConstructor
 @ToString
+@SuperBuilder
 @Getter
 @Setter
 @Entity

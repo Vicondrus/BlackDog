@@ -16,8 +16,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    public LoginServiceImpl(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
     @Override
     public TypeDTO loginUser(String username, String password) throws InvalidCredentialsException {

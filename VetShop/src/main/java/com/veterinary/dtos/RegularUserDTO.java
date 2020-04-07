@@ -29,7 +29,7 @@ public class RegularUserDTO implements DTO{
 
     private String fullName;
 
-    private UserType userType;
+    private TypeDTO type;
 
 
     public RegularUserDTO(RegularUser user){
@@ -37,7 +37,7 @@ public class RegularUserDTO implements DTO{
         username = user.getUsername();
         password = user.getUsername();
         fullName = user.getFullName();
-        userType = user.getUserType();
+        type = TypeDTO.valueOf(user.getUserType().toString());
     }
 
 }

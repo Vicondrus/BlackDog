@@ -9,6 +9,7 @@ import com.veterinary.entities.UserType;
 import com.veterinary.services.AnimalService;
 import com.veterinary.services.ConsultationService;
 import com.veterinary.services.RegularUserService;
+import com.veterinary.services.exceptions.NoSuchEntityException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -43,7 +44,7 @@ public class CommandLineController implements CommandLineRunner {
         }
     }
 
-    private boolean handleCommand(String command) {
+    private boolean handleCommand(String command) throws NoSuchEntityException {
         switch (command) {
             case "list":
                 handleList();
@@ -65,7 +66,7 @@ public class CommandLineController implements CommandLineRunner {
         }
     }
 
-    private void handleAddConsultation(){
+    private void handleAddConsultation() throws NoSuchEntityException {
         System.out.println("Animal name:");
         String animalName = scanner.next().trim();
         System.out.println("Doctor name:");

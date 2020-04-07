@@ -5,6 +5,7 @@ import com.veterinary.controllers.Controller;
 import com.veterinary.dialogues.AlertBox;
 import com.veterinary.dtos.AnimalDTO;
 import com.veterinary.services.AnimalService;
+import com.veterinary.services.exceptions.NoSuchEntityException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -43,7 +44,11 @@ public class InspectAnimalsController implements Controller, Initializable {
         owner.setCellValueFactory(new PropertyValueFactory<AnimalDTO, String>("owner"));
         species.setCellValueFactory(new PropertyValueFactory<AnimalDTO, String>("species"));
 
-        table.getItems().setAll(animalService.getCorrespondingAnimals());
+        try {
+            table.getItems().setAll(animalService.getCorrespondingAnimals());
+        } catch (NoSuchEntityException e) {
+            AlertBox.display("ERROR", e.getMessage());
+        }
     }
 
     @Override

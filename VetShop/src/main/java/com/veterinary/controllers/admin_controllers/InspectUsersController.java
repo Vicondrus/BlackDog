@@ -12,6 +12,7 @@ import com.veterinary.dtos.ConsultationDTO;
 import com.veterinary.dtos.RegularUserDTO;
 import com.veterinary.services.ConsultationService;
 import com.veterinary.services.RegularUserService;
+import com.veterinary.services.exceptions.NoSuchEntityException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -78,7 +79,11 @@ public class InspectUsersController implements Controller, Initializable {
             AlertBox.display("ERROR", "A user must be selected");
             return;
         }
-        regularUserService.delete(regularUserDTO.getIdUser());
+        try {
+            regularUserService.delete(regularUserDTO.getIdUser());
+        } catch (NoSuchEntityException e) {
+            AlertBox.display("ERROR", e.getMessage());
+        }
         refresh();
     }
 
