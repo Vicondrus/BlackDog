@@ -2,7 +2,7 @@ package com.vetshop.application;
 
 import com.vetshop.controllers.Controller;
 import com.vetshop.controllers.DTOController;
-import com.vetshop.controllers.LoginController;
+import com.vetshop.controllers.common.LoginController;
 import com.vetshop.dtos.DTO;
 import javafx.application.Application;
 import javafx.application.Platform;

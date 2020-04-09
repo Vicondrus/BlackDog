@@ -1,10 +1,10 @@
-package com.veterinary.controllers.admin_controllers;
+package com.vetshop.controllers.admin;
 
 import com.itextpdf.text.DocumentException;
-import com.veterinary.controllers.Controller;
-import com.veterinary.dialogues.AlertBox;
-import com.veterinary.dtos.ConsultationDTO;
-import com.veterinary.services.ConsultationService;
+import com.vetshop.controllers.Controller;
+import com.vetshop.dialogues.AlertBox;
+import com.vetshop.dtos.ConsultationDTO;
+import com.vetshop.services.ConsultationService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 
 
 @Component
-@FxmlView("inspectconsultations-stage.fxml")
+@FxmlView("inspectconsultationsadmin-stage.fxml")
 public class InspectConsultationsAdminController implements Controller, Initializable {
 
     @Autowired
@@ -55,7 +55,7 @@ public class InspectConsultationsAdminController implements Controller, Initiali
         File file = fileChooser.showSaveDialog(table.getScene().getWindow());
         if (file != null) {
             try {
-                consultationService.reportConsultation(consultationDTO.getConsultationId(), file.getPath(), type);
+                consultationService.reportConsultation(consultationDTO, file.getPath(), type);
             } catch (IOException | DocumentException e) {
                 e.printStackTrace();
             }
@@ -74,10 +74,10 @@ public class InspectConsultationsAdminController implements Controller, Initiali
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         date.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, Date>("date"));
-        owner.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("owner"));
-        patient.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("patient"));
-        doctor.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("doctor"));
+        owner.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("ownerName"));
+        patient.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("animalName"));
+        doctor.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("doctorName"));
 
-        table.getItems().setAll(consultationService.findAllForLoggedUser());
+        table.getItems().setAll(consultationService.postFindAllForLoggedUser());
     }
 }

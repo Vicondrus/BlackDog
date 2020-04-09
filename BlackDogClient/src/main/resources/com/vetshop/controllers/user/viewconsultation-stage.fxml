@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vetshop.controllers.user.ViewConsultationController">
+
+    <children>
+        <Label layoutX="135.0" layoutY="55.0" text="Patient" />
+        <TextField fx:id="patient" layoutX="341.0" layoutY="51.0" editable="false"/>
+        <Label layoutX="135.0" layoutY="103.0" text="Doctor" />
+        <TextField fx:id="doctor" layoutX="339.0" layoutY="99.0" editable="false"/>
+        <Label layoutX="125.0" layoutY="156.0" text="Diagnostic" />
+        <Label layoutX="135.0" layoutY="210.0" text="Details" />
+        <Label layoutX="104.0" layoutY="260.0" text="Recommendations" />
+        <Label layoutX="141.0" layoutY="307.0" text="Date" />
+        <Label layoutX="140.0" layoutY="348.0" text="Time" />
+        <TextField fx:id="diagnostic" layoutX="339.0" layoutY="152.0" editable="false"/>
+        <TextField fx:id="details" layoutX="339.0" layoutY="206.0" prefHeight="25.0" prefWidth="149.0" editable="false"/>
+        <TextField fx:id="recommendations" layoutX="339.0" layoutY="256.0" editable="false"/>
+        <DatePicker fx:id="date" layoutX="338.0" layoutY="303.0" editable="false"/>
+        <TextField fx:id="hour" layoutX="339.0" layoutY="344.0" prefHeight="25.0" prefWidth="64.0" editable="false"/>
+        <Label layoutX="414.0" layoutY="348.0" prefHeight="17.0" prefWidth="0.0" text=":" />
+        <TextField fx:id="minute" layoutX="425.0" layoutY="344.0" prefHeight="25.0" prefWidth="64.0" editable="false"/>
+    </children>
+
+</AnchorPane>

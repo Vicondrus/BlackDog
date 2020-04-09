@@ -2,11 +2,9 @@ package com.vetshop.services.implementations;
 
 import com.vetshop.dtos.ConsultationDTO;
 import com.vetshop.dtos.RegularUserDTO;
+import com.vetshop.dtos.StatusDTO;
 import com.vetshop.dtos.TypeDTO;
-import com.vetshop.entities.Animal;
-import com.vetshop.entities.Consultation;
-import com.vetshop.entities.RegularUser;
-import com.vetshop.entities.UserType;
+import com.vetshop.entities.*;
 import com.vetshop.repositories.AnimalRepository;
 import com.vetshop.repositories.ConsultationRepository;
 import com.vetshop.repositories.RegularUserRepository;
@@ -42,7 +40,7 @@ public class ConsultationServiceImpl implements ConsultationService {
     }
 
     @Override
-    public ConsultationDTO save(String patientId, String doctorId, String diagnostic, String details, String recommendations, String hour, String minute, Date date) {
+    public ConsultationDTO save(String patientId, String doctorId, String diagnostic, String details, String recommendations, String hour, String minute, Date date, StatusDTO status) {
         Animal animal = animalRepository.findById(Integer.parseInt(patientId)).orElse(null);
         RegularUser doctor = regularUserRepository.findById(Integer.parseInt(doctorId)).orElse(null);
         Calendar cal = Calendar.getInstance(); // locale-specific
@@ -53,7 +51,7 @@ public class ConsultationServiceImpl implements ConsultationService {
         cal.set(Calendar.MILLISECOND, 0);
         long time = cal.getTimeInMillis();
         Date correctDate = new Date(time);
-        Consultation consultation = Consultation.builder().animal(animal).details(details).diagnostic(diagnostic).doctor(doctor).recommendations(recommendations).date(correctDate).build();
+        Consultation consultation = Consultation.builder().animal(animal).details(details).diagnostic(diagnostic).status(Status.valueOf(status.toString())).doctor(doctor).recommendations(recommendations).date(correctDate).build();
         return new ConsultationDTO(consultationRepo.save(consultation));
     }
 
@@ -95,5 +93,21 @@ public class ConsultationServiceImpl implements ConsultationService {
             return consultationRepo.findByDoctorUsername(regularUserDTO.getUsername()).stream().map(ConsultationDTO::new).collect(Collectors.toList());
         else
             return consultationRepo.findAll().stream().map(ConsultationDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public ConsultationDTO save(String patientId, String doctorId, String diagnostic, String details, String recommendations, Date date, StatusDTO status) {
+        Animal animal = animalRepository.findById(Integer.parseInt(patientId)).orElse(null);
+        RegularUser doctor = regularUserRepository.findById(Integer.parseInt(doctorId)).orElse(null);
+        Consultation consultation = Consultation.builder().animal(animal).details(details).diagnostic(diagnostic).doctor(doctor).status(Status.valueOf(status.toString())).recommendations(recommendations).date(date).build();
+        return new ConsultationDTO(consultationRepo.save(consultation));
+    }
+
+    @Override
+    public ConsultationDTO update(int consultationId, String patientId, String doctorId, String diagnostic, String details, String recommendations, Date date) {
+        Animal animal = animalRepository.findById(Integer.parseInt(patientId)).orElse(null);
+        RegularUser doctor = regularUserRepository.findById(Integer.parseInt(doctorId)).orElse(null);
+        Consultation consultation = Consultation.builder().animal(animal).details(details).diagnostic(diagnostic).doctor(doctor).recommendations(recommendations).date(date).consultationId(consultationId).build();
+        return new ConsultationDTO(consultationRepo.save(consultation));
     }
 }

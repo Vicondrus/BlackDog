@@ -35,6 +35,8 @@ public class Consultation {
 
     private Date date;
 
+    private Status status;
+
     public String getDoctorName(){
         return doctor.getFullName();
     }

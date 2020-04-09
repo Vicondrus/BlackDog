@@ -2,6 +2,7 @@ package com.vetshop.services.implementations;
 
 import com.vetshop.dtos.RegularUserDTO;
 import com.vetshop.entities.RegularUser;
+import com.vetshop.entities.UserType;
 import com.vetshop.repositories.RegularUserRepository;
 import com.vetshop.services.RegularUserService;
 import com.vetshop.services.exceptions.AlreadyExistingException;
@@ -44,6 +45,7 @@ public class RegularUserServiceImpl implements RegularUserService {
         regularUser.setFullName(fullName);
         regularUser.setPassword(password);
         regularUser.setUsername(username);
+        regularUser.setUserType(UserType.valueOf(userType));
         return new RegularUserDTO(regUserRepo.save(regularUser));
     }
 

@@ -31,12 +31,22 @@ public class ConsultationDTO implements DTO{
 
     private Date date;
 
+    private StatusDTO status;
+
     public String getDoctorName(){
         return doctor.getFullName();
     }
 
     public String getAnimalName(){
         return animal.getName();
+    }
+
+    public int getDoctorId(){
+        return doctor.getIdUser();
+    }
+
+    public int getAnimalId(){
+        return animal.getAnimalId();
     }
 
     public String getOwnerName(){

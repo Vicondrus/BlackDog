@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vetshop.controllers.admin.InspectUsersController">
+   <children>
+      <SplitPane dividerPositions="0.7211055276381909" layoutX="251.0" layoutY="42.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <TableView layoutX="175.0" layoutY="14.0" prefHeight="284.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" fx:id="table">
+                    <columns>
+                      <TableColumn prefWidth="298.0" text="Username" fx:id="username"/>
+                      <TableColumn prefWidth="299.0" text="Full Name" fx:id="fullName"/>
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Button layoutX="90.0" layoutY="42.0" mnemonicParsing="false" text="Create" onAction="#create"/>
+                  <Button layoutX="228.0" layoutY="42.0" mnemonicParsing="false" text="Read" onAction="#view"/>
+                  <Button layoutX="354.0" layoutY="42.0" mnemonicParsing="false" text="Update" onAction="#update"/>
+                  <Button layoutX="472.0" layoutY="42.0" mnemonicParsing="false" text="Delete" onAction="#delete"/>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

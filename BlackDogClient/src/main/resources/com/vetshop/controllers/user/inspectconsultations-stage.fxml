@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vetshop.controllers.user.InspectConsultationsController">
+   <children>
+      <SplitPane dividerPositions="0.7361809045226131" layoutX="163.0" layoutY="77.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <TableView fx:id="table" layoutX="-33.0" layoutY="-16.0" prefHeight="290.0" prefWidth="631.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="date" prefWidth="139.0" text="Date" />
+                      <TableColumn fx:id="animal" prefWidth="71.0" text="Animal" />
+                        <TableColumn fx:id="diagnostic" prefWidth="104.0" text="Diagnostic" />
+                        <TableColumn fx:id="recommendations" prefWidth="132.0" text="Recommendations" />
+                        <TableColumn fx:id="details" prefWidth="273.0" text="Details" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Button layoutX="79.0" layoutY="33.0" mnemonicParsing="false" onAction="#create" prefHeight="36.0" prefWidth="95.0" text="Create" />
+                  <Button layoutX="240.0" layoutY="33.0" mnemonicParsing="false" onAction="#view" prefHeight="36.0" prefWidth="95.0" text="Read" />
+                  <Button layoutX="401.0" layoutY="33.0" mnemonicParsing="false" onAction="#update" prefHeight="36.0" prefWidth="95.0" text="Update" />
+                  <Button layoutX="555.0" layoutY="33.0" mnemonicParsing="false" onAction="#delete" prefHeight="36.0" prefWidth="95.0" text="Delete" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

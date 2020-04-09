@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="336.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vetshop.controllers.common.ViewAnimalController">
+   <children>
+      <Label layoutX="160.0" layoutY="72.0" text="Name" />
+      <Label layoutX="159.0" layoutY="163.0" text="Owner" />
+      <Label layoutX="156.0" layoutY="247.0" text="Species" />
+      <TextField layoutX="313.0" layoutY="68.0" fx:id="name" editable="false"/>
+      <TextField layoutX="313.0" layoutY="159.0" fx:id="owner" editable="false"/>
+      <TextField layoutX="313.0" layoutY="243.0" fx:id="species" editable="false"/>
+   </children>
+</AnchorPane>

@@ -31,6 +31,8 @@ public class ConsultationDTO implements DTO{
 
     private Date date;
 
+    private StatusDTO status;
+
     public String getDoctorName(){
         return doctor.getFullName();
     }
@@ -41,6 +43,10 @@ public class ConsultationDTO implements DTO{
 
     public String getOwnerName(){
         return animal.getOwner();
+    }
+
+    public String getAnimalSpecies(){
+        return animal.getSpecies();
     }
 
 }
