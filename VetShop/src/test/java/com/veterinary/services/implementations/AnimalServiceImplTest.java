@@ -7,6 +7,7 @@ import com.veterinary.entities.*;
 import com.veterinary.repositories.AnimalRepository;
 import com.veterinary.repositories.RegularUserRepository;
 import com.veterinary.repositories.UserRepository;
+import com.veterinary.services.exceptions.FieldException;
 import com.veterinary.services.exceptions.NoSuchEntityException;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
@@ -129,7 +130,7 @@ class AnimalServiceImplTest {
     }
 
     @Test
-    void saveTest() {
+    void saveTest() throws FieldException {
         Animal ru = Animal.builder().animalId(1).consultationList(null).name("animal").owner("animal").species("animal").build();
 
         Mockito.doAnswer(invocationOnMock -> {
@@ -145,7 +146,7 @@ class AnimalServiceImplTest {
     }
 
     @Test
-    void updateTest() {
+    void updateTest() throws FieldException {
         Animal ru = Animal.builder().animalId(1).consultationList(null).name("animal").owner("animal").species("animal").build();
 
         Mockito.doAnswer(invocationOnMock -> {

@@ -45,6 +45,9 @@ public class InspectConsultationsController implements Controller, Initializable
     @FXML
     private TableColumn<ConsultationDTO, String> details;
 
+    @FXML
+    private TableColumn<ConsultationDTO, String> status;
+
     @Override
     public void refresh(){
         date.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, Date>("date"));
@@ -52,6 +55,7 @@ public class InspectConsultationsController implements Controller, Initializable
         recommendations.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("recommendations"));
         diagnostic.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("diagnostic"));
         details.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("details"));
+        status.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("statusString"));
 
         List<ConsultationDTO> list = consultationService.postFindAllForLoggedUser();
 

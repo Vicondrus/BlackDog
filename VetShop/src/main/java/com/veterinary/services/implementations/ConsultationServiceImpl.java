@@ -13,6 +13,7 @@ import com.veterinary.repositories.RegularUserRepository;
 import com.veterinary.services.AnimalService;
 import com.veterinary.services.ConsultationService;
 import com.veterinary.services.RegularUserService;
+import com.veterinary.services.exceptions.FieldException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -45,12 +46,18 @@ public class ConsultationServiceImpl implements ConsultationService {
     }
 
     @Override
-    public ConsultationDTO save(String patientId, String doctorId, String diagnostic, String details, String recommendations, String hour, String minute, Date date) {
+    public ConsultationDTO save(String patientId, String doctorId, String diagnostic, String details, String recommendations, String hour, String minute, Date date) throws FieldException {
         Animal animal = animalRepository.findById(Integer.parseInt(patientId)).orElse(null);
         RegularUser doctor = regularUserRepository.findById(Integer.parseInt(doctorId)).orElse(null);
         Calendar cal = Calendar.getInstance(); // locale-specific
         cal.setTime(date);
+        if (hour.equals("") || minute.equals(""))
+            throw new FieldException("Hours and minutes cannot be empty");
+        if (Integer.parseInt(hour) >= 24 || Integer.parseInt(hour) < 0)
+            throw new FieldException("Hours must be between 00 and 23");
         cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
+        if (Integer.parseInt(minute) >= 60 || Integer.parseInt(minute)<0)
+            throw new FieldException("Minutes must be between 00 and 59");
         cal.set(Calendar.MINUTE, Integer.parseInt(minute));
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
@@ -61,12 +68,18 @@ public class ConsultationServiceImpl implements ConsultationService {
     }
 
     @Override
-    public ConsultationDTO update(int consultationId, String patientId, String doctorId, String diagnostic, String details, String recommendations, String hour, String minute, Date date) {
+    public ConsultationDTO update(int consultationId, String patientId, String doctorId, String diagnostic, String details, String recommendations, String hour, String minute, Date date) throws FieldException {
         Animal animal = animalRepository.findById(Integer.parseInt(patientId)).orElse(null);
         RegularUser doctor = regularUserRepository.findById(Integer.parseInt(doctorId)).orElse(null);
         Calendar cal = Calendar.getInstance(); // locale-specific
         cal.setTime(date);
+        if (hour.equals("") || minute.equals(""))
+            throw new FieldException("Hours and minutes cannot be empty");
+        if (Integer.parseInt(hour) >= 24 || Integer.parseInt(hour) < 0)
+            throw new FieldException("Hours must be between 00 and 23");
         cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
+        if (Integer.parseInt(minute) >= 60 || Integer.parseInt(minute)<0)
+            throw new FieldException("Minutes must be between 00 and 59");
         cal.set(Calendar.MINUTE, Integer.parseInt(minute));
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);

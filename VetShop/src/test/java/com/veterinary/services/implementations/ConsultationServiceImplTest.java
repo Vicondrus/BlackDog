@@ -10,6 +10,7 @@ import com.veterinary.repositories.AnimalRepository;
 import com.veterinary.repositories.ConsultationRepository;
 import com.veterinary.repositories.RegularUserRepository;
 import com.veterinary.services.ConsultationService;
+import com.veterinary.services.exceptions.FieldException;
 import com.veterinary.services.exceptions.InvalidCredentialsException;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
@@ -70,7 +71,7 @@ class ConsultationServiceImplTest {
     }
 
     @Test
-    void saveTest() {
+    void saveTest() throws FieldException {
 
         Animal a = Animal.builder().animalId(1).name("a").build();
 
@@ -95,7 +96,7 @@ class ConsultationServiceImplTest {
     }
 
     @Test
-    void updateTest() {
+    void updateTest() throws FieldException {
 
         Animal a = Animal.builder().animalId(1).name("a").build();
 

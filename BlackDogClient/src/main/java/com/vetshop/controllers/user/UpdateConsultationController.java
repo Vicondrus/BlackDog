@@ -2,10 +2,9 @@ package com.vetshop.controllers.user;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.DTOController;
-import com.vetshop.dtos.AnimalDTO;
-import com.vetshop.dtos.ConsultationDTO;
-import com.vetshop.dtos.DTO;
-import com.vetshop.dtos.UserDTO;
+import com.vetshop.dialogues.AlertBox;
+import com.vetshop.dtos.*;
+import com.vetshop.exceptions.FieldException;
 import com.vetshop.services.AnimalService;
 import com.vetshop.services.ConsultationService;
 import com.vetshop.services.RegularUserService;
@@ -23,10 +22,7 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 @Component
 @FxmlView("updateconsultation-stage.fxml")
@@ -71,6 +67,9 @@ public class UpdateConsultationController implements DTOController {
     @FXML
     private Button updateButton;
 
+    @FXML
+    private ComboBox<StatusDTO> status;
+
     @Override
     public void setDTO(DTO dto) {
         consultationDTO = (ConsultationDTO) dto;
@@ -84,11 +83,15 @@ public class UpdateConsultationController implements DTOController {
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date d = Date.from(instant);
 
-        consultationService.postUpdateConsultation(consultationDTO.getConsultationId(),animalDTO,regularUserDTO,diagnostic.getText(),details.getText(),recommendations.getText(),hour.getText(),minute.getText(),d);
+        try {
+            consultationService.postUpdateConsultation(consultationDTO.getConsultationId(),animalDTO,regularUserDTO,diagnostic.getText(),details.getText(),recommendations.getText(),hour.getText(),minute.getText(),d, status.getValue());
 
-        Stage stage = (Stage) updateButton.getScene().getWindow();
-        stage.close();
-        JavaFXApplication.changeScene(InspectConsultationsController.class);
+            Stage stage = (Stage) updateButton.getScene().getWindow();
+            stage.close();
+            JavaFXApplication.changeScene(InspectConsultationsController.class);
+        } catch (FieldException e) {
+            AlertBox.display("ERROR",e.getMessage());
+        }
     }
 
     @Override
@@ -170,8 +173,45 @@ public class UpdateConsultationController implements DTOController {
             }
         });
 
+        status.setItems(FXCollections.observableList(Arrays.asList(StatusDTO.values())));
+
+        status.setCellFactory(new Callback<ListView<StatusDTO>, ListCell<StatusDTO>>(){
+
+            @Override
+            public ListCell<StatusDTO> call(ListView<StatusDTO> l){
+                return new ListCell<StatusDTO>(){
+                    @Override
+                    protected void updateItem(StatusDTO item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            setText(item.toString());
+                        }
+                    }
+                } ;
+            }
+        });
+
+        status.setConverter(new StringConverter<StatusDTO>() {
+            @Override
+            public String toString(StatusDTO status) {
+                if (status == null){
+                    return null;
+                } else {
+                    return status.toString();
+                }
+            }
+
+            @Override
+            public StatusDTO fromString(String userId) {
+                return null;
+            }
+        });
+
         doctor.setValue(consultationDTO.getDoctor());
         patient.setValue(consultationDTO.getAnimal());
+        status.setValue(consultationDTO.getStatus());
 
         date.setValue(consultationDTO.getDate().toInstant()
                 .atZone(ZoneId.systemDefault())

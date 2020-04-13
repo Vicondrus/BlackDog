@@ -2,11 +2,13 @@ package com.veterinary.controllers.user_controllers;
 
 import com.veterinary.application.JavaFXApplication;
 import com.veterinary.controllers.Controller;
+import com.veterinary.dialogues.AlertBox;
 import com.veterinary.dtos.AnimalDTO;
 import com.veterinary.dtos.RegularUserDTO;
 import com.veterinary.services.AnimalService;
 import com.veterinary.services.ConsultationService;
 import com.veterinary.services.RegularUserService;
+import com.veterinary.services.exceptions.FieldException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -71,14 +73,19 @@ public class CreateConsultationController implements Initializable, Controller {
         AnimalDTO animalDTO = patient.getValue();
 
         LocalDate localDate = date.getValue();
+        if(localDate==null)
+            AlertBox.display("ERROR", "Date cannot be empty");
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date d = Date.from(instant);
 
-        consultationService.save(animalDTO.getAnimalId()+"",regularUserDTO.getIdUser()+"",diagnostic.getText(),details.getText(),recommendations.getText(),hour.getText(),minute.getText(),d);
-
-        Stage stage = (Stage) createButton.getScene().getWindow();
-        stage.close();
-        JavaFXApplication.changeScene(InspectConsultationsController.class);
+        try {
+            consultationService.save(animalDTO.getAnimalId()+"",regularUserDTO.getIdUser()+"",diagnostic.getText(),details.getText(),recommendations.getText(),hour.getText(),minute.getText(),d);
+            Stage stage = (Stage) createButton.getScene().getWindow();
+            stage.close();
+            JavaFXApplication.changeScene(InspectConsultationsController.class);
+        } catch (FieldException e) {
+            AlertBox.display("ERROR", e.getMessage());
+        }
     }
 
     @Override

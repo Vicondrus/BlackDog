@@ -2,8 +2,11 @@ package com.vetshop.controllers.user;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.Controller;
+import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.AnimalDTO;
+import com.vetshop.dtos.StatusDTO;
 import com.vetshop.dtos.UserDTO;
+import com.vetshop.exceptions.FieldException;
 import com.vetshop.services.AnimalService;
 import com.vetshop.services.ConsultationService;
 import com.vetshop.services.RegularUserService;
@@ -22,6 +25,7 @@ import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -38,6 +42,9 @@ public class CreateConsultationController implements Initializable, Controller {
 
     @Autowired
     private ConsultationService consultationService;
+
+    @FXML
+    public ComboBox<StatusDTO> status;
 
     @FXML
     private ComboBox<AnimalDTO> patient;
@@ -74,11 +81,15 @@ public class CreateConsultationController implements Initializable, Controller {
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date d = Date.from(instant);
 
-        consultationService.postCreateConsultation(animalDTO,regularUserDTO,diagnostic.getText(),details.getText(),recommendations.getText(),hour.getText(),minute.getText(),d);
+        try {
+            consultationService.postCreateConsultation(animalDTO,regularUserDTO,diagnostic.getText(),details.getText(),recommendations.getText(),hour.getText(),minute.getText(),d,status.getValue());
 
-        Stage stage = (Stage) createButton.getScene().getWindow();
-        stage.close();
-        JavaFXApplication.changeScene(InspectConsultationsController.class);
+            Stage stage = (Stage) createButton.getScene().getWindow();
+            stage.close();
+            JavaFXApplication.changeScene(InspectConsultationsController.class);
+        } catch (FieldException e) {
+            AlertBox.display("ERROR", e.getMessage());
+        }
     }
 
     @Override
@@ -157,6 +168,43 @@ public class CreateConsultationController implements Initializable, Controller {
 
             @Override
             public AnimalDTO fromString(String animalId) {
+                return null;
+            }
+        });
+
+        status.setItems(FXCollections.observableList(Arrays.asList(StatusDTO.values())));
+        status.getSelectionModel().selectFirst();
+
+        status.setCellFactory(new Callback<ListView<StatusDTO>, ListCell<StatusDTO>>(){
+
+            @Override
+            public ListCell<StatusDTO> call(ListView<StatusDTO> l){
+                return new ListCell<StatusDTO>(){
+                    @Override
+                    protected void updateItem(StatusDTO item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            setText(item.toString());
+                        }
+                    }
+                } ;
+            }
+        });
+
+        status.setConverter(new StringConverter<StatusDTO>() {
+            @Override
+            public String toString(StatusDTO status) {
+                if (status == null){
+                    return null;
+                } else {
+                    return status.toString();
+                }
+            }
+
+            @Override
+            public StatusDTO fromString(String userId) {
                 return null;
             }
         });

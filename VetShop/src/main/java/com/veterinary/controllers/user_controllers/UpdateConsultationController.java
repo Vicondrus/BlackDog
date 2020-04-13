@@ -2,6 +2,7 @@ package com.veterinary.controllers.user_controllers;
 
 import com.veterinary.application.JavaFXApplication;
 import com.veterinary.controllers.DTOController;
+import com.veterinary.dialogues.AlertBox;
 import com.veterinary.dtos.AnimalDTO;
 import com.veterinary.dtos.ConsultationDTO;
 import com.veterinary.dtos.DTO;
@@ -9,6 +10,7 @@ import com.veterinary.dtos.RegularUserDTO;
 import com.veterinary.services.AnimalService;
 import com.veterinary.services.ConsultationService;
 import com.veterinary.services.RegularUserService;
+import com.veterinary.services.exceptions.FieldException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -81,7 +83,11 @@ public class UpdateConsultationController implements DTOController {
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date d = Date.from(instant);
 
-        consultationService.update(consultationDTO.getConsultationId(),animalDTO.getAnimalId()+"",regularUserDTO.getIdUser()+"",diagnostic.getText(),details.getText(),recommendations.getText(),hour.getText(),minute.getText(),d);
+        try {
+            consultationService.update(consultationDTO.getConsultationId(),animalDTO.getAnimalId()+"",regularUserDTO.getIdUser()+"",diagnostic.getText(),details.getText(),recommendations.getText(),hour.getText(),minute.getText(),d);
+        } catch (FieldException e) {
+            AlertBox.display("ERROR",e.getMessage());
+        }
 
         Stage stage = (Stage) updateButton.getScene().getWindow();
         stage.close();

@@ -32,7 +32,7 @@ public class ConsultationController {
 
     @PostMapping(value = "/updateConsultation")
     public ConsultationDTO updateConsultation(@RequestBody ConsultationDTO consultationDTO){
-        return consultationService.update(consultationDTO.getConsultationId(),consultationDTO.getAnimalId()+"", consultationDTO.getDoctorId()+"", consultationDTO.getDiagnostic(), consultationDTO.getDetails(), consultationDTO.getRecommendations(), consultationDTO.getDate());
+        return consultationService.update(consultationDTO.getConsultationId(),consultationDTO.getAnimalId()+"", consultationDTO.getDoctorId()+"", consultationDTO.getDiagnostic(), consultationDTO.getDetails(), consultationDTO.getRecommendations(), consultationDTO.getDate(), consultationDTO.getStatus());
     }
 
     @PostMapping(value = "/deleteConsultation")

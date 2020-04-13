@@ -61,6 +61,7 @@ public class ConsultationDTO implements DTO{
         diagnostic = consultation.getDiagnostic();
         recommendations = consultation.getRecommendations();
         date = consultation.getDate();
+        status = StatusDTO.valueOf(consultation.getStatus().toString());
     }
 
 }

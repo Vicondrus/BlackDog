@@ -7,6 +7,7 @@ import com.veterinary.dialogues.AlertBox;
 import com.veterinary.entities.UserType;
 import com.veterinary.services.RegularUserService;
 import com.veterinary.services.exceptions.AlreadyExistingException;
+import com.veterinary.services.exceptions.FieldException;
 import com.veterinary.services.exceptions.NoSuchEntityException;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -42,16 +43,15 @@ public class CreateUserController implements Controller {
             try {
                 try {
                     regularUserService.save(username.getText(), password.getText(), fullname.getText(), "REGULAR");
-                } catch (NoSuchEntityException e) {
+                    Stage stage = (Stage) username.getScene().getWindow();
+                    stage.close();
+                    JavaFXApplication.changeScene(InspectUsersController.class);
+                } catch (NoSuchEntityException | FieldException e) {
                     AlertBox.display("ERROR", e.getMessage());
                 }
             } catch (AlreadyExistingException e) {
                 AlertBox.display("ERROR", e.getMessage());
             }
-
-            Stage stage = (Stage) username.getScene().getWindow();
-            stage.close();
-            JavaFXApplication.changeScene(InspectUsersController.class);
         }
     }
 

@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="455.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vetshop.controllers.user.CreateConsultationController">
+<AnchorPane prefHeight="522.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vetshop.controllers.user.CreateConsultationController">
    <children>
       <Label layoutX="135.0" layoutY="55.0" text="Patient" />
       <ComboBox fx:id="patient" layoutX="338.0" layoutY="51.0" prefWidth="150.0" />
@@ -25,6 +25,8 @@
       <TextField fx:id="hour" layoutX="339.0" layoutY="344.0" prefHeight="25.0" prefWidth="64.0" />
       <Label layoutX="414.0" layoutY="348.0" prefHeight="17.0" prefWidth="0.0" text=":" />
       <TextField fx:id="minute" layoutX="425.0" layoutY="344.0" prefHeight="25.0" prefWidth="64.0" />
-      <Button layoutX="275.0" layoutY="401.0" mnemonicParsing="false" text="Create" onAction="#create" fx:id="createButton"/>
+      <Button fx:id="createButton" layoutX="275.0" layoutY="452.0" mnemonicParsing="false" onAction="#create" text="Create" />
+      <Label layoutX="137.0" layoutY="395.0" text="Status" />
+      <ComboBox fx:id="status" layoutX="338.0" layoutY="391.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

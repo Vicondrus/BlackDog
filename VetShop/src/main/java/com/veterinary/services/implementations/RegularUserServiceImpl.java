@@ -7,10 +7,12 @@ import com.veterinary.entities.RegularUser;
 import com.veterinary.repositories.RegularUserRepository;
 import com.veterinary.services.RegularUserService;
 import com.veterinary.services.exceptions.AlreadyExistingException;
+import com.veterinary.services.exceptions.FieldException;
 import com.veterinary.services.exceptions.NoSuchEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +41,9 @@ public class RegularUserServiceImpl implements RegularUserService {
     }
 
     @Override
-    public RegularUserDTO save(String username, String password, String fullName, String userType) throws AlreadyExistingException, NoSuchEntityException {
+    public RegularUserDTO save(String username, String password, String fullName, String userType) throws AlreadyExistingException, NoSuchEntityException, FieldException {
+        if(username.equals(""))
+            throw new FieldException("Username cannot be empty");
         if(regUserRepo.findByUsername(username)!=null)
             throw new AlreadyExistingException("Username taken");
         RegularUser regularUser = RegularUser.builder().consultations(new ArrayList<>()).build();
@@ -50,7 +54,9 @@ public class RegularUserServiceImpl implements RegularUserService {
     }
 
     @Override
-    public RegularUserDTO update(int id, String username, String password, String fullName) throws NoSuchEntityException {
+    public RegularUserDTO update(int id, String username, String password, String fullName) throws NoSuchEntityException, FieldException {
+        if(username.equals(""))
+            throw new FieldException("Username cannot be empty");
         RegularUser regularUser = regUserRepo.findById(id).orElse(null);
         if(regularUser == null)
             throw new NoSuchEntityException("No such username");

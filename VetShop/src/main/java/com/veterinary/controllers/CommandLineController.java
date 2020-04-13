@@ -100,7 +100,7 @@ public class CommandLineController implements CommandLineRunner {
         String owner = scanner.next().trim();
         System.out.println("Species:");
         String species = scanner.next().trim();
-        System.out.println("Created animal: " + animalService.save(name, owner, species) + ".");
+        //System.out.println("Created animal: " + animalService.save(name, owner, species) + ".");
     }
 
 

@@ -49,4 +49,7 @@ public class ConsultationDTO implements DTO{
         return animal.getSpecies();
     }
 
+    public String getStatusString(){
+        return status.toString();
+    }
 }

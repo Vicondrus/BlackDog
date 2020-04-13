@@ -4,6 +4,7 @@ import com.itextpdf.text.DocumentException;
 import com.veterinary.dtos.ConsultationDTO;
 import com.veterinary.entities.Consultation;
 import com.veterinary.reports.Report;
+import com.veterinary.services.exceptions.FieldException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -15,9 +16,9 @@ public interface ConsultationService {
 
     List<ConsultationDTO> findAll();
 
-    ConsultationDTO save(String patientId, String doctorId, String diagnostic, String details, String recommendations, String hour, String minute, Date date);
+    ConsultationDTO save(String patientId, String doctorId, String diagnostic, String details, String recommendations, String hour, String minute, Date date) throws FieldException;
 
-    ConsultationDTO update(int consultationId, String patientId, String doctorId, String diagnostic, String details, String recommendations, String hour, String minute, Date date);
+    ConsultationDTO update(int consultationId, String patientId, String doctorId, String diagnostic, String details, String recommendations, String hour, String minute, Date date) throws FieldException;
 
     ConsultationDTO delete(int id);
 

@@ -37,7 +37,8 @@ public class RegularUserDTO implements DTO{
         username = user.getUsername();
         password = user.getUsername();
         fullName = user.getFullName();
-        type = TypeDTO.valueOf(user.getUserType().toString());
+        if(user.getUserType()!=null)
+            type = TypeDTO.valueOf(user.getUserType().toString());
     }
 
 }

@@ -7,6 +7,7 @@ import com.veterinary.entities.UserType;
 import com.veterinary.repositories.RegularUserRepository;
 import com.veterinary.repositories.UserRepository;
 import com.veterinary.services.exceptions.AlreadyExistingException;
+import com.veterinary.services.exceptions.FieldException;
 import com.veterinary.services.exceptions.InvalidCredentialsException;
 import com.veterinary.services.exceptions.NoSuchEntityException;
 import org.hamcrest.CoreMatchers;
@@ -54,7 +55,7 @@ class RegularUserServiceImplTest {
         RegularUserDTO check = RegularUserDTO.builder().username("user").build();
 
         RegularUserDTO x = regularUserService.getByUsername("user");
-        Assert.assertTrue(new ReflectionEquals(check, "idUser", "password", "fullName", "userType").matches(x));
+        Assert.assertTrue(new ReflectionEquals(check, "idUser", "password", "fullName", "type").matches(x));
     }
 
     @Test
@@ -82,7 +83,7 @@ class RegularUserServiceImplTest {
     }
 
     @Test
-    void saveTest() throws AlreadyExistingException, NoSuchEntityException {
+    void saveTest() throws AlreadyExistingException, NoSuchEntityException, FieldException {
         RegularUser ru = RegularUser.builder().build();
         ru.setFullName("user");
         ru.setPassword("user");
@@ -118,7 +119,7 @@ class RegularUserServiceImplTest {
 
 
     @Test
-    void updateTest() throws NoSuchEntityException {
+    void updateTest() throws NoSuchEntityException, FieldException {
         RegularUser ru = RegularUser.builder().build();
         ru.setFullName("user");
         ru.setPassword("user");

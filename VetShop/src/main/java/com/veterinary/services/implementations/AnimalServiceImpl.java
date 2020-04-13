@@ -8,6 +8,7 @@ import com.veterinary.entities.UserType;
 import com.veterinary.repositories.AnimalRepository;
 import com.veterinary.repositories.RegularUserRepository;
 import com.veterinary.services.AnimalService;
+import com.veterinary.services.exceptions.FieldException;
 import com.veterinary.services.exceptions.NoSuchEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -55,7 +56,11 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public AnimalDTO save(String name, String owner, String species) {
+    public AnimalDTO save(String name, String owner, String species) throws FieldException {
+        if(name.equals(""))
+            throw new FieldException("Animal name cannot be empty");
+        if(owner.equals(""))
+            throw new FieldException("Owner name cannot be empty");
         Animal animal = new Animal();
         animal.setName(name);
         animal.setOwner(owner);
@@ -64,8 +69,12 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public AnimalDTO update(int id, String name, String owner, String species) throws NoSuchEntityException {
+    public AnimalDTO update(int id, String name, String owner, String species) throws NoSuchEntityException, FieldException {
         Animal animal = animalRepo.findById(id).orElse(null);
+        if(name.equals(""))
+            throw new FieldException("Animal name cannot be empty");
+        if(owner.equals(""))
+            throw new FieldException("Owner name cannot be empty");
         if(animal == null)
             throw new NoSuchEntityException("The animal doesn't exist");
         animal.setName(name);

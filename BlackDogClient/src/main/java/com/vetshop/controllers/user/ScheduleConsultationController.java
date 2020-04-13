@@ -2,8 +2,10 @@ package com.vetshop.controllers.user;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.Controller;
+import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.AnimalDTO;
 import com.vetshop.dtos.UserDTO;
+import com.vetshop.exceptions.FieldException;
 import com.vetshop.services.AnimalService;
 import com.vetshop.services.ConsultationService;
 import com.vetshop.services.RegularUserService;
@@ -54,7 +56,7 @@ public class ScheduleConsultationController implements Controller, Initializable
     @FXML
     private TextField minute;
 
-    public void schedule(){
+    public void schedule() {
         UserDTO regularUserDTO = doctor.getValue();
         AnimalDTO animalDTO = patient.getValue();
 
@@ -62,11 +64,15 @@ public class ScheduleConsultationController implements Controller, Initializable
         Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
         Date d = Date.from(instant);
 
-        consultationService.postScheduleConsultation(animalDTO,regularUserDTO,hour.getText(),minute.getText(),d);
+        try {
+            consultationService.postScheduleConsultation(animalDTO,regularUserDTO,hour.getText(),minute.getText(),d);
 
-        Stage stage = (Stage) minute.getScene().getWindow();
-        stage.close();
-        JavaFXApplication.changeScene(InspectConsultationsController.class);
+            Stage stage = (Stage) minute.getScene().getWindow();
+            stage.close();
+            JavaFXApplication.changeScene(InspectConsultationsController.class);
+        } catch (FieldException e) {
+            AlertBox.display("ERROR", e.getMessage());
+        }
     }
 
     @Override

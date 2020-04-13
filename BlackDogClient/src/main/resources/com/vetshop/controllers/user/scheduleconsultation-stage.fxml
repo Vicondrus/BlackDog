@@ -18,8 +18,8 @@
       <ComboBox fx:id="patient" layoutX="300.0" layoutY="132.0" prefWidth="150.0" />
       <DatePicker fx:id="date" layoutX="300.0" layoutY="204.0" />
       <Label layoutX="374.0" layoutY="278.0" text=":" />
-      <TextField fx:id="hour" layoutX="387.0" layoutY="274.0" prefHeight="25.0" prefWidth="63.0" />
-      <TextField fx:id="minute" layoutX="300.0" layoutY="274.0" prefHeight="25.0" prefWidth="63.0" />
+      <TextField fx:id="minute" layoutX="387.0" layoutY="274.0" prefHeight="25.0" prefWidth="63.0" />
+      <TextField fx:id="hour" layoutX="300.0" layoutY="274.0" prefHeight="25.0" prefWidth="63.0" />
       <Button layoutX="268.0" layoutY="351.0" mnemonicParsing="false" text="Schedule" onAction="#schedule" />
    </children>
 </AnchorPane>

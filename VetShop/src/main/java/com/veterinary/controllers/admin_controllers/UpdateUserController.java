@@ -6,6 +6,7 @@ import com.veterinary.dialogues.AlertBox;
 import com.veterinary.dtos.DTO;
 import com.veterinary.dtos.RegularUserDTO;
 import com.veterinary.services.RegularUserService;
+import com.veterinary.services.exceptions.FieldException;
 import com.veterinary.services.exceptions.NoSuchEntityException;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -42,13 +43,12 @@ public class UpdateUserController implements DTOController {
         }else{
             try {
                 regularUserService.update(regularUserDTO.getIdUser(), username.getText(), password.getText(), fullname.getText());
-            } catch (NoSuchEntityException e) {
+                Stage stage = (Stage) username.getScene().getWindow();
+                stage.close();
+                JavaFXApplication.changeScene(InspectUsersController.class);
+            } catch (NoSuchEntityException | FieldException e) {
                 AlertBox.display("ERROR", e.getMessage());
             }
-
-            Stage stage = (Stage) username.getScene().getWindow();
-            stage.close();
-            JavaFXApplication.changeScene(InspectUsersController.class);
         }
     }
 

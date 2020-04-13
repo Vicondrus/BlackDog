@@ -104,10 +104,10 @@ public class ConsultationServiceImpl implements ConsultationService {
     }
 
     @Override
-    public ConsultationDTO update(int consultationId, String patientId, String doctorId, String diagnostic, String details, String recommendations, Date date) {
+    public ConsultationDTO update(int consultationId, String patientId, String doctorId, String diagnostic, String details, String recommendations, Date date, StatusDTO status) {
         Animal animal = animalRepository.findById(Integer.parseInt(patientId)).orElse(null);
         RegularUser doctor = regularUserRepository.findById(Integer.parseInt(doctorId)).orElse(null);
-        Consultation consultation = Consultation.builder().animal(animal).details(details).diagnostic(diagnostic).doctor(doctor).recommendations(recommendations).date(date).consultationId(consultationId).build();
+        Consultation consultation = Consultation.builder().status(Status.valueOf(status.toString())).animal(animal).details(details).diagnostic(diagnostic).doctor(doctor).recommendations(recommendations).date(date).consultationId(consultationId).build();
         return new ConsultationDTO(consultationRepo.save(consultation));
     }
 }
