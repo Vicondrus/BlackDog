@@ -3,6 +3,7 @@ package com.vetshop.application;
 import com.vetshop.controllers.Controller;
 import com.vetshop.controllers.DTOController;
 import com.vetshop.controllers.common.LoginController;
+import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.DTO;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -12,6 +13,8 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import java.util.Arrays;
 
 public class JavaFXApplication extends Application {
 
@@ -24,6 +27,11 @@ public class JavaFXApplication extends Application {
         applicationContext = new SpringApplicationBuilder()
                 .sources(BlackDogClientApplication.class)
                 .run(args);
+        String[] beanNames = applicationContext.getBeanDefinitionNames();
+        Arrays.sort(beanNames);
+        for (String beanName : beanNames) {
+            System.out.println("BEAN :: " + beanName);
+        }
     }
 
     @Override
@@ -66,5 +74,9 @@ public class JavaFXApplication extends Application {
         stage.show();
 
         controller.refresh();
+    }
+
+    public static void showAlert(String message){
+        Platform.runLater(() -> AlertBox.display("INFO", message));
     }
 }

@@ -5,6 +5,7 @@ import com.vetshop.dtos.RegularUserDTO;
 import com.vetshop.dtos.StatusDTO;
 import com.vetshop.dtos.TypeDTO;
 import com.vetshop.entities.*;
+import com.vetshop.notifications.NotificationService;
 import com.vetshop.repositories.AnimalRepository;
 import com.vetshop.repositories.ConsultationRepository;
 import com.vetshop.repositories.RegularUserRepository;
@@ -26,6 +27,9 @@ public class ConsultationServiceImpl implements ConsultationService {
     private AnimalRepository animalRepository;
 
     private RegularUserRepository regularUserRepository;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Autowired
     public ConsultationServiceImpl(ConsultationRepository consultationRepo, AnimalRepository animalRepository, RegularUserRepository regularUserRepository){
@@ -108,6 +112,15 @@ public class ConsultationServiceImpl implements ConsultationService {
         Animal animal = animalRepository.findById(Integer.parseInt(patientId)).orElse(null);
         RegularUser doctor = regularUserRepository.findById(Integer.parseInt(doctorId)).orElse(null);
         Consultation consultation = Consultation.builder().status(Status.valueOf(status.toString())).animal(animal).details(details).diagnostic(diagnostic).doctor(doctor).recommendations(recommendations).date(date).consultationId(consultationId).build();
+        return new ConsultationDTO(consultationRepo.save(consultation));
+    }
+
+    @Override
+    public ConsultationDTO schedule(String patientId, String doctorId, String diagnostic, String details, String recommendations, Date date, StatusDTO status) {
+        Animal animal = animalRepository.findById(Integer.parseInt(patientId)).orElse(null);
+        RegularUser doctor = regularUserRepository.findById(Integer.parseInt(doctorId)).orElse(null);
+        Consultation consultation = Consultation.builder().animal(animal).details(details).diagnostic(diagnostic).doctor(doctor).status(Status.valueOf(status.toString())).recommendations(recommendations).date(date).build();
+        notificationService.updateSubjectByTopic(doctor.getUsername(),consultation);
         return new ConsultationDTO(consultationRepo.save(consultation));
     }
 }

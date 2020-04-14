@@ -29,4 +29,5 @@ public interface ConsultationService {
 
     ConsultationDTO update(int consultationId, String patientId, String doctorId, String diagnostic, String details, String recommendations, Date date, StatusDTO status);
 
+    ConsultationDTO schedule(String s, String s1, String diagnostic, String details, String recommendations, Date date, StatusDTO status);
 }

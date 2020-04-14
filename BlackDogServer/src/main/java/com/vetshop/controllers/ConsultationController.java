@@ -27,7 +27,7 @@ public class ConsultationController {
 
     @PostMapping(value = "/scheduleConsultation")
     public ConsultationDTO scheduleConsultation(@RequestBody ConsultationDTO consultationDTO){
-        return consultationService.save(consultationDTO.getAnimalId()+"", consultationDTO.getDoctorId()+"", consultationDTO.getDiagnostic(), consultationDTO.getDetails(), consultationDTO.getRecommendations(), consultationDTO.getDate(), consultationDTO.getStatus());
+        return consultationService.schedule(consultationDTO.getAnimalId()+"", consultationDTO.getDoctorId()+"", consultationDTO.getDiagnostic(), consultationDTO.getDetails(), consultationDTO.getRecommendations(), consultationDTO.getDate(), consultationDTO.getStatus());
     }
 
     @PostMapping(value = "/updateConsultation")

@@ -14,6 +14,8 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 
 @Component
 @FxmlView("main-stage.fxml")
@@ -36,7 +38,7 @@ public class LoginController {
                 JavaFXApplication.changeScene(RegularUserController.class);
             else
                 JavaFXApplication.changeScene(AdminUserController.class);
-        } catch (InvalidCredentialsException e) {
+        } catch (InvalidCredentialsException | IOException e) {
             AlertBox.display("ERROR", e.getMessage());
         }
 
