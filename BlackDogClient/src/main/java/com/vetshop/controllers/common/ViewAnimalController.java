@@ -1,10 +1,14 @@
 package com.vetshop.controllers.common;
 
+import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.DTOController;
+import com.vetshop.controllers.user.InspectConsultationsController;
 import com.vetshop.dtos.AnimalDTO;
 import com.vetshop.dtos.DTO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
@@ -33,5 +37,12 @@ public class ViewAnimalController implements DTOController {
     @Override
     public void setDTO(DTO dto) {
         animalDTO = (AnimalDTO) dto;
+    }
+
+    public void back() {
+        Stage stage = (Stage) name.getScene().getWindow();
+        stage.close();
+
+        JavaFXApplication.changeScene(InspectConsultationsController.class);
     }
 }

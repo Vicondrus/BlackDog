@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="522.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vetshop.controllers.user.CreateConsultationController">
+<AnchorPane prefHeight="544.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vetshop.controllers.user.CreateConsultationController">
    <children>
       <Label layoutX="135.0" layoutY="55.0" text="Patient" />
       <ComboBox fx:id="patient" layoutX="338.0" layoutY="51.0" prefWidth="150.0" />
@@ -28,5 +28,6 @@
       <Button fx:id="createButton" layoutX="275.0" layoutY="452.0" mnemonicParsing="false" onAction="#create" text="Create" />
       <Label layoutX="137.0" layoutY="395.0" text="Status" />
       <ComboBox fx:id="status" layoutX="338.0" layoutY="391.0" prefWidth="150.0" />
+      <Button layoutX="280.0" layoutY="495.0" mnemonicParsing="false" text="Back" onAction="#back" />
    </children>
 </AnchorPane>

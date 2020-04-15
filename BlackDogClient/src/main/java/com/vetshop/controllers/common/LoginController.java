@@ -1,15 +1,17 @@
 package com.vetshop.controllers.common;
 
 import com.vetshop.application.JavaFXApplication;
+import com.vetshop.controllers.Controller;
 import com.vetshop.controllers.user.RegularUserController;
 import com.vetshop.controllers.admin.AdminUserController;
 import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.TypeDTO;
 import com.vetshop.exceptions.InvalidCredentialsException;
-import com.vetshop.services.LoginService;
+import com.vetshop.services.AuthService;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,7 +21,7 @@ import java.io.IOException;
 
 @Component
 @FxmlView("main-stage.fxml")
-public class LoginController {
+public class LoginController implements Controller {
 
     @FXML
     private TextField username;
@@ -28,16 +30,18 @@ public class LoginController {
     private PasswordField password;
 
     @Autowired
-    private LoginService loginService;
+    private AuthService authService;
 
     public void login(){
         TypeDTO type = null;
         try {
-            type = loginService.postLogin(username.getText(), password.getText());
+            type = authService.postLogin(username.getText(), password.getText());
             if(type.equals(TypeDTO.REGULAR))
                 JavaFXApplication.changeScene(RegularUserController.class);
             else
                 JavaFXApplication.changeScene(AdminUserController.class);
+            Stage stage = (Stage) username.getScene().getWindow();
+            stage.close();
         } catch (InvalidCredentialsException | IOException e) {
             AlertBox.display("ERROR", e.getMessage());
         }

@@ -2,10 +2,12 @@ package com.vetshop.controllers.admin;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.DTOController;
+import com.vetshop.controllers.user.InspectConsultationsController;
 import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.DTO;
 import com.vetshop.dtos.UserDTO;
 import com.vetshop.services.RegularUserService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -59,5 +61,12 @@ public class UpdateUserController implements DTOController {
     @Override
     public void setDTO(DTO dto) {
         regularUserDTO = (UserDTO) dto;
+    }
+
+    public void back() {
+        Stage stage = (Stage) username.getScene().getWindow();
+        stage.close();
+
+        JavaFXApplication.changeScene(InspectConsultationsController.class);
     }
 }

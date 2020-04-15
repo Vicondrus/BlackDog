@@ -2,9 +2,11 @@ package com.vetshop.controllers.user;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.Controller;
+import com.vetshop.controllers.common.LoginController;
 import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.ConsultationDTO;
 import com.vetshop.services.ConsultationService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -70,6 +72,7 @@ public class InspectConsultationsController implements Controller, Initializable
     public void create(){
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
+
         JavaFXApplication.changeScene(CreateConsultationController.class);
     }
 
@@ -81,6 +84,7 @@ public class InspectConsultationsController implements Controller, Initializable
         }
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
+
         JavaFXApplication.changeScene(UpdateConsultationController.class, consultationDTO);
     }
 
@@ -100,6 +104,16 @@ public class InspectConsultationsController implements Controller, Initializable
             AlertBox.display("ERROR", "A consultation must be selected");
             return;
         }
+        Stage stage = (Stage) table.getScene().getWindow();
+        stage.close();
+
         JavaFXApplication.changeScene(ViewConsultationController.class,consultationDTO);
+    }
+
+    public void back() {
+        Stage stage = (Stage) table.getScene().getWindow();
+        stage.close();
+
+        JavaFXApplication.changeScene(RegularUserController.class);
     }
 }

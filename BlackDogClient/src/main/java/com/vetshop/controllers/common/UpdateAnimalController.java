@@ -2,9 +2,11 @@ package com.vetshop.controllers.common;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.DTOController;
+import com.vetshop.controllers.user.InspectConsultationsController;
 import com.vetshop.dtos.AnimalDTO;
 import com.vetshop.dtos.DTO;
 import com.vetshop.services.AnimalService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -47,6 +49,13 @@ public class UpdateAnimalController implements DTOController {
 
         Stage stage = (Stage) name.getScene().getWindow();
         stage.close();
+        JavaFXApplication.changeScene(InspectAnimalsController.class);
+    }
+
+    public void back() {
+        Stage stage = (Stage) name.getScene().getWindow();
+        stage.close();
+
         JavaFXApplication.changeScene(InspectAnimalsController.class);
     }
 }

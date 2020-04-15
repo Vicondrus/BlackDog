@@ -6,9 +6,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="836.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vetshop.controllers.user.InspectConsultationsController">
+<AnchorPane prefHeight="506.0" prefWidth="836.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vetshop.controllers.user.InspectConsultationsController">
    <children>
-      <SplitPane dividerPositions="0.7361809045226131" layoutX="163.0" layoutY="77.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.6788685524126455" layoutX="163.0" layoutY="89.0" orientation="VERTICAL" prefHeight="514.0" prefWidth="836.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="290.0" prefWidth="792.0">
                <children>
@@ -24,12 +24,13 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="246.0" prefWidth="834.0">
                <children>
                   <Button layoutX="104.0" layoutY="33.0" mnemonicParsing="false" onAction="#create" prefHeight="36.0" prefWidth="95.0" text="Create" />
                   <Button layoutX="288.0" layoutY="33.0" mnemonicParsing="false" onAction="#view" prefHeight="36.0" prefWidth="95.0" text="Read" />
                   <Button layoutX="460.0" layoutY="33.0" mnemonicParsing="false" onAction="#update" prefHeight="36.0" prefWidth="95.0" text="Update" />
                   <Button layoutX="629.0" layoutY="33.0" mnemonicParsing="false" onAction="#delete" prefHeight="36.0" prefWidth="95.0" text="Delete" />
+                  <Button layoutX="370.0" layoutY="99.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="95.0" text="Back" onAction="#back" />
                </children>
             </AnchorPane>
         </items>

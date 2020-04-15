@@ -1,16 +1,20 @@
 package com.vetshop.controllers.admin;
 
 import com.itextpdf.text.DocumentException;
+import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.Controller;
+import com.vetshop.controllers.user.InspectConsultationsController;
 import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.ConsultationDTO;
 import com.vetshop.services.ConsultationService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -79,5 +83,12 @@ public class InspectConsultationsAdminController implements Controller, Initiali
         doctor.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("doctorName"));
 
         table.getItems().setAll(consultationService.postFindAllForLoggedUser());
+    }
+
+    public void back() {
+        Stage stage = (Stage) table.getScene().getWindow();
+        stage.close();
+
+        JavaFXApplication.changeScene(AdminUserController.class);
     }
 }

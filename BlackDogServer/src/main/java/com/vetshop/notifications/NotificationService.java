@@ -40,7 +40,8 @@ public class NotificationService {
     }
 
     public void updateSubjectByTopic(String topic, Consultation consultation){
-        subjectsByTopic.get(topic).addConsultation(consultation);
+        if(subjectsByTopic.containsKey(topic))
+            subjectsByTopic.get(topic).addConsultation(consultation);
     }
 
 }

@@ -2,9 +2,11 @@ package com.vetshop.controllers.admin;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.Controller;
+import com.vetshop.controllers.user.InspectConsultationsController;
 import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.UserDTO;
 import com.vetshop.services.RegularUserService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -85,4 +87,10 @@ public class InspectUsersController implements Controller, Initializable {
         JavaFXApplication.changeScene(ViewUserController.class, regularUserDTO);
     }
 
+    public void back() {
+        Stage stage = (Stage) table.getScene().getWindow();
+        stage.close();
+
+        JavaFXApplication.changeScene(AdminUserController.class);
+    }
 }

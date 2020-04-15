@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 
 @Component
-public class LoginService {
+public class AuthService {
 
     @Autowired
     private NotificationWebSocketHandler notificationWebSocketHandler;
@@ -43,5 +43,17 @@ public class LoginService {
         return result;
     }
 
+    public void logOut() throws IOException {
+        UserDTO principal = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        notificationWebSocketHandler.sendMessage("STOP####"+principal.getUsername());
+
+        SecurityContextHolder.getContext().setAuthentication(null);
+    }
+
+    public TypeDTO getUserType(){
+        UserDTO principal = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return principal.getUserType();
+    }
 
 }

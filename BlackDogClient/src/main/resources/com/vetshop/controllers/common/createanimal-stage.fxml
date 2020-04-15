@@ -5,15 +5,15 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vetshop.controllers.common.CreateAnimalController">
+<AnchorPane prefHeight="430.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vetshop.controllers.common.CreateAnimalController">
    <children>
       <Label layoutX="147.0" layoutY="71.0" text="Name" />
       <Label layoutX="146.0" layoutY="155.0" text="Owner" />
       <Label layoutX="143.0" layoutY="248.0" text="Species" />
-      <TextField layoutX="330.0" layoutY="67.0" fx:id="name"/>
-      <TextField layoutX="330.0" layoutY="151.0" fx:id="owner"/>
-      <TextField layoutX="330.0" layoutY="244.0" fx:id="species"/>
-      <Button layoutX="275.0" layoutY="319.0" mnemonicParsing="false" text="Create" onAction="#create"/>
+      <TextField fx:id="name" layoutX="330.0" layoutY="67.0" />
+      <TextField fx:id="owner" layoutX="330.0" layoutY="151.0" />
+      <TextField fx:id="species" layoutX="330.0" layoutY="244.0" />
+      <Button layoutX="275.0" layoutY="319.0" mnemonicParsing="false" onAction="#create" text="Create" />
+      <Button layoutX="280.0" layoutY="372.0" mnemonicParsing="false" text="Back" onAction="#back" />
    </children>
 </AnchorPane>

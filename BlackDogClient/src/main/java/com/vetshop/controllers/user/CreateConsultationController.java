@@ -11,6 +11,7 @@ import com.vetshop.services.AnimalService;
 import com.vetshop.services.ConsultationService;
 import com.vetshop.services.RegularUserService;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -211,4 +212,10 @@ public class CreateConsultationController implements Initializable, Controller {
 
     }
 
+    public void back() {
+        Stage stage = (Stage) status.getScene().getWindow();
+        stage.close();
+
+        JavaFXApplication.changeScene(InspectConsultationsController.class);
+    }
 }

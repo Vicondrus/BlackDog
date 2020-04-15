@@ -2,7 +2,9 @@ package com.vetshop.controllers.common;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.Controller;
+import com.vetshop.controllers.user.InspectConsultationsController;
 import com.vetshop.services.AnimalService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -35,4 +37,10 @@ public class CreateAnimalController implements Controller {
         JavaFXApplication.changeScene(InspectAnimalsController.class);
     }
 
+    public void back() {
+        Stage stage = (Stage) name.getScene().getWindow();
+        stage.close();
+
+        JavaFXApplication.changeScene(InspectAnimalsController.class);
+    }
 }

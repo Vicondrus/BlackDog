@@ -2,8 +2,10 @@ package com.vetshop.controllers.admin;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.Controller;
+import com.vetshop.controllers.user.InspectConsultationsController;
 import com.vetshop.dialogues.AlertBox;
 import com.vetshop.services.RegularUserService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -43,4 +45,10 @@ public class CreateUserController implements Controller {
         }
     }
 
+    public void back() {
+        Stage stage = (Stage) username.getScene().getWindow();
+        stage.close();
+
+        JavaFXApplication.changeScene(InspectUsersController.class);
+    }
 }

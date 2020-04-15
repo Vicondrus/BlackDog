@@ -2,9 +2,15 @@ package com.vetshop.controllers.common;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.Controller;
+import com.vetshop.controllers.admin.AdminUserController;
+import com.vetshop.controllers.user.InspectConsultationsController;
+import com.vetshop.controllers.user.RegularUserController;
 import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.AnimalDTO;
+import com.vetshop.dtos.TypeDTO;
 import com.vetshop.services.AnimalService;
+import com.vetshop.services.AuthService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -25,6 +31,9 @@ public class InspectAnimalsController implements Controller, Initializable {
 
     @Autowired
     private AnimalService animalService;
+
+    @Autowired
+    private AuthService authService;
 
     @FXML
     private TableView<AnimalDTO> table;
@@ -68,6 +77,7 @@ public class InspectAnimalsController implements Controller, Initializable {
         }
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
+
         JavaFXApplication.changeScene(UpdateAnimalController.class, animalDTO);
     }
 
@@ -87,7 +97,19 @@ public class InspectAnimalsController implements Controller, Initializable {
             AlertBox.display("ERROR", "An animal must be selected");
             return;
         }
+        Stage stage = (Stage) table.getScene().getWindow();
+        stage.close();
+
         JavaFXApplication.changeScene(ViewAnimalController.class,animalDTO);
     }
 
+    public void back() {
+        Stage stage = (Stage) table.getScene().getWindow();
+        stage.close();
+
+        if(authService.getUserType().equals(TypeDTO.REGULAR))
+            JavaFXApplication.changeScene(RegularUserController.class);
+        else
+            JavaFXApplication.changeScene(AdminUserController.class);
+    }
 }

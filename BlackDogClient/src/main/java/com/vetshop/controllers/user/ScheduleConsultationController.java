@@ -10,6 +10,7 @@ import com.vetshop.services.AnimalService;
 import com.vetshop.services.ConsultationService;
 import com.vetshop.services.RegularUserService;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -69,7 +70,7 @@ public class ScheduleConsultationController implements Controller, Initializable
 
             Stage stage = (Stage) minute.getScene().getWindow();
             stage.close();
-            JavaFXApplication.changeScene(InspectConsultationsController.class);
+            JavaFXApplication.changeScene(RegularUserController.class);
         } catch (FieldException e) {
             AlertBox.display("ERROR", e.getMessage());
         }
@@ -157,4 +158,11 @@ public class ScheduleConsultationController implements Controller, Initializable
 
     }
 
+
+    public void back() {
+        Stage stage = (Stage) doctor.getScene().getWindow();
+        stage.close();
+
+        JavaFXApplication.changeScene(RegularUserController.class);
+    }
 }

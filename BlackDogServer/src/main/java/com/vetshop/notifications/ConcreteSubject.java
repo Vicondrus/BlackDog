@@ -23,7 +23,7 @@ public class ConcreteSubject extends Observable {
     public void addConsultation(Consultation consultation){
         newlyAddedConsultations.add(consultation);
         this.setChanged();
-        this.notifyObservers("Consultation added at " + consultation.getDate());
+        this.notifyObservers("Consultation added for " + consultation.getDate());
     }
 
 }

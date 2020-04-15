@@ -1,10 +1,14 @@
 package com.vetshop.controllers.admin;
 
+import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.DTOController;
+import com.vetshop.controllers.user.InspectConsultationsController;
 import com.vetshop.dtos.DTO;
 import com.vetshop.dtos.UserDTO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
@@ -35,4 +39,10 @@ public class ViewUserController implements DTOController {
         regularUserDTO = (UserDTO) dto;
     }
 
+    public void back() {
+        Stage stage = (Stage) username.getScene().getWindow();
+        stage.close();
+
+        JavaFXApplication.changeScene(InspectConsultationsController.class);
+    }
 }

@@ -1,11 +1,13 @@
 package com.vetshop.controllers.user;
 
+import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.DTOController;
 import com.vetshop.dtos.ConsultationDTO;
 import com.vetshop.dtos.DTO;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,9 @@ import java.util.GregorianCalendar;
 public class ViewConsultationController implements DTOController {
 
     private ConsultationDTO consultationDTO;
+
+    @FXML
+    private TextField status;
 
     @FXML
     private TextField patient;
@@ -67,5 +72,13 @@ public class ViewConsultationController implements DTOController {
         recommendations.setText(consultationDTO.getRecommendations());
         diagnostic.setText(consultationDTO.getDiagnostic());
 
+        status.setText(consultationDTO.getStatusString());
+    }
+
+    public void back() {
+        Stage stage = (Stage) status.getScene().getWindow();
+        stage.close();
+
+        JavaFXApplication.changeScene(InspectConsultationsController.class);
     }
 }
