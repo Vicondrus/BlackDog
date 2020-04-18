@@ -10,11 +10,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * The type Regular user controller.
+ */
 @Component
 @FxmlView("regularuser-stage.fxml")
 public class RegularUserController implements Controller {
@@ -22,9 +24,20 @@ public class RegularUserController implements Controller {
     @FXML
     private Button button;
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
+    /**
+     * Instantiates a new Regular user controller.
+     *
+     * @param authService the auth service
+     */
+    public RegularUserController(AuthService authService) {
+        this.authService = authService;
+    }
+
+    /**
+     * Get consultations window.
+     */
     public void getConsultationsWindow(){
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
@@ -32,6 +45,9 @@ public class RegularUserController implements Controller {
         JavaFXApplication.changeScene(InspectConsultationsController.class);
     }
 
+    /**
+     * Get animals window.
+     */
     public void getAnimalsWindow(){
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
@@ -39,6 +55,9 @@ public class RegularUserController implements Controller {
         JavaFXApplication.changeScene(InspectAnimalsController.class);
     }
 
+    /**
+     * Schedule consultation.
+     */
     public void scheduleConsultation(){
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
@@ -46,6 +65,9 @@ public class RegularUserController implements Controller {
         JavaFXApplication.changeScene(ScheduleConsultationController.class);
     }
 
+    /**
+     * Logout.
+     */
     public void logout(){
         try {
             authService.logOut();

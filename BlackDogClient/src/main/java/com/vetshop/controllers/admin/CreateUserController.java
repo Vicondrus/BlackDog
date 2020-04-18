@@ -2,24 +2,23 @@ package com.vetshop.controllers.admin;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.Controller;
-import com.vetshop.controllers.user.InspectConsultationsController;
 import com.vetshop.dialogues.AlertBox;
 import com.vetshop.services.RegularUserService;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Create user controller.
+ */
 @Component
 @FxmlView("createuser-stage.fxml")
 public class CreateUserController implements Controller {
 
-    @Autowired
-    private RegularUserService regularUserService;
+    private final RegularUserService regularUserService;
 
     @FXML
     private TextField username;
@@ -33,6 +32,18 @@ public class CreateUserController implements Controller {
     @FXML
     private PasswordField confirm;
 
+    /**
+     * Instantiates a new Create user controller.
+     *
+     * @param regularUserService the regular user service
+     */
+    public CreateUserController(RegularUserService regularUserService) {
+        this.regularUserService = regularUserService;
+    }
+
+    /**
+     * Create.
+     */
     public void create(){
         if(!password.getText().equals(confirm.getText())){
             AlertBox.display("ERROR", "Password mismatch");
@@ -45,6 +56,9 @@ public class CreateUserController implements Controller {
         }
     }
 
+    /**
+     * Back.
+     */
     public void back() {
         Stage stage = (Stage) username.getScene().getWindow();
         stage.close();

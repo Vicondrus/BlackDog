@@ -7,23 +7,23 @@ import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.DTO;
 import com.vetshop.dtos.UserDTO;
 import com.vetshop.services.RegularUserService;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * The type Update user controller.
+ */
 @Component
 @FxmlView("updateuser-stage.fxml")
 public class UpdateUserController implements DTOController {
 
     private UserDTO regularUserDTO;
 
-    @Autowired
-    private RegularUserService regularUserService;
+    private final RegularUserService regularUserService;
 
     @FXML
     private TextField username;
@@ -37,6 +37,18 @@ public class UpdateUserController implements DTOController {
     @FXML
     private PasswordField confirm;
 
+    /**
+     * Instantiates a new Update user controller.
+     *
+     * @param regularUserService the regular user service
+     */
+    public UpdateUserController(RegularUserService regularUserService) {
+        this.regularUserService = regularUserService;
+    }
+
+    /**
+     * Update.
+     */
     public void update() {
         if(!password.getText().equals(confirm.getText())){
             AlertBox.display("ERROR", "Password mismatch");
@@ -63,6 +75,9 @@ public class UpdateUserController implements DTOController {
         regularUserDTO = (UserDTO) dto;
     }
 
+    /**
+     * Back.
+     */
     public void back() {
         Stage stage = (Stage) username.getScene().getWindow();
         stage.close();

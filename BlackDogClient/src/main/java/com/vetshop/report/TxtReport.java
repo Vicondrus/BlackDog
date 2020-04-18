@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * The type Txt report.
+ */
 public class TxtReport implements Report {
 
     @Override

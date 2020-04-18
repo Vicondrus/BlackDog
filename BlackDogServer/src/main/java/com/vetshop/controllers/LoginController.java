@@ -2,26 +2,35 @@ package com.vetshop.controllers;
 
 import com.vetshop.dtos.RegularUserDTO;
 import com.vetshop.dtos.TypeDTO;
-import com.vetshop.entities.RegularUser;
-import com.vetshop.repositories.RegularUserRepository;
 import com.vetshop.services.LoginService;
 import com.vetshop.services.exceptions.InvalidCredentialsException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
+/**
+ * The type Login controller.
+ */
 @RestController
 public class LoginController {
 
-    @Autowired
-    private LoginService loginService;
+    private final LoginService loginService;
 
+    /**
+     * Instantiates a new Login controller.
+     *
+     * @param loginService the login service
+     */
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
+    /**
+     * Check login type dto.
+     *
+     * @param regularUserDTO the regular user dto
+     * @return the type dto
+     */
     @PostMapping(value = "/login")
     public TypeDTO checkLogin(@RequestBody RegularUserDTO regularUserDTO) {
         TypeDTO type = null;

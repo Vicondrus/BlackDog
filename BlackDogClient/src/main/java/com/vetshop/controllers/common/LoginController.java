@@ -2,8 +2,8 @@ package com.vetshop.controllers.common;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.Controller;
-import com.vetshop.controllers.user.RegularUserController;
 import com.vetshop.controllers.admin.AdminUserController;
+import com.vetshop.controllers.user.RegularUserController;
 import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.TypeDTO;
 import com.vetshop.exceptions.InvalidCredentialsException;
@@ -13,12 +13,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 
+/**
+ * The type Login controller.
+ */
 @Component
 @FxmlView("main-stage.fxml")
 public class LoginController implements Controller {
@@ -29,9 +31,20 @@ public class LoginController implements Controller {
     @FXML
     private PasswordField password;
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
+    /**
+     * Instantiates a new Login controller.
+     *
+     * @param authService the auth service
+     */
+    public LoginController(AuthService authService) {
+        this.authService = authService;
+    }
+
+    /**
+     * Login.
+     */
     public void login(){
         TypeDTO type = null;
         try {

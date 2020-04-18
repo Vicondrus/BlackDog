@@ -9,14 +9,12 @@ import com.vetshop.services.AnimalService;
 import com.vetshop.services.ConsultationService;
 import com.vetshop.services.RegularUserService;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +23,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 
+/**
+ * The type Update consultation controller.
+ */
 @Component
 @FxmlView("updateconsultation-stage.fxml")
 @Scope("singleton")
@@ -32,14 +33,11 @@ public class UpdateConsultationController implements DTOController {
 
     private ConsultationDTO consultationDTO;
 
-    @Autowired
-    private RegularUserService regularUserService;
+    private final RegularUserService regularUserService;
 
-    @Autowired
-    private AnimalService animalService;
+    private final AnimalService animalService;
 
-    @Autowired
-    private ConsultationService consultationService;
+    private final ConsultationService consultationService;
 
     @FXML
     private ComboBox<AnimalDTO> patient;
@@ -71,11 +69,27 @@ public class UpdateConsultationController implements DTOController {
     @FXML
     private ComboBox<StatusDTO> status;
 
+    /**
+     * Instantiates a new Update consultation controller.
+     *
+     * @param regularUserService  the regular user service
+     * @param animalService       the animal service
+     * @param consultationService the consultation service
+     */
+    public UpdateConsultationController(RegularUserService regularUserService, AnimalService animalService, ConsultationService consultationService) {
+        this.regularUserService = regularUserService;
+        this.animalService = animalService;
+        this.consultationService = consultationService;
+    }
+
     @Override
     public void setDTO(DTO dto) {
         consultationDTO = (ConsultationDTO) dto;
     }
 
+    /**
+     * Update.
+     */
     public void update(){
         UserDTO regularUserDTO = doctor.getValue();
         AnimalDTO animalDTO = patient.getValue();
@@ -229,6 +243,9 @@ public class UpdateConsultationController implements DTOController {
 
     }
 
+    /**
+     * Back.
+     */
     public void back() {
         Stage stage = (Stage) status.getScene().getWindow();
         stage.close();

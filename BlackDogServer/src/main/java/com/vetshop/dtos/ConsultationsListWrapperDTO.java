@@ -7,6 +7,9 @@ import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
+/**
+ * The type Consultations list wrapper dto.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = PRIVATE)

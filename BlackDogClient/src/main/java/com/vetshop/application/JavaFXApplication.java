@@ -16,6 +16,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.Arrays;
 
+/**
+ * The type Java fx application.
+ */
 public class JavaFXApplication extends Application {
 
     private static ConfigurableApplicationContext applicationContext;
@@ -49,6 +52,12 @@ public class JavaFXApplication extends Application {
         stage.show();
     }
 
+    /**
+     * Change scene.
+     *
+     * @param <T> the type parameter
+     * @param c   the c
+     */
     public static <T extends Controller> void changeScene(Class<T> c){
         FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
         Parent pane = fxWeaver.loadView(c);
@@ -60,6 +69,13 @@ public class JavaFXApplication extends Application {
         stage.show();
     }
 
+    /**
+     * Change scene.
+     *
+     * @param <T> the type parameter
+     * @param c   the c
+     * @param dto the dto
+     */
     public static <T extends DTOController> void changeScene(Class<T> c, DTO dto){
         FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
 
@@ -76,6 +92,11 @@ public class JavaFXApplication extends Application {
         controller.refresh();
     }
 
+    /**
+     * Show alert.
+     *
+     * @param message the message
+     */
     public static void showAlert(String message){
         Platform.runLater(() -> AlertBox.display("INFO", message));
     }

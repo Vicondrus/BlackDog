@@ -9,6 +9,9 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Pdf report.
+ */
 public class PdfReport implements Report{
 
     @Override

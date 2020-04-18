@@ -1,55 +1,46 @@
 package com.vetshop.services;
 
-import com.vetshop.dtos.*;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import com.vetshop.dtos.UserDTO;
 
 import java.util.List;
 
-@Service
-public class RegularUserService {
+/**
+ * The interface Regular user service.
+ */
+public interface RegularUserService {
+    /**
+     * Find all regular users list.
+     *
+     * @return the list
+     */
+    List<UserDTO> findAllRegularUsers();
 
-    public List<UserDTO> findAllRegularUsers(){
-        final String uri = "http://localhost:8080/getAllRegularUsers";
+    /**
+     * Delete user user dto.
+     *
+     * @param userDTO the user dto
+     * @return the user dto
+     */
+    UserDTO deleteUser(UserDTO userDTO);
 
-        RestTemplate restTemplate = new RestTemplate();
+    /**
+     * Post create user user dto.
+     *
+     * @param username the username
+     * @param password the password
+     * @param fullName the full name
+     * @return the user dto
+     */
+    UserDTO postCreateUser(String username, String password, String fullName);
 
-        UsersListWrapperDTO consultations = restTemplate.getForObject(uri, UsersListWrapperDTO.class);
-
-        return consultations.getList();
-    }
-
-    public UserDTO deleteUser(UserDTO userDTO){
-        final String uri = "http://localhost:8080/deleteUser";
-
-        RestTemplate restTemplate = new RestTemplate();
-        userDTO = restTemplate.postForObject(uri, userDTO, UserDTO.class);
-        return userDTO;
-    }
-
-    public UserDTO postCreateUser(String username, String password, String fullName){
-        final String uri = "http://localhost:8080/createUser";
-
-        RestTemplate restTemplate = new RestTemplate();
-
-        UserDTO user = UserDTO.builder().username(username).userType(TypeDTO.REGULAR).password(password).fullName(fullName).build();
-
-        user = restTemplate.postForObject(uri, user, UserDTO.class);
-
-        return user;
-    }
-
-    public UserDTO postUpdateUser(int id, String username, String password, String fullName){
-        final String uri = "http://localhost:8080/updateUser";
-
-        RestTemplate restTemplate = new RestTemplate();
-
-        UserDTO user = UserDTO.builder().username(username).idUser(id).userType(TypeDTO.REGULAR).password(password).fullName(fullName).build();
-
-        user = restTemplate.postForObject(uri, user, UserDTO.class);
-
-        return user;
-    }
-
+    /**
+     * Post update user user dto.
+     *
+     * @param id       the id
+     * @param username the username
+     * @param password the password
+     * @param fullName the full name
+     * @return the user dto
+     */
+    UserDTO postUpdateUser(int id, String username, String password, String fullName);
 }

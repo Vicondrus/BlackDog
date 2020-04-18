@@ -7,9 +7,11 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * The type Notification service.
+ */
 @Service
 public class NotificationService {
 
@@ -17,6 +19,13 @@ public class NotificationService {
 
     private Map<String, String> idTopicMap = new HashMap<>();
 
+    /**
+     * Add topic.
+     *
+     * @param session the session
+     * @param topic   the topic
+     * @throws AlreadyExistingException the already existing exception
+     */
     public void addTopic(WebSocketSession session, String topic) throws AlreadyExistingException {
         Observer observer = new ConcreteObserver(session);
         ConcreteSubject subject = new ConcreteSubject(topic);
@@ -27,6 +36,11 @@ public class NotificationService {
         idTopicMap.put(session.getId(),topic);
     }
 
+    /**
+     * Remove subject and topic.
+     *
+     * @param topic the topic
+     */
     public void removeSubjectAndTopic(String topic){
         ConcreteSubject subject = subjectsByTopic.get(topic);
         if(subject != null)
@@ -34,11 +48,22 @@ public class NotificationService {
         subjectsByTopic.remove(topic);
     }
 
+    /**
+     * Remove session.
+     *
+     * @param id the id
+     */
     public void removeSession(String id){
         removeSubjectAndTopic(idTopicMap.get(id));
         idTopicMap.remove(id);
     }
 
+    /**
+     * Update subject by topic.
+     *
+     * @param topic        the topic
+     * @param consultation the consultation
+     */
     public void updateSubjectByTopic(String topic, Consultation consultation){
         if(subjectsByTopic.containsKey(topic))
             subjectsByTopic.get(topic).addConsultation(consultation);

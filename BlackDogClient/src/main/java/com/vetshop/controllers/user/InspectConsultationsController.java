@@ -2,11 +2,9 @@ package com.vetshop.controllers.user;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.Controller;
-import com.vetshop.controllers.common.LoginController;
 import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.ConsultationDTO;
 import com.vetshop.services.ConsultationService;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -14,7 +12,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -22,12 +19,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * The type Inspect consultations controller.
+ */
 @Component
 @FxmlView("inspectconsultations-stage.fxml")
 public class InspectConsultationsController implements Controller, Initializable {
 
-    @Autowired
-    private ConsultationService consultationService;
+    private final ConsultationService consultationService;
 
     @FXML
     private TableView<ConsultationDTO> table;
@@ -50,6 +49,15 @@ public class InspectConsultationsController implements Controller, Initializable
     @FXML
     private TableColumn<ConsultationDTO, String> status;
 
+    /**
+     * Instantiates a new Inspect consultations controller.
+     *
+     * @param consultationService the consultation service
+     */
+    public InspectConsultationsController(ConsultationService consultationService) {
+        this.consultationService = consultationService;
+    }
+
     @Override
     public void refresh(){
         date.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, Date>("date"));
@@ -69,6 +77,9 @@ public class InspectConsultationsController implements Controller, Initializable
         refresh();
     }
 
+    /**
+     * Create.
+     */
     public void create(){
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
@@ -76,6 +87,9 @@ public class InspectConsultationsController implements Controller, Initializable
         JavaFXApplication.changeScene(CreateConsultationController.class);
     }
 
+    /**
+     * Update.
+     */
     public void update(){
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
         if(consultationDTO == null){
@@ -88,6 +102,9 @@ public class InspectConsultationsController implements Controller, Initializable
         JavaFXApplication.changeScene(UpdateConsultationController.class, consultationDTO);
     }
 
+    /**
+     * Delete.
+     */
     public void delete(){
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
         if(consultationDTO == null){
@@ -98,6 +115,9 @@ public class InspectConsultationsController implements Controller, Initializable
         refresh();
     }
 
+    /**
+     * View.
+     */
     public void view(){
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
         if(consultationDTO == null){
@@ -110,6 +130,9 @@ public class InspectConsultationsController implements Controller, Initializable
         JavaFXApplication.changeScene(ViewConsultationController.class,consultationDTO);
     }
 
+    /**
+     * Back.
+     */
     public void back() {
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();

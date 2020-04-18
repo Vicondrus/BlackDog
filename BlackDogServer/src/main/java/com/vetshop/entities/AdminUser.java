@@ -5,6 +5,9 @@ import lombok.*;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+/**
+ * The type Admin user.
+ */
 @NoArgsConstructor
 @ToString(callSuper = true)
 @Builder

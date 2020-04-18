@@ -7,6 +7,9 @@ import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
+/**
+ * The type Animals list wrapper dto.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = PRIVATE)
@@ -17,6 +20,9 @@ import static lombok.AccessLevel.PRIVATE;
 @Data
 public class AnimalsListWrapperDTO {
 
+    /**
+     * The List.
+     */
     public List<AnimalDTO> list;
 
 }

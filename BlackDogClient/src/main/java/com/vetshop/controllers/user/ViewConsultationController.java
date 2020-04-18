@@ -15,6 +15,9 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * The type View consultation controller.
+ */
 @Component
 @FxmlView("viewconsultation-stage.fxml")
 public class ViewConsultationController implements DTOController {
@@ -75,6 +78,9 @@ public class ViewConsultationController implements DTOController {
         status.setText(consultationDTO.getStatusString());
     }
 
+    /**
+     * Back.
+     */
     public void back() {
         Stage stage = (Stage) status.getScene().getWindow();
         stage.close();

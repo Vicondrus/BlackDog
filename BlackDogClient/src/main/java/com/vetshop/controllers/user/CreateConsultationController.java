@@ -11,7 +11,6 @@ import com.vetshop.services.AnimalService;
 import com.vetshop.services.ConsultationService;
 import com.vetshop.services.RegularUserService;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -19,7 +18,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -31,19 +29,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * The type Create consultation controller.
+ */
 @Component
 @FxmlView("createconsultation-stage.fxml")
 public class CreateConsultationController implements Initializable, Controller {
 
-    @Autowired
-    private RegularUserService regularUserService;
+    private final RegularUserService regularUserService;
 
-    @Autowired
-    private AnimalService animalService;
+    private final AnimalService animalService;
 
-    @Autowired
-    private ConsultationService consultationService;
+    private final ConsultationService consultationService;
 
+    /**
+     * The Status.
+     */
     @FXML
     public ComboBox<StatusDTO> status;
 
@@ -74,6 +75,22 @@ public class CreateConsultationController implements Initializable, Controller {
     @FXML
     private Button createButton;
 
+    /**
+     * Instantiates a new Create consultation controller.
+     *
+     * @param regularUserService  the regular user service
+     * @param animalService       the animal service
+     * @param consultationService the consultation service
+     */
+    public CreateConsultationController(RegularUserService regularUserService, AnimalService animalService, ConsultationService consultationService) {
+        this.regularUserService = regularUserService;
+        this.animalService = animalService;
+        this.consultationService = consultationService;
+    }
+
+    /**
+     * Create.
+     */
     public void create(){
         UserDTO regularUserDTO = doctor.getValue();
         AnimalDTO animalDTO = patient.getValue();
@@ -212,6 +229,9 @@ public class CreateConsultationController implements Initializable, Controller {
 
     }
 
+    /**
+     * Back.
+     */
     public void back() {
         Stage stage = (Stage) status.getScene().getWindow();
         stage.close();

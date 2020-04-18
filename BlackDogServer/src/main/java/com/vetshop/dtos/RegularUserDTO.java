@@ -1,14 +1,14 @@
 package com.vetshop.dtos;
 
 import com.vetshop.entities.RegularUser;
-import com.vetshop.entities.UserType;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.lang.reflect.Type;
-
 import static lombok.AccessLevel.PRIVATE;
 
+/**
+ * The type Regular user dto.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = PRIVATE)
@@ -30,12 +30,18 @@ public class RegularUserDTO implements DTO{
     private TypeDTO userType;
 
 
+    /**
+     * Instantiates a new Regular user dto.
+     *
+     * @param user the user
+     */
     public RegularUserDTO(RegularUser user){
         idUser = user.getIdUser();
         username = user.getUsername();
         password = user.getUsername();
         fullName = user.getFullName();
-        userType = TypeDTO.valueOf(user.getUserType().toString());
+        if(user.getUserType() != null)
+            userType = TypeDTO.valueOf(user.getUserType().toString());
     }
 
 }

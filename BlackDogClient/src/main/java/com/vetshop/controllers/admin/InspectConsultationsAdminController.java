@@ -3,11 +3,9 @@ package com.vetshop.controllers.admin;
 import com.itextpdf.text.DocumentException;
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.Controller;
-import com.vetshop.controllers.user.InspectConsultationsController;
 import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.ConsultationDTO;
-import com.vetshop.services.ConsultationService;
-import javafx.event.ActionEvent;
+import com.vetshop.services.implementations.ConsultationServiceImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -26,12 +24,15 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 
+/**
+ * The type Inspect consultations admin controller.
+ */
 @Component
 @FxmlView("inspectconsultationsadmin-stage.fxml")
 public class InspectConsultationsAdminController implements Controller, Initializable {
 
     @Autowired
-    private ConsultationService consultationService;
+    private ConsultationServiceImpl consultationService;
 
     @FXML
     private TableView<ConsultationDTO> table;
@@ -48,6 +49,11 @@ public class InspectConsultationsAdminController implements Controller, Initiali
     @FXML
     private TableColumn<ConsultationDTO, String> patient;
 
+    /**
+     * Report.
+     *
+     * @param type the type
+     */
     public void report(String type) {
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
         if(consultationDTO == null) {
@@ -67,10 +73,16 @@ public class InspectConsultationsAdminController implements Controller, Initiali
     }
 
 
+    /**
+     * Pdf report.
+     */
     public void pdfReport(){
         report("PDF");
     }
 
+    /**
+     * Txt report.
+     */
     public void txtReport(){
         report("TXT");
     }
@@ -85,6 +97,9 @@ public class InspectConsultationsAdminController implements Controller, Initiali
         table.getItems().setAll(consultationService.postFindAllForLoggedUser());
     }
 
+    /**
+     * Back.
+     */
     public void back() {
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();

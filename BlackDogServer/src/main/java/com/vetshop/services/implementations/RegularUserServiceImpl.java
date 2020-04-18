@@ -14,11 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type Regular user service.
+ */
 @Service
 public class RegularUserServiceImpl implements RegularUserService {
 
-    private RegularUserRepository regUserRepo;
+    private final RegularUserRepository regUserRepo;
 
+    /**
+     * Instantiates a new Regular user service.
+     *
+     * @param regularUserRepository the regular user repository
+     */
     @Autowired
     public RegularUserServiceImpl(RegularUserRepository regularUserRepository){
         regUserRepo = regularUserRepository;

@@ -1,5 +1,15 @@
 package com.vetshop.dtos;
 
+/**
+ * The enum Status dto.
+ */
 public enum StatusDTO {
-    SCHEDULED, DONE
+    /**
+     * Scheduled status dto.
+     */
+    SCHEDULED,
+    /**
+     * Done status dto.
+     */
+    DONE
 }

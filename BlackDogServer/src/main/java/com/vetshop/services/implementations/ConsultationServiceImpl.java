@@ -4,38 +4,52 @@ import com.vetshop.dtos.ConsultationDTO;
 import com.vetshop.dtos.RegularUserDTO;
 import com.vetshop.dtos.StatusDTO;
 import com.vetshop.dtos.TypeDTO;
-import com.vetshop.entities.*;
+import com.vetshop.entities.Animal;
+import com.vetshop.entities.Consultation;
+import com.vetshop.entities.RegularUser;
+import com.vetshop.entities.Status;
 import com.vetshop.notifications.NotificationService;
 import com.vetshop.repositories.AnimalRepository;
 import com.vetshop.repositories.ConsultationRepository;
 import com.vetshop.repositories.RegularUserRepository;
 import com.vetshop.services.ConsultationService;
+import com.vetshop.services.exceptions.NoSuchEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type Consultation service.
+ */
 @Service
 public class ConsultationServiceImpl implements ConsultationService {
 
-    private ConsultationRepository consultationRepo;
+    private final ConsultationRepository consultationRepo;
 
-    private AnimalRepository animalRepository;
+    private final AnimalRepository animalRepository;
 
-    private RegularUserRepository regularUserRepository;
+    private final RegularUserRepository regularUserRepository;
 
+    private final NotificationService notificationService;
+
+    /**
+     * Instantiates a new Consultation service.
+     *
+     * @param consultationRepo      the consultation repo
+     * @param animalRepository      the animal repository
+     * @param regularUserRepository the regular user repository
+     * @param notificationService   the notification service
+     */
     @Autowired
-    private NotificationService notificationService;
-
-    @Autowired
-    public ConsultationServiceImpl(ConsultationRepository consultationRepo, AnimalRepository animalRepository, RegularUserRepository regularUserRepository){
+    public ConsultationServiceImpl(ConsultationRepository consultationRepo, AnimalRepository animalRepository, RegularUserRepository regularUserRepository, NotificationService notificationService){
         this.consultationRepo = consultationRepo;
         this.animalRepository = animalRepository;
         this.regularUserRepository = regularUserRepository;
+        this.notificationService = notificationService;
     }
 
     @Override
@@ -76,9 +90,14 @@ public class ConsultationServiceImpl implements ConsultationService {
     }
 
     @Override
-    public ConsultationDTO delete(int id) {
+    public ConsultationDTO delete(int id) throws NoSuchEntityException {
         Consultation consultation = consultationRepo.findById(id).orElse(null);
-        consultationRepo.delete(consultation);
+        if (consultation != null) {
+            consultationRepo.delete(consultation);
+        }
+        else{
+            throw new NoSuchEntityException("Consultation with given id doesn't exist");
+        }
         return new ConsultationDTO(consultation);
     }
 

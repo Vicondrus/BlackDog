@@ -13,13 +13,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type Animal service.
+ */
 @Service
 public class AnimalServiceImpl implements AnimalService {
 
-    private AnimalRepository animalRepo;
+    private final AnimalRepository animalRepo;
 
-    private RegularUserRepository regularUserRepository;
+    private final RegularUserRepository regularUserRepository;
 
+    /**
+     * Instantiates a new Animal service.
+     *
+     * @param ar  the ar
+     * @param rur the rur
+     */
     @Autowired
     public AnimalServiceImpl(AnimalRepository ar, RegularUserRepository rur){
         animalRepo = ar;

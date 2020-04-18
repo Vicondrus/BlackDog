@@ -8,6 +8,9 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+/**
+ * The type Notification web socket handler.
+ */
 @Service
 public class NotificationWebSocketHandler extends TextWebSocketHandler {
 

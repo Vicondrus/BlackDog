@@ -6,6 +6,9 @@ import lombok.experimental.FieldDefaults;
 
 import static lombok.AccessLevel.PRIVATE;
 
+/**
+ * The type Animal dto.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = PRIVATE)
@@ -24,6 +27,11 @@ public class AnimalDTO implements DTO{
 
     private String species;
 
+    /**
+     * Instantiates a new Animal dto.
+     *
+     * @param animal the animal
+     */
     public AnimalDTO(Animal animal) {
         this.animalId = animal.getAnimalId();
         this.name = animal.getName();

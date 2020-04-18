@@ -6,6 +6,9 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * The type Consultation.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -37,14 +40,29 @@ public class Consultation {
 
     private Status status;
 
+    /**
+     * Get doctor name string.
+     *
+     * @return the string
+     */
     public String getDoctorName(){
         return doctor.getFullName();
     }
 
+    /**
+     * Get animal name string.
+     *
+     * @return the string
+     */
     public String getAnimalName(){
         return animal.getName();
     }
 
+    /**
+     * Get owner name string.
+     *
+     * @return the string
+     */
     public String getOwnerName(){
         return animal.getOwner();
     }

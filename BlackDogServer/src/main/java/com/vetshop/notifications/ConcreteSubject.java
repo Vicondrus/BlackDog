@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+/**
+ * The type Concrete subject.
+ */
 @Getter
 @Setter
 public class ConcreteSubject extends Observable {
@@ -16,10 +19,20 @@ public class ConcreteSubject extends Observable {
 
     private List<Consultation> newlyAddedConsultations = new ArrayList<>();
 
+    /**
+     * Instantiates a new Concrete subject.
+     *
+     * @param topic the topic
+     */
     public ConcreteSubject(String topic){
         this.topic = topic;
     }
 
+    /**
+     * Add consultation.
+     *
+     * @param consultation the consultation
+     */
     public void addConsultation(Consultation consultation){
         newlyAddedConsultations.add(consultation);
         this.setChanged();

@@ -69,7 +69,17 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+			<groupId>de.saxsys</groupId>
+			<artifactId>jfx-testrunner</artifactId>
+			<version>1.2</version>
+		</dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
