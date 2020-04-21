@@ -1,0 +1,17 @@
+package com.vetshop.services.exceptions;
+
+/**
+ * The type Already existing exception.
+ */
+public class AlreadyExistingException extends Exception {
+
+    /**
+     * Instantiates a new Already existing exception.
+     *
+     * @param s the s
+     */
+    public AlreadyExistingException(String s){
+        super(s);
+    }
+
+}
