@@ -30,7 +30,7 @@ public class AnimalServiceImpl implements AnimalService {
      * @param rur the rur
      */
     @Autowired
-    public AnimalServiceImpl(AnimalRepository ar, RegularUserRepository rur){
+    public AnimalServiceImpl(AnimalRepository ar, RegularUserRepository rur) {
         animalRepo = ar;
         regularUserRepository = rur;
     }
@@ -43,7 +43,7 @@ public class AnimalServiceImpl implements AnimalService {
     @Override
     public List<AnimalDTO> getAllAnimalsConsultedBy(RegularUser regularUser) throws NoSuchEntityException {
         RegularUser user = regularUserRepository.findById(regularUser.getIdUser()).orElse(null);
-        if(user == null) {
+        if (user == null) {
             throw new NoSuchEntityException("No such user");
         }
         return user.getConsultedAnimals().stream().map(AnimalDTO::new).collect(Collectors.toList());
@@ -51,12 +51,12 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Override
     public List<AnimalDTO> getCorrespondingAnimals() throws NoSuchEntityException {
-       // User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        // User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         //if(principal.getUserType().equals(UserType.ADMIN)) {
         //    return getAll();
         //}
         //else{
-         //   return getAllAnimalsConsultedBy((RegularUser) principal);
+        //   return getAllAnimalsConsultedBy((RegularUser) principal);
         //}
         return null;
     }
@@ -73,7 +73,7 @@ public class AnimalServiceImpl implements AnimalService {
     @Override
     public AnimalDTO update(int id, String name, String owner, String species) throws NoSuchEntityException {
         Animal animal = animalRepo.findById(id).orElse(null);
-        if(animal == null)
+        if (animal == null)
             throw new NoSuchEntityException("The animal doesn't exist");
         animal.setName(name);
         animal.setOwner(owner);

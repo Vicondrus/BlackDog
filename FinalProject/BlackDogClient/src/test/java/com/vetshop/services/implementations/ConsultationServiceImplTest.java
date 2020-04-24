@@ -92,7 +92,7 @@ class ConsultationServiceImplTest {
 
         Mockito.doReturn(expected).when(restTemplate).postForObject(Mockito.eq("http://localhost:8080/scheduleConsultation"), Mockito.any(ConsultationDTO.class), Mockito.eq(ConsultationDTO.class));
 
-        ConsultationDTO returned = consultationService.postScheduleConsultation(a,r,"11","12",new Date(new Date().getTime() + 100000000));
+        ConsultationDTO returned = consultationService.postScheduleConsultation(a,r,"11","12",new Date(new Date().getTime() + 100000000), null);
 
         Assertions.assertTrue(new ReflectionEquals(returned, "date", "consultationId").matches(expected));
     }

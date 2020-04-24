@@ -1,22 +1,15 @@
 package com.vetshop.services.implementations;
 
-import com.vetshop.dtos.ConsultationDTO;
-import com.vetshop.dtos.RegularUserDTO;
-import com.vetshop.dtos.StatusDTO;
-import com.vetshop.dtos.TypeDTO;
-import com.vetshop.entities.Animal;
-import com.vetshop.entities.Consultation;
-import com.vetshop.entities.RegularUser;
-import com.vetshop.entities.Status;
+import com.vetshop.dtos.*;
+import com.vetshop.entities.*;
 import com.vetshop.notifications.NotificationService;
-import com.vetshop.repositories.AnimalRepository;
-import com.vetshop.repositories.ConsultationRepository;
-import com.vetshop.repositories.RegularUserRepository;
+import com.vetshop.repositories.*;
 import com.vetshop.services.ConsultationService;
 import com.vetshop.services.exceptions.NoSuchEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +27,10 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     private final RegularUserRepository regularUserRepository;
 
+    private final GearRepository gearRepository;
+
+    private final ItemRepository itemRepository;
+
     private final NotificationService notificationService;
 
     /**
@@ -43,13 +40,17 @@ public class ConsultationServiceImpl implements ConsultationService {
      * @param animalRepository      the animal repository
      * @param regularUserRepository the regular user repository
      * @param notificationService   the notification service
+     * @param gearRepository        the gear repository
+     * @param itemRepository        the item repository
      */
     @Autowired
-    public ConsultationServiceImpl(ConsultationRepository consultationRepo, AnimalRepository animalRepository, RegularUserRepository regularUserRepository, NotificationService notificationService){
+    public ConsultationServiceImpl(ConsultationRepository consultationRepo, AnimalRepository animalRepository, RegularUserRepository regularUserRepository, NotificationService notificationService, GearRepository gearRepository, ItemRepository itemRepository) {
         this.consultationRepo = consultationRepo;
         this.animalRepository = animalRepository;
         this.regularUserRepository = regularUserRepository;
         this.notificationService = notificationService;
+        this.gearRepository = gearRepository;
+        this.itemRepository = itemRepository;
     }
 
     @Override
@@ -94,25 +95,15 @@ public class ConsultationServiceImpl implements ConsultationService {
         Consultation consultation = consultationRepo.findById(id).orElse(null);
         if (consultation != null) {
             consultationRepo.delete(consultation);
-        }
-        else{
+        } else {
             throw new NoSuchEntityException("Consultation with given id doesn't exist");
         }
         return new ConsultationDTO(consultation);
     }
 
-//    @Override
-//    public Report reportConsultation(int id, String path, String type) throws IOException, DocumentException {
-//        //Consultation cons = consultationRepo.findById(id).orElse(null);
-//        //ReportFactory rf = new ReportFactory();
-//        //Report report = rf.generateReport(ReportType.valueOf(type));
-//        //report.generateReport(cons, path);
-//        //return report;
-//    }
-
     @Override
     public List<ConsultationDTO> findAllForLoggedUser(RegularUserDTO regularUserDTO) {
-        if(regularUserDTO.getUserType().equals(TypeDTO.REGULAR))
+        if (regularUserDTO.getUserType().equals(TypeDTO.REGULAR))
             return consultationRepo.findByDoctorUsername(regularUserDTO.getUsername()).stream().map(ConsultationDTO::new).collect(Collectors.toList());
         else
             return consultationRepo.findAll().stream().map(ConsultationDTO::new).collect(Collectors.toList());
@@ -135,11 +126,43 @@ public class ConsultationServiceImpl implements ConsultationService {
     }
 
     @Override
-    public ConsultationDTO schedule(String patientId, String doctorId, String diagnostic, String details, String recommendations, Date date, StatusDTO status) {
+    public ConsultationDTO schedule(String patientId, String doctorId, String diagnostic, String details, String recommendations, Date date, StatusDTO status, List<ItemDTO> neededGear) {
         Animal animal = animalRepository.findById(Integer.parseInt(patientId)).orElse(null);
         RegularUser doctor = regularUserRepository.findById(Integer.parseInt(doctorId)).orElse(null);
-        Consultation consultation = Consultation.builder().animal(animal).details(details).diagnostic(diagnostic).doctor(doctor).status(Status.valueOf(status.toString())).recommendations(recommendations).date(date).build();
-        notificationService.updateSubjectByTopic(doctor.getUsername(),consultation);
+        Consultation consultation = Consultation.builder().animal(animal).neededGear(new ArrayList<>()).details(details).diagnostic(diagnostic).doctor(doctor).status(Status.valueOf(status.toString())).recommendations(recommendations).date(date).build();
+        consultation = consultationRepo.save(consultation);
+        for (ItemDTO i : neededGear) {
+            Item item = itemRepository.findByName(i.getName());
+            Gear g = Gear.builder().consultation(consultation).item(item).quantity(i.getQuantity()).build();
+            item.addGear(g);
+            consultation.addGear(g);
+            gearRepository.save(g);
+            itemRepository.save(item);
+        }
+        notificationService.updateSubjectByTopic(doctor.getUsername(), consultation);
         return new ConsultationDTO(consultationRepo.save(consultation));
     }
+
+    @Override
+    public ConsultationDTO begin(int consultationId) {
+        Consultation consultation = consultationRepo.findById(consultationId).orElse(null);
+        List<Gear> gear = gearRepository.getAllByConsultation(consultation);
+        for (Gear g : gear) {
+            if (g.getQuantity() > g.getItemStock()) {
+                return null;
+            }
+        }
+        for (Gear g : gear) {
+            Item i = g.getItem();
+            i.setStock(i.getStock() - g.getQuantity());
+            itemRepository.save(i);
+        }
+        if (consultation != null) {
+            consultation.setStatus(Status.IN_PROGRESS);
+            return new ConsultationDTO(consultationRepo.save(consultation));
+        }
+        return null;
+    }
+
+
 }

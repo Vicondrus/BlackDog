@@ -31,14 +31,10 @@ import java.util.*;
 @Scope("singleton")
 public class UpdateConsultationController implements DTOController {
 
-    private ConsultationDTO consultationDTO;
-
     private final RegularUserService regularUserService;
-
     private final AnimalService animalService;
-
     private final ConsultationService consultationService;
-
+    private ConsultationDTO consultationDTO;
     @FXML
     private ComboBox<AnimalDTO> patient;
 
@@ -90,7 +86,7 @@ public class UpdateConsultationController implements DTOController {
     /**
      * Update.
      */
-    public void update(){
+    public void update() {
         UserDTO regularUserDTO = doctor.getValue();
         AnimalDTO animalDTO = patient.getValue();
 
@@ -99,13 +95,13 @@ public class UpdateConsultationController implements DTOController {
         Date d = Date.from(instant);
 
         try {
-            consultationService.postUpdateConsultation(consultationDTO.getConsultationId(),animalDTO,regularUserDTO,diagnostic.getText(),details.getText(),recommendations.getText(),hour.getText(),minute.getText(),d, status.getValue());
+            consultationService.postUpdateConsultation(consultationDTO.getConsultationId(), animalDTO, regularUserDTO, diagnostic.getText(), details.getText(), recommendations.getText(), hour.getText(), minute.getText(), d, status.getValue());
 
             Stage stage = (Stage) updateButton.getScene().getWindow();
             stage.close();
             JavaFXApplication.changeScene(InspectConsultationsController.class);
         } catch (FieldException e) {
-            AlertBox.display("ERROR",e.getMessage());
+            AlertBox.display("ERROR", e.getMessage());
         }
     }
 
@@ -117,11 +113,11 @@ public class UpdateConsultationController implements DTOController {
         doctor.setItems(FXCollections.observableList(users));
         doctor.getSelectionModel().selectFirst();
 
-        doctor.setCellFactory(new Callback<ListView<UserDTO>, ListCell<UserDTO>>(){
+        doctor.setCellFactory(new Callback<ListView<UserDTO>, ListCell<UserDTO>>() {
 
             @Override
-            public ListCell<UserDTO> call(ListView<UserDTO> l){
-                return new ListCell<UserDTO>(){
+            public ListCell<UserDTO> call(ListView<UserDTO> l) {
+                return new ListCell<UserDTO>() {
                     @Override
                     protected void updateItem(UserDTO item, boolean empty) {
                         super.updateItem(item, empty);
@@ -131,17 +127,17 @@ public class UpdateConsultationController implements DTOController {
                             setText(item.getUsername());
                         }
                     }
-                } ;
+                };
             }
         });
 
         doctor.setConverter(new StringConverter<UserDTO>() {
             @Override
             public String toString(UserDTO user) {
-                if (user == null){
+                if (user == null) {
                     return null;
                 } else {
-                    return user.getUsername()+"";
+                    return user.getUsername() + "";
                 }
             }
 
@@ -154,31 +150,31 @@ public class UpdateConsultationController implements DTOController {
         patient.setItems(FXCollections.observableList(animals));
         patient.getSelectionModel().selectFirst();
 
-        patient.setCellFactory(new Callback<ListView<AnimalDTO>, ListCell<AnimalDTO>>(){
+        patient.setCellFactory(new Callback<ListView<AnimalDTO>, ListCell<AnimalDTO>>() {
 
             @Override
-            public ListCell<AnimalDTO> call(ListView<AnimalDTO> l){
-                return new ListCell<AnimalDTO>(){
+            public ListCell<AnimalDTO> call(ListView<AnimalDTO> l) {
+                return new ListCell<AnimalDTO>() {
                     @Override
                     protected void updateItem(AnimalDTO item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item == null || empty) {
                             setGraphic(null);
                         } else {
-                            setText(item.getName()+ " - " +item.getOwner()+"'s " + item.getSpecies());
+                            setText(item.getName() + " - " + item.getOwner() + "'s " + item.getSpecies());
                         }
                     }
-                } ;
+                };
             }
         });
 
         patient.setConverter(new StringConverter<AnimalDTO>() {
             @Override
             public String toString(AnimalDTO item) {
-                if (item == null){
+                if (item == null) {
                     return null;
                 } else {
-                    return item.getName()+ " - " +item.getOwner()+"'s " + item.getSpecies();
+                    return item.getName() + " - " + item.getOwner() + "'s " + item.getSpecies();
                 }
             }
 
@@ -190,11 +186,11 @@ public class UpdateConsultationController implements DTOController {
 
         status.setItems(FXCollections.observableList(Arrays.asList(StatusDTO.values())));
 
-        status.setCellFactory(new Callback<ListView<StatusDTO>, ListCell<StatusDTO>>(){
+        status.setCellFactory(new Callback<ListView<StatusDTO>, ListCell<StatusDTO>>() {
 
             @Override
-            public ListCell<StatusDTO> call(ListView<StatusDTO> l){
-                return new ListCell<StatusDTO>(){
+            public ListCell<StatusDTO> call(ListView<StatusDTO> l) {
+                return new ListCell<StatusDTO>() {
                     @Override
                     protected void updateItem(StatusDTO item, boolean empty) {
                         super.updateItem(item, empty);
@@ -204,14 +200,14 @@ public class UpdateConsultationController implements DTOController {
                             setText(item.toString());
                         }
                     }
-                } ;
+                };
             }
         });
 
         status.setConverter(new StringConverter<StatusDTO>() {
             @Override
             public String toString(StatusDTO status) {
-                if (status == null){
+                if (status == null) {
                     return null;
                 } else {
                     return status.toString();
@@ -234,8 +230,8 @@ public class UpdateConsultationController implements DTOController {
 
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(consultationDTO.getDate());
-        hour.setText(calendar.get(Calendar.HOUR_OF_DAY)+"");
-        minute.setText(calendar.get(Calendar.MINUTE)+"");
+        hour.setText(calendar.get(Calendar.HOUR_OF_DAY) + "");
+        minute.setText(calendar.get(Calendar.MINUTE) + "");
 
         details.setText(consultationDTO.getDetails());
         recommendations.setText(consultationDTO.getRecommendations());

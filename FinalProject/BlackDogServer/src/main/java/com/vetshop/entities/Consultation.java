@@ -4,14 +4,16 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * The type Consultation.
  */
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = "neededGear")
 @SuperBuilder
 @Getter
 @Setter
@@ -40,12 +42,24 @@ public class Consultation {
 
     private Status status;
 
+    @OneToMany(mappedBy = "consultation", fetch = FetchType.EAGER)
+    private List<Gear> neededGear = new ArrayList<>();
+
+    /**
+     * Add gear.
+     *
+     * @param g the g
+     */
+    public void addGear(Gear g) {
+        neededGear.add(g);
+    }
+
     /**
      * Get doctor name string.
      *
      * @return the string
      */
-    public String getDoctorName(){
+    public String getDoctorName() {
         return doctor.getFullName();
     }
 
@@ -54,7 +68,7 @@ public class Consultation {
      *
      * @return the string
      */
-    public String getAnimalName(){
+    public String getAnimalName() {
         return animal.getName();
     }
 
@@ -63,7 +77,7 @@ public class Consultation {
      *
      * @return the string
      */
-    public String getOwnerName(){
+    public String getOwnerName() {
         return animal.getOwner();
     }
 

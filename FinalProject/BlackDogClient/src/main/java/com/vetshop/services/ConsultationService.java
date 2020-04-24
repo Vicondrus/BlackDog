@@ -1,11 +1,9 @@
 package com.vetshop.services;
 
 import com.itextpdf.text.DocumentException;
-import com.vetshop.dtos.AnimalDTO;
-import com.vetshop.dtos.ConsultationDTO;
-import com.vetshop.dtos.StatusDTO;
-import com.vetshop.dtos.UserDTO;
+import com.vetshop.dtos.*;
 import com.vetshop.exceptions.FieldException;
+import com.vetshop.exceptions.OutOfStockException;
 import com.vetshop.report.Report;
 
 import java.io.IOException;
@@ -38,7 +36,7 @@ public interface ConsultationService {
     /**
      * Post create consultation consultation dto.
      *
-     * @param patinet         the patinet
+     * @param patient         the patient
      * @param doctor          the doctor
      * @param diagnostic      the diagnostic
      * @param details         the details
@@ -50,20 +48,21 @@ public interface ConsultationService {
      * @return the consultation dto
      * @throws FieldException the field exception
      */
-    ConsultationDTO postCreateConsultation(AnimalDTO patinet, UserDTO doctor, String diagnostic, String details, String recommendations, String hour, String minute, Date date, StatusDTO status) throws FieldException;
+    ConsultationDTO postCreateConsultation(AnimalDTO patient, UserDTO doctor, String diagnostic, String details, String recommendations, String hour, String minute, Date date, StatusDTO status) throws FieldException;
 
     /**
      * Post schedule consultation consultation dto.
      *
-     * @param patinet the patinet
-     * @param doctor  the doctor
-     * @param hour    the hour
-     * @param minute  the minute
-     * @param date    the date
+     * @param patinet     the patinet
+     * @param doctor      the doctor
+     * @param hour        the hour
+     * @param minute      the minute
+     * @param date        the date
+     * @param neededItems the needed items
      * @return the consultation dto
      * @throws FieldException the field exception
      */
-    ConsultationDTO postScheduleConsultation(AnimalDTO patinet, UserDTO doctor, String hour, String minute, Date date) throws FieldException;
+    ConsultationDTO postScheduleConsultation(AnimalDTO patinet, UserDTO doctor, String hour, String minute, Date date, List<ItemDTO> neededItems) throws FieldException;
 
     /**
      * Post update consultation consultation dto.
@@ -90,4 +89,13 @@ public interface ConsultationService {
      * @return the consultation dto
      */
     ConsultationDTO deleteConsultation(ConsultationDTO consultation);
+
+    /**
+     * Post begin consultation consultation dto.
+     *
+     * @param consultationId the consultation id
+     * @return the consultation dto
+     * @throws OutOfStockException the out of stock exception
+     */
+    ConsultationDTO postBeginConsultation(int consultationId) throws OutOfStockException;
 }

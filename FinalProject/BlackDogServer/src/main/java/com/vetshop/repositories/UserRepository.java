@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * The interface User repository.
  */
 @Repository
-public interface UserRepository extends JpaRepository<User,Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
     /**
      * Find by username user.

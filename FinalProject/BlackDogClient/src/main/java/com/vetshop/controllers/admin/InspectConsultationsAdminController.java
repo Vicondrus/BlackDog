@@ -14,7 +14,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -31,8 +30,7 @@ import java.util.ResourceBundle;
 @FxmlView("inspectconsultationsadmin-stage.fxml")
 public class InspectConsultationsAdminController implements Controller, Initializable {
 
-    @Autowired
-    private ConsultationServiceImpl consultationService;
+    private final ConsultationServiceImpl consultationService;
 
     @FXML
     private TableView<ConsultationDTO> table;
@@ -50,13 +48,22 @@ public class InspectConsultationsAdminController implements Controller, Initiali
     private TableColumn<ConsultationDTO, String> patient;
 
     /**
+     * Instantiates a new Inspect consultations admin controller.
+     *
+     * @param consultationService the consultation service
+     */
+    public InspectConsultationsAdminController(ConsultationServiceImpl consultationService) {
+        this.consultationService = consultationService;
+    }
+
+    /**
      * Report.
      *
      * @param type the type
      */
     public void report(String type) {
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
-        if(consultationDTO == null) {
+        if (consultationDTO == null) {
             AlertBox.display("ERROR", "A consultation must be selected");
             return;
         }
@@ -76,14 +83,14 @@ public class InspectConsultationsAdminController implements Controller, Initiali
     /**
      * Pdf report.
      */
-    public void pdfReport(){
+    public void pdfReport() {
         report("PDF");
     }
 
     /**
      * Txt report.
      */
-    public void txtReport(){
+    public void txtReport() {
         report("TXT");
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
 public class AnimalServiceImpl implements AnimalService {
 
     @Override
-    public List<AnimalDTO> findAllAnimals(){
+    public List<AnimalDTO> findAllAnimals() {
         final String uri = "http://localhost:8080/getAllAnimals";
 
         RestTemplate restTemplate = new RestTemplate();
@@ -26,7 +26,7 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public AnimalDTO deleteAnimal(AnimalDTO animalDTO){
+    public AnimalDTO deleteAnimal(AnimalDTO animalDTO) {
         final String uri = "http://localhost:8080/deleteAnimal";
 
         RestTemplate restTemplate = new RestTemplate();
@@ -35,7 +35,7 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public AnimalDTO postCreateAnimal(String name, String owner, String species){
+    public AnimalDTO postCreateAnimal(String name, String owner, String species) {
         final String uri = "http://localhost:8080/createAnimal";
 
         RestTemplate restTemplate = new RestTemplate();
@@ -48,7 +48,7 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public AnimalDTO postUpdateAnimal(int id, String name, String owner, String species){
+    public AnimalDTO postUpdateAnimal(int id, String name, String owner, String species) {
         final String uri = "http://localhost:8080/updateAnimal";
 
         RestTemplate restTemplate = new RestTemplate();

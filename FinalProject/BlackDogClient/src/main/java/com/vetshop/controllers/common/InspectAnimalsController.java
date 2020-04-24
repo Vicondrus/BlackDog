@@ -57,7 +57,7 @@ public class InspectAnimalsController implements Controller, Initializable {
     }
 
     @Override
-    public void refresh(){
+    public void refresh() {
         name.setCellValueFactory(new PropertyValueFactory<AnimalDTO, String>("name"));
         owner.setCellValueFactory(new PropertyValueFactory<AnimalDTO, String>("owner"));
         species.setCellValueFactory(new PropertyValueFactory<AnimalDTO, String>("species"));
@@ -75,7 +75,7 @@ public class InspectAnimalsController implements Controller, Initializable {
     /**
      * Create.
      */
-    public void create(){
+    public void create() {
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
         JavaFXApplication.changeScene(CreateAnimalController.class);
@@ -84,9 +84,9 @@ public class InspectAnimalsController implements Controller, Initializable {
     /**
      * Update.
      */
-    public void update(){
+    public void update() {
         AnimalDTO animalDTO = table.getSelectionModel().getSelectedItem();
-        if(animalDTO == null){
+        if (animalDTO == null) {
             AlertBox.display("ERROR", "An animal must be selected");
             return;
         }
@@ -99,9 +99,9 @@ public class InspectAnimalsController implements Controller, Initializable {
     /**
      * Delete.
      */
-    public void delete(){
+    public void delete() {
         AnimalDTO animalDTO = table.getSelectionModel().getSelectedItem();
-        if(animalDTO == null){
+        if (animalDTO == null) {
             AlertBox.display("ERROR", "An animal must be selected");
             return;
         }
@@ -112,16 +112,16 @@ public class InspectAnimalsController implements Controller, Initializable {
     /**
      * View.
      */
-    public void view(){
+    public void view() {
         AnimalDTO animalDTO = table.getSelectionModel().getSelectedItem();
-        if(animalDTO == null){
+        if (animalDTO == null) {
             AlertBox.display("ERROR", "An animal must be selected");
             return;
         }
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
 
-        JavaFXApplication.changeScene(ViewAnimalController.class,animalDTO);
+        JavaFXApplication.changeScene(ViewAnimalController.class, animalDTO);
     }
 
     /**
@@ -131,7 +131,7 @@ public class InspectAnimalsController implements Controller, Initializable {
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
 
-        if(authService.getUserType().equals(TypeDTO.REGULAR))
+        if (authService.getUserType().equals(TypeDTO.REGULAR))
             JavaFXApplication.changeScene(RegularUserController.class);
         else
             JavaFXApplication.changeScene(AdminUserController.class);

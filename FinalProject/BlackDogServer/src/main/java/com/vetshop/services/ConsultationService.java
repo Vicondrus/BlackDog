@@ -2,6 +2,7 @@ package com.vetshop.services;
 
 
 import com.vetshop.dtos.ConsultationDTO;
+import com.vetshop.dtos.ItemDTO;
 import com.vetshop.dtos.RegularUserDTO;
 import com.vetshop.dtos.StatusDTO;
 import com.vetshop.services.exceptions.NoSuchEntityException;
@@ -64,8 +65,6 @@ public interface ConsultationService {
      */
     ConsultationDTO delete(int id) throws NoSuchEntityException;
 
-    //Report reportConsultation(int id, String path, String type) throws IOException, DocumentException;
-
     /**
      * Find all for logged user list.
      *
@@ -106,14 +105,23 @@ public interface ConsultationService {
     /**
      * Schedule consultation dto.
      *
-     * @param s               the s
-     * @param s1              the s 1
+     * @param patientId       the patient id
+     * @param doctorId        the doctor id
      * @param diagnostic      the diagnostic
      * @param details         the details
      * @param recommendations the recommendations
      * @param date            the date
      * @param status          the status
+     * @param neededGear      the needed gear
      * @return the consultation dto
      */
-    ConsultationDTO schedule(String s, String s1, String diagnostic, String details, String recommendations, Date date, StatusDTO status);
+    ConsultationDTO schedule(String patientId, String doctorId, String diagnostic, String details, String recommendations, Date date, StatusDTO status, List<ItemDTO> neededGear);
+
+    /**
+     * Begin consultation dto.
+     *
+     * @param consultationId the consultation id
+     * @return the consultation dto
+     */
+    ConsultationDTO begin(int consultationId);
 }

@@ -44,11 +44,11 @@ public class CreateUserController implements Controller {
     /**
      * Create.
      */
-    public void create(){
-        if(!password.getText().equals(confirm.getText())){
+    public void create() {
+        if (!password.getText().equals(confirm.getText())) {
             AlertBox.display("ERROR", "Password mismatch");
-        }else{
-                regularUserService.postCreateUser(username.getText(), password.getText(), fullname.getText());
+        } else {
+            regularUserService.postCreateUser(username.getText(), password.getText(), fullname.getText());
 
             Stage stage = (Stage) username.getScene().getWindow();
             stage.close();

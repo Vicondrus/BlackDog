@@ -19,10 +19,10 @@ public class NotificationWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws AlreadyExistingException {
-        String[] payload = message.getPayload().split("####");;
+        String[] payload = message.getPayload().split("####");
         System.out.println("RECEIVED from " + session.getId() + ": " + message.getPayload());
 
-        if(payload[0].equals("START"))
+        if (payload[0].equals("START"))
             notificationService.addTopic(session, payload[1]);
         else if (payload[0].equals("STOP"))
             notificationService.removeSubjectAndTopic(payload[1]);

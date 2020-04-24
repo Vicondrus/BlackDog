@@ -30,7 +30,7 @@ public class ViewAnimalController implements DTOController {
     private TextField species;
 
     @Override
-    public void refresh(){
+    public void refresh() {
         name.setText(animalDTO.getName());
         owner.setText(animalDTO.getOwner());
         species.setText(animalDTO.getSpecies());

@@ -39,7 +39,7 @@ public class AdminUserController implements Controller {
     /**
      * Get users window.
      */
-    public void getUsersWindow(){
+    public void getUsersWindow() {
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
 
@@ -49,7 +49,7 @@ public class AdminUserController implements Controller {
     /**
      * Get animals window.
      */
-    public void getAnimalsWindow(){
+    public void getAnimalsWindow() {
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
 
@@ -59,7 +59,7 @@ public class AdminUserController implements Controller {
     /**
      * Get consultations window.
      */
-    public void getConsultationsWindow(){
+    public void getConsultationsWindow() {
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
 
@@ -80,5 +80,15 @@ public class AdminUserController implements Controller {
         stage.close();
 
         JavaFXApplication.changeScene(LoginController.class);
+    }
+
+    /**
+     * Gets items.
+     */
+    public void getItems() {
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
+
+        JavaFXApplication.changeScene(InspectItemsController.class);
     }
 }

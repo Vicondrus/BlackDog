@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="334.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.vetshop.controllers.admin.CreateItemController">
+    <children>
+        <TextField layoutX="300.0" layoutY="76.0" fx:id="name"/>
+        <TextField layoutX="300.0" layoutY="175.0" fx:id="stock"/>
+        <Button layoutX="275.0" layoutY="240.0" mnemonicParsing="false" text="Create" onAction="#create"/>
+        <Button layoutX="280.0" layoutY="283.0" mnemonicParsing="false" text="Back" onAction="#back"/>
+        <Label layoutX="160.0" layoutY="80.0" text="Name"/>
+        <Label layoutX="161.0" layoutY="179.0" text="Stock"/>
+    </children>
+</AnchorPane>

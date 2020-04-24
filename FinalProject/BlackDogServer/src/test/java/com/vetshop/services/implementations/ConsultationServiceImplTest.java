@@ -5,9 +5,8 @@ import com.vetshop.dtos.RegularUserDTO;
 import com.vetshop.dtos.StatusDTO;
 import com.vetshop.entities.*;
 import com.vetshop.notifications.NotificationService;
-import com.vetshop.repositories.AnimalRepository;
-import com.vetshop.repositories.ConsultationRepository;
-import com.vetshop.repositories.RegularUserRepository;
+import com.vetshop.repositories.*;
+import com.vetshop.services.ItemService;
 import com.vetshop.services.exceptions.FieldException;
 import com.vetshop.services.exceptions.NoSuchEntityException;
 import org.hamcrest.CoreMatchers;
@@ -35,6 +34,10 @@ class ConsultationServiceImplTest {
 
     private RegularUserRepository regularUserRepository;
 
+    private ItemRepository itemRepository;
+
+    private GearRepository gearRepository;
+
     /**
      * Sets up.
      */
@@ -44,7 +47,9 @@ class ConsultationServiceImplTest {
         regularUserRepository = Mockito.mock(RegularUserRepository.class);
         consultationRepo = Mockito.mock(ConsultationRepository.class);
         NotificationService notificationService = Mockito.mock(NotificationService.class);
-        consultationService = new ConsultationServiceImpl(consultationRepo, animalRepository, regularUserRepository, notificationService);
+        itemRepository = Mockito.mock(ItemRepository.class);
+        gearRepository = Mockito.mock(GearRepository.class);
+        consultationService = new ConsultationServiceImpl(consultationRepo, animalRepository, regularUserRepository, notificationService, gearRepository, itemRepository);
     }
 
     /**

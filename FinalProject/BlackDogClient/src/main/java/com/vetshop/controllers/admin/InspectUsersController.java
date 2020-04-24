@@ -45,7 +45,7 @@ public class InspectUsersController implements Controller, Initializable {
     }
 
     @Override
-    public void refresh(){
+    public void refresh() {
         username.setCellValueFactory(new PropertyValueFactory<UserDTO, String>("username"));
         fullName.setCellValueFactory(new PropertyValueFactory<UserDTO, String>("fullName"));
 
@@ -60,7 +60,7 @@ public class InspectUsersController implements Controller, Initializable {
     /**
      * Create.
      */
-    public void create(){
+    public void create() {
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
         JavaFXApplication.changeScene(CreateUserController.class);
@@ -69,9 +69,9 @@ public class InspectUsersController implements Controller, Initializable {
     /**
      * Update.
      */
-    public void update(){
+    public void update() {
         UserDTO regularUserDTO = table.getSelectionModel().getSelectedItem();
-        if(regularUserDTO == null){
+        if (regularUserDTO == null) {
             AlertBox.display("ERROR", "A user must be selected");
             return;
         }
@@ -83,9 +83,9 @@ public class InspectUsersController implements Controller, Initializable {
     /**
      * Delete.
      */
-    public void delete(){
+    public void delete() {
         UserDTO regularUserDTO = table.getSelectionModel().getSelectedItem();
-        if(regularUserDTO == null){
+        if (regularUserDTO == null) {
             AlertBox.display("ERROR", "A user must be selected");
             return;
         }
@@ -96,9 +96,9 @@ public class InspectUsersController implements Controller, Initializable {
     /**
      * View.
      */
-    public void view(){
+    public void view() {
         UserDTO regularUserDTO = table.getSelectionModel().getSelectedItem();
-        if(regularUserDTO == null){
+        if (regularUserDTO == null) {
             AlertBox.display("ERROR", "A user must be selected");
             return;
         }

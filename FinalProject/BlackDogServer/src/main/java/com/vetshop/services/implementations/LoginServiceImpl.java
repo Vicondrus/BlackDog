@@ -22,18 +22,18 @@ public class LoginServiceImpl implements LoginService {
      * @param userRepository the user repository
      */
     @Autowired
-    public LoginServiceImpl(UserRepository userRepository){
+    public LoginServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
     public TypeDTO loginUser(String username, String password) throws InvalidCredentialsException {
         User user = userRepository.findByUsername(username);
-        if(user == null)
+        if (user == null)
             throw new InvalidCredentialsException("No such user");
-        else if(user.getPassword().equals(password)){
+        else if (user.getPassword().equals(password)) {
             return TypeDTO.valueOf(user.getUserTypeAsString());
-        }else{
+        } else {
             throw new InvalidCredentialsException("Wrong Password");
         }
     }

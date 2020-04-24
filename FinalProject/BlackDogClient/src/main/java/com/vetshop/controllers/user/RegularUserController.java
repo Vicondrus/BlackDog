@@ -21,10 +21,9 @@ import java.io.IOException;
 @FxmlView("regularuser-stage.fxml")
 public class RegularUserController implements Controller {
 
+    private final AuthService authService;
     @FXML
     private Button button;
-
-    private final AuthService authService;
 
     /**
      * Instantiates a new Regular user controller.
@@ -38,7 +37,7 @@ public class RegularUserController implements Controller {
     /**
      * Get consultations window.
      */
-    public void getConsultationsWindow(){
+    public void getConsultationsWindow() {
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
 
@@ -48,7 +47,7 @@ public class RegularUserController implements Controller {
     /**
      * Get animals window.
      */
-    public void getAnimalsWindow(){
+    public void getAnimalsWindow() {
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
 
@@ -58,7 +57,7 @@ public class RegularUserController implements Controller {
     /**
      * Schedule consultation.
      */
-    public void scheduleConsultation(){
+    public void scheduleConsultation() {
         Stage stage = (Stage) button.getScene().getWindow();
         stage.close();
 
@@ -68,7 +67,7 @@ public class RegularUserController implements Controller {
     /**
      * Logout.
      */
-    public void logout(){
+    public void logout() {
         try {
             authService.logOut();
         } catch (IOException e) {

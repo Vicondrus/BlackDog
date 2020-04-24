@@ -11,5 +11,9 @@ public enum Status {
     /**
      * Done status.
      */
-    DONE
+    DONE,
+    /**
+     * In progress status.
+     */
+    IN_PROGRESS
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.vetshop.controllers.admin.InspectItemsController">
+    <children>
+        <SplitPane dividerPositions="0.6884422110552764" layoutX="220.0" layoutY="90.0" orientation="VERTICAL"
+                   prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                    <children>
+                        <TableView layoutX="199.0" layoutY="14.0" prefHeight="271.0" prefWidth="598.0"
+                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" fx:id="table">
+                            <columns>
+                                <TableColumn prefWidth="361.0" text="Item" fx:id="item"/>
+                                <TableColumn prefWidth="236.0" text="Stock" fx:id="stock"/>
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                    <children>
+                        <Button layoutX="109.0" layoutY="36.0" mnemonicParsing="false" onAction="#create"
+                                text="Create"/>
+                        <Button layoutX="273.0" layoutY="36.0" mnemonicParsing="false" onAction="#update"
+                                text="Update"/>
+                        <Button layoutX="440.0" layoutY="36.0" mnemonicParsing="false" onAction="#delete"
+                                text="Delete"/>
+                        <Button layoutX="280.0" layoutY="82.0" mnemonicParsing="false" onAction="#back" text="Back"/>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>

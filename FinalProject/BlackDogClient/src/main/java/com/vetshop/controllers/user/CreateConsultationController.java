@@ -91,7 +91,7 @@ public class CreateConsultationController implements Initializable, Controller {
     /**
      * Create.
      */
-    public void create(){
+    public void create() {
         UserDTO regularUserDTO = doctor.getValue();
         AnimalDTO animalDTO = patient.getValue();
 
@@ -100,7 +100,7 @@ public class CreateConsultationController implements Initializable, Controller {
         Date d = Date.from(instant);
 
         try {
-            consultationService.postCreateConsultation(animalDTO,regularUserDTO,diagnostic.getText(),details.getText(),recommendations.getText(),hour.getText(),minute.getText(),d,status.getValue());
+            consultationService.postCreateConsultation(animalDTO, regularUserDTO, diagnostic.getText(), details.getText(), recommendations.getText(), hour.getText(), minute.getText(), d, status.getValue());
 
             Stage stage = (Stage) createButton.getScene().getWindow();
             stage.close();
@@ -119,11 +119,11 @@ public class CreateConsultationController implements Initializable, Controller {
         doctor.setItems(FXCollections.observableList(users));
         doctor.getSelectionModel().selectFirst();
 
-        doctor.setCellFactory(new Callback<ListView<UserDTO>, ListCell<UserDTO>>(){
+        doctor.setCellFactory(new Callback<ListView<UserDTO>, ListCell<UserDTO>>() {
 
             @Override
-            public ListCell<UserDTO> call(ListView<UserDTO> l){
-                return new ListCell<UserDTO>(){
+            public ListCell<UserDTO> call(ListView<UserDTO> l) {
+                return new ListCell<UserDTO>() {
                     @Override
                     protected void updateItem(UserDTO item, boolean empty) {
                         super.updateItem(item, empty);
@@ -133,17 +133,17 @@ public class CreateConsultationController implements Initializable, Controller {
                             setText(item.getUsername());
                         }
                     }
-                } ;
+                };
             }
         });
 
         doctor.setConverter(new StringConverter<UserDTO>() {
             @Override
             public String toString(UserDTO user) {
-                if (user == null){
+                if (user == null) {
                     return null;
                 } else {
-                    return user.getUsername()+"";
+                    return user.getUsername() + "";
                 }
             }
 
@@ -156,31 +156,31 @@ public class CreateConsultationController implements Initializable, Controller {
         patient.setItems(FXCollections.observableList(animals));
         patient.getSelectionModel().selectFirst();
 
-        patient.setCellFactory(new Callback<ListView<AnimalDTO>, ListCell<AnimalDTO>>(){
+        patient.setCellFactory(new Callback<ListView<AnimalDTO>, ListCell<AnimalDTO>>() {
 
             @Override
-            public ListCell<AnimalDTO> call(ListView<AnimalDTO> l){
-                return new ListCell<AnimalDTO>(){
+            public ListCell<AnimalDTO> call(ListView<AnimalDTO> l) {
+                return new ListCell<AnimalDTO>() {
                     @Override
                     protected void updateItem(AnimalDTO item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item == null || empty) {
                             setGraphic(null);
                         } else {
-                            setText(item.getName()+ " - " +item.getOwner()+"'s " + item.getSpecies());
+                            setText(item.getName() + " - " + item.getOwner() + "'s " + item.getSpecies());
                         }
                     }
-                } ;
+                };
             }
         });
 
         patient.setConverter(new StringConverter<AnimalDTO>() {
             @Override
             public String toString(AnimalDTO animal) {
-                if (animal == null){
+                if (animal == null) {
                     return null;
                 } else {
-                    return animal.getName()+ " - " +animal.getOwner()+"'s " + animal.getSpecies();
+                    return animal.getName() + " - " + animal.getOwner() + "'s " + animal.getSpecies();
                 }
             }
 
@@ -193,11 +193,11 @@ public class CreateConsultationController implements Initializable, Controller {
         status.setItems(FXCollections.observableList(Arrays.asList(StatusDTO.values())));
         status.getSelectionModel().selectFirst();
 
-        status.setCellFactory(new Callback<ListView<StatusDTO>, ListCell<StatusDTO>>(){
+        status.setCellFactory(new Callback<ListView<StatusDTO>, ListCell<StatusDTO>>() {
 
             @Override
-            public ListCell<StatusDTO> call(ListView<StatusDTO> l){
-                return new ListCell<StatusDTO>(){
+            public ListCell<StatusDTO> call(ListView<StatusDTO> l) {
+                return new ListCell<StatusDTO>() {
                     @Override
                     protected void updateItem(StatusDTO item, boolean empty) {
                         super.updateItem(item, empty);
@@ -207,14 +207,14 @@ public class CreateConsultationController implements Initializable, Controller {
                             setText(item.toString());
                         }
                     }
-                } ;
+                };
             }
         });
 
         status.setConverter(new StringConverter<StatusDTO>() {
             @Override
             public String toString(StatusDTO status) {
-                if (status == null){
+                if (status == null) {
                     return null;
                 } else {
                     return status.toString();

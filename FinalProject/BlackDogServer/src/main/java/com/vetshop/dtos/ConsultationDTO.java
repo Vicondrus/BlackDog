@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
+import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -19,7 +20,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @Setter
 @Data
-public class ConsultationDTO implements DTO{
+public class ConsultationDTO implements DTO {
 
     private int consultationId;
 
@@ -37,12 +38,31 @@ public class ConsultationDTO implements DTO{
 
     private StatusDTO status;
 
+    private List<ItemDTO> items;
+
+    /**
+     * Instantiates a new Consultation dto.
+     *
+     * @param consultation the consultation
+     */
+    public ConsultationDTO(Consultation consultation) {
+        consultationId = consultation.getConsultationId();
+        animal = new AnimalDTO(consultation.getAnimal());
+        doctor = new RegularUserDTO(consultation.getDoctor());
+        details = consultation.getDetails();
+        diagnostic = consultation.getDiagnostic();
+        recommendations = consultation.getRecommendations();
+        date = consultation.getDate();
+        if (consultation.getStatus() != null)
+            status = StatusDTO.valueOf(consultation.getStatus().toString());
+    }
+
     /**
      * Get doctor name string.
      *
      * @return the string
      */
-    public String getDoctorName(){
+    public String getDoctorName() {
         return doctor.getFullName();
     }
 
@@ -51,7 +71,7 @@ public class ConsultationDTO implements DTO{
      *
      * @return the string
      */
-    public String getAnimalName(){
+    public String getAnimalName() {
         return animal.getName();
     }
 
@@ -60,7 +80,7 @@ public class ConsultationDTO implements DTO{
      *
      * @return the int
      */
-    public int getDoctorId(){
+    public int getDoctorId() {
         return doctor.getIdUser();
     }
 
@@ -69,7 +89,7 @@ public class ConsultationDTO implements DTO{
      *
      * @return the int
      */
-    public int getAnimalId(){
+    public int getAnimalId() {
         return animal.getAnimalId();
     }
 
@@ -78,25 +98,8 @@ public class ConsultationDTO implements DTO{
      *
      * @return the string
      */
-    public String getOwnerName(){
+    public String getOwnerName() {
         return animal.getOwner();
-    }
-
-    /**
-     * Instantiates a new Consultation dto.
-     *
-     * @param consultation the consultation
-     */
-    public ConsultationDTO(Consultation consultation){
-        consultationId = consultation.getConsultationId();
-        animal = new AnimalDTO(consultation.getAnimal());
-        doctor = new RegularUserDTO(consultation.getDoctor());
-        details = consultation.getDetails();
-        diagnostic = consultation.getDiagnostic();
-        recommendations = consultation.getRecommendations();
-        date = consultation.getDate();
-        if(consultation.getStatus() != null)
-            status = StatusDTO.valueOf(consultation.getStatus().toString());
     }
 
 }

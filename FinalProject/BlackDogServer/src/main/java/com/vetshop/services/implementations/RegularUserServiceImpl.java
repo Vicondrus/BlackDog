@@ -28,14 +28,14 @@ public class RegularUserServiceImpl implements RegularUserService {
      * @param regularUserRepository the regular user repository
      */
     @Autowired
-    public RegularUserServiceImpl(RegularUserRepository regularUserRepository){
+    public RegularUserServiceImpl(RegularUserRepository regularUserRepository) {
         regUserRepo = regularUserRepository;
     }
 
     @Override
     public RegularUserDTO getByUsername(String username) throws NoSuchEntityException {
         RegularUser found = regUserRepo.findByUsername(username);
-        if(found == null)
+        if (found == null)
             throw new NoSuchEntityException("Invalid username");
         return new RegularUserDTO(found);
     }
@@ -47,7 +47,7 @@ public class RegularUserServiceImpl implements RegularUserService {
 
     @Override
     public RegularUserDTO save(String username, String password, String fullName, String userType) throws AlreadyExistingException, NoSuchEntityException {
-        if(regUserRepo.findByUsername(username)!=null)
+        if (regUserRepo.findByUsername(username) != null)
             throw new AlreadyExistingException("Username taken");
         RegularUser regularUser = RegularUser.builder().consultations(new ArrayList<>()).build();
         regularUser.setFullName(fullName);
@@ -60,7 +60,7 @@ public class RegularUserServiceImpl implements RegularUserService {
     @Override
     public RegularUserDTO update(int id, String username, String password, String fullName) throws NoSuchEntityException {
         RegularUser regularUser = regUserRepo.findById(id).orElse(null);
-        if(regularUser == null)
+        if (regularUser == null)
             throw new NoSuchEntityException("No such username");
         regularUser.setUsername(username);
         regularUser.setPassword(password);
@@ -72,7 +72,7 @@ public class RegularUserServiceImpl implements RegularUserService {
     @Override
     public RegularUserDTO delete(int id) throws NoSuchEntityException {
         RegularUser regularUser = regUserRepo.findById(id).orElse(null);
-        if(regularUser == null)
+        if (regularUser == null)
             throw new NoSuchEntityException("No such username");
         regUserRepo.delete(regularUser);
         return new RegularUserDTO(regularUser);

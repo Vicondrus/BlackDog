@@ -10,7 +10,7 @@ public class NoSuchEntityException extends Exception {
      *
      * @param s the s
      */
-    public NoSuchEntityException(String s){
+    public NoSuchEntityException(String s) {
         super(s);
     }
 

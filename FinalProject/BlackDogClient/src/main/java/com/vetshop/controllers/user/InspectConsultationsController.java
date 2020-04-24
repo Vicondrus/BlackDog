@@ -4,6 +4,8 @@ import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.Controller;
 import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.ConsultationDTO;
+import com.vetshop.dtos.StatusDTO;
+import com.vetshop.exceptions.OutOfStockException;
 import com.vetshop.services.ConsultationService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -59,7 +61,7 @@ public class InspectConsultationsController implements Controller, Initializable
     }
 
     @Override
-    public void refresh(){
+    public void refresh() {
         date.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, Date>("date"));
         animal.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("animalName"));
         recommendations.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("recommendations"));
@@ -80,7 +82,7 @@ public class InspectConsultationsController implements Controller, Initializable
     /**
      * Create.
      */
-    public void create(){
+    public void create() {
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
 
@@ -90,9 +92,9 @@ public class InspectConsultationsController implements Controller, Initializable
     /**
      * Update.
      */
-    public void update(){
+    public void update() {
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
-        if(consultationDTO == null){
+        if (consultationDTO == null) {
             AlertBox.display("ERROR", "A consultation must be selected");
             return;
         }
@@ -105,9 +107,9 @@ public class InspectConsultationsController implements Controller, Initializable
     /**
      * Delete.
      */
-    public void delete(){
+    public void delete() {
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
-        if(consultationDTO == null){
+        if (consultationDTO == null) {
             AlertBox.display("ERROR", "A consultation must be selected");
             return;
         }
@@ -118,16 +120,16 @@ public class InspectConsultationsController implements Controller, Initializable
     /**
      * View.
      */
-    public void view(){
+    public void view() {
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
-        if(consultationDTO == null){
+        if (consultationDTO == null) {
             AlertBox.display("ERROR", "A consultation must be selected");
             return;
         }
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
 
-        JavaFXApplication.changeScene(ViewConsultationController.class,consultationDTO);
+        JavaFXApplication.changeScene(ViewConsultationController.class, consultationDTO);
     }
 
     /**
@@ -138,5 +140,28 @@ public class InspectConsultationsController implements Controller, Initializable
         stage.close();
 
         JavaFXApplication.changeScene(RegularUserController.class);
+    }
+
+    /**
+     * Begin.
+     */
+    public void begin() {
+        ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
+        if (consultationDTO == null) {
+            AlertBox.display("ERROR", "A consultation must be selected");
+            return;
+        }
+
+        if (!consultationDTO.getStatus().equals(StatusDTO.SCHEDULED)) {
+            AlertBox.display("ERROR", "Consultation already begun");
+            return;
+        }
+
+        try {
+            consultationService.postBeginConsultation(consultationDTO.getConsultationId());
+        } catch (OutOfStockException e) {
+            AlertBox.display("ERROR", e.getMessage());
+        }
+        refresh();
     }
 }

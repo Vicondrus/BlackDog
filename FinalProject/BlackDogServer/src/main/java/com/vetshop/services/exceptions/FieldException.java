@@ -10,7 +10,7 @@ public class FieldException extends Exception {
      *
      * @param s the s
      */
-    public FieldException(String s){
+    public FieldException(String s) {
         super(s);
     }
 

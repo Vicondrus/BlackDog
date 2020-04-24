@@ -19,7 +19,7 @@ public class ConcreteObserver implements Observer {
      *
      * @param session the session
      */
-    public ConcreteObserver(WebSocketSession session){
+    public ConcreteObserver(WebSocketSession session) {
         this.session = session;
     }
 

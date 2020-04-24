@@ -17,7 +17,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @Setter
 @Data
-public class RegularUserDTO implements DTO{
+public class RegularUserDTO implements DTO {
 
     private int idUser;
 
@@ -35,12 +35,12 @@ public class RegularUserDTO implements DTO{
      *
      * @param user the user
      */
-    public RegularUserDTO(RegularUser user){
+    public RegularUserDTO(RegularUser user) {
         idUser = user.getIdUser();
         username = user.getUsername();
         password = user.getUsername();
         fullName = user.getFullName();
-        if(user.getUserType() != null)
+        if (user.getUserType() != null)
             userType = TypeDTO.valueOf(user.getUserType().toString());
     }
 

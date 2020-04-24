@@ -17,7 +17,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @Setter
 @Data
-public class AnimalDTO implements DTO{
+public class AnimalDTO implements DTO {
 
     private int animalId;
 

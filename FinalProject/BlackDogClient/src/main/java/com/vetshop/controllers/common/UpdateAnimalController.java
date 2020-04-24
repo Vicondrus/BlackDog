@@ -18,10 +18,8 @@ import org.springframework.stereotype.Component;
 @FxmlView("updateanimal-stage.fxml")
 public class UpdateAnimalController implements DTOController {
 
-    private AnimalDTO animalDTO;
-
     private final AnimalService animalService;
-
+    private AnimalDTO animalDTO;
     @FXML
     private TextField name;
 
@@ -41,7 +39,7 @@ public class UpdateAnimalController implements DTOController {
     }
 
     @Override
-    public void refresh(){
+    public void refresh() {
         name.setText(animalDTO.getName());
         owner.setText(animalDTO.getOwner());
         species.setText(animalDTO.getSpecies());
@@ -55,7 +53,7 @@ public class UpdateAnimalController implements DTOController {
     /**
      * Update.
      */
-    public void update(){
+    public void update() {
         animalService.postUpdateAnimal(animalDTO.getAnimalId(), name.getText(), owner.getText(), species.getText());
 
         Stage stage = (Stage) name.getScene().getWindow();

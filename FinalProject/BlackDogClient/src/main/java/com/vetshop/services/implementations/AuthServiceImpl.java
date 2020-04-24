@@ -40,13 +40,13 @@ public class AuthServiceImpl implements AuthService {
 
         TypeDTO result = restTemplate.postForObject(uri, regularUserDTO, TypeDTO.class);
 
-        if(result == null)
+        if (result == null)
             throw new InvalidCredentialsException("Invalid credentials");
 
         Authentication auth = new UsernamePasswordAuthenticationToken(UserDTO.builder().userType(result).username(username).build(), null);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-        notificationWebSocketHandler.sendMessage("START####"+username);
+        notificationWebSocketHandler.sendMessage("START####" + username);
 
         return result;
     }
@@ -55,13 +55,13 @@ public class AuthServiceImpl implements AuthService {
     public void logOut() throws IOException {
         UserDTO principal = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        notificationWebSocketHandler.sendMessage("STOP####"+principal.getUsername());
+        notificationWebSocketHandler.sendMessage("STOP####" + principal.getUsername());
 
         SecurityContextHolder.getContext().setAuthentication(null);
     }
 
     @Override
-    public TypeDTO getUserType(){
+    public TypeDTO getUserType() {
         UserDTO principal = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return principal.getUserType();
     }

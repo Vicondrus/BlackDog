@@ -67,7 +67,7 @@ public class RegularUserController {
     public RegularUserDTO createUser(@RequestBody RegularUserDTO regularUserDTO) {
         RegularUserDTO created = null;
         try {
-            created = regularUserService.save(regularUserDTO.getUsername(),regularUserDTO.getPassword(),regularUserDTO.getFullName(), regularUserDTO.getUserType().toString());
+            created = regularUserService.save(regularUserDTO.getUsername(), regularUserDTO.getPassword(), regularUserDTO.getFullName(), regularUserDTO.getUserType().toString());
         } catch (AlreadyExistingException | NoSuchEntityException e) {
             e.printStackTrace();
         }

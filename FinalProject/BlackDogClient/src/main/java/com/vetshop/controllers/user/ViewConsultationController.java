@@ -53,14 +53,14 @@ public class ViewConsultationController implements DTOController {
 
     @Override
     public void setDTO(DTO dto) {
-        consultationDTO= (ConsultationDTO) dto;
+        consultationDTO = (ConsultationDTO) dto;
     }
 
     @Override
     public void refresh() {
 
         doctor.setText(consultationDTO.getDoctorName());
-        patient.setText(consultationDTO.getAnimalName() + " - " + consultationDTO.getOwnerName()+"'s " + consultationDTO.getAnimalSpecies());
+        patient.setText(consultationDTO.getAnimalName() + " - " + consultationDTO.getOwnerName() + "'s " + consultationDTO.getAnimalSpecies());
 
         date.setValue(consultationDTO.getDate().toInstant()
                 .atZone(ZoneId.systemDefault())
@@ -68,8 +68,8 @@ public class ViewConsultationController implements DTOController {
 
         Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(consultationDTO.getDate());
-        hour.setText(calendar.get(Calendar.HOUR_OF_DAY)+"");
-        minute.setText(calendar.get(Calendar.MINUTE)+"");
+        hour.setText(calendar.get(Calendar.HOUR_OF_DAY) + "");
+        minute.setText(calendar.get(Calendar.MINUTE) + "");
 
         details.setText(consultationDTO.getDetails());
         recommendations.setText(consultationDTO.getRecommendations());

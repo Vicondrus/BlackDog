@@ -30,7 +30,7 @@ public class ViewUserController implements DTOController {
     private TextField password;
 
     @Override
-    public void refresh(){
+    public void refresh() {
         username.setText(regularUserDTO.getUsername());
         password.setText(regularUserDTO.getPassword());
         fullname.setText(regularUserDTO.getFullName());

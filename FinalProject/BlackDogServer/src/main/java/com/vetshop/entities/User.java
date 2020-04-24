@@ -50,19 +50,19 @@ public abstract class User {
     protected UserType userType;
 
     /**
+     * Instantiates a new User.
+     */
+    protected User() {
+        super();
+    }
+
+    /**
      * Get user type as string string.
      *
      * @return the string
      */
-    public String getUserTypeAsString(){
+    public String getUserTypeAsString() {
         return userType.toString();
-    }
-
-    /**
-     * Instantiates a new User.
-     */
-    protected User(){
-        super();
     }
 
 }

@@ -10,7 +10,7 @@ public class AlreadyExistingException extends Exception {
      *
      * @param s the s
      */
-    public AlreadyExistingException(String s){
+    public AlreadyExistingException(String s) {
         super(s);
     }
 
