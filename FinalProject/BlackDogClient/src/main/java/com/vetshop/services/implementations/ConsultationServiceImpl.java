@@ -152,5 +152,18 @@ public class ConsultationServiceImpl implements ConsultationService {
         return consultation;
     }
 
+    @Override
+    public ConsultationDTO postCompleteConsultation(ConsultationDTO consultation, String diagnostic, String details, String recommendations) {
+        final String uri = "http://localhost:8080/completeConsultation";
+
+        consultation.setDetails(details);
+        consultation.setDiagnostic(diagnostic);
+        consultation.setRecommendations(recommendations);
+
+        consultation = restTemplate.postForObject(uri, consultation, ConsultationDTO.class);
+
+        return consultation;
+    }
+
 
 }

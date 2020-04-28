@@ -164,4 +164,23 @@ public class InspectConsultationsController implements Controller, Initializable
         }
         refresh();
     }
+
+    /**
+     * Complete.
+     */
+    public void complete() {
+        ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
+        if (consultationDTO == null) {
+            AlertBox.display("ERROR", "A consultation must be selected");
+            return;
+        }
+        if (!consultationDTO.getStatus().equals(StatusDTO.IN_PROGRESS)) {
+            AlertBox.display("ERROR", "The consultation must be in progress");
+            return;
+        }
+        Stage stage = (Stage) table.getScene().getWindow();
+        stage.close();
+
+        JavaFXApplication.changeScene(CompleteConsultationController.class, consultationDTO);
+    }
 }

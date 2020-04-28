@@ -93,4 +93,15 @@ public class ConsultationController {
     public ConsultationDTO beginConsultation(@RequestBody int consultationId) {
         return consultationService.begin(consultationId);
     }
+
+    /**
+     * Complete consultation consultation dto.
+     *
+     * @param consultationDTO the consultation dto
+     * @return the consultation dto
+     */
+    @PostMapping(value = "/completeConsultation")
+    public ConsultationDTO completeConsultation(@RequestBody ConsultationDTO consultationDTO) {
+        return consultationService.complete(consultationDTO.getConsultationId(), consultationDTO.getDiagnostic(), consultationDTO.getDetails(), consultationDTO.getRecommendations());
+    }
 }

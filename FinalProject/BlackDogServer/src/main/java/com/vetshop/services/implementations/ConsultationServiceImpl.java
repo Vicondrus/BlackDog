@@ -164,5 +164,19 @@ public class ConsultationServiceImpl implements ConsultationService {
         return null;
     }
 
+    @Override
+    public ConsultationDTO complete(int consultationId, String diagnostic, String details, String recommendations) {
+        Consultation consultation = consultationRepo.findById(consultationId).orElse(null);
+        if (consultation != null) {
+            consultation.setStatus(Status.DONE);
+            consultation.setDetails(details);
+            consultation.setDiagnostic(diagnostic);
+            consultation.setRecommendations(recommendations);
+
+            return new ConsultationDTO(consultationRepo.save(consultation));
+        }
+        return null;
+    }
+
 
 }

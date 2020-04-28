@@ -124,4 +124,15 @@ public interface ConsultationService {
      * @return the consultation dto
      */
     ConsultationDTO begin(int consultationId);
+
+    /**
+     * Complete consultation dto.
+     *
+     * @param consultationId  the consultation id
+     * @param diagnostic      the diagnostic
+     * @param details         the details
+     * @param recommendations the recommendations
+     * @return the consultation dto
+     */
+    ConsultationDTO complete(int consultationId, String diagnostic, String details, String recommendations);
 }

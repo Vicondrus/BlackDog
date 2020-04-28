@@ -98,4 +98,15 @@ public interface ConsultationService {
      * @throws OutOfStockException the out of stock exception
      */
     ConsultationDTO postBeginConsultation(int consultationId) throws OutOfStockException;
+
+    /**
+     * Post complete consultation consultation dto.
+     *
+     * @param consultation    the consultation
+     * @param diagnostic      the diagnostic
+     * @param details         the details
+     * @param recommendations the recommendations
+     * @return the consultation dto
+     */
+    ConsultationDTO postCompleteConsultation(ConsultationDTO consultation, String diagnostic, String details, String recommendations);
 }
