@@ -4,7 +4,9 @@ import com.vetshop.dtos.TypeDTO;
 import com.vetshop.entities.RegularUser;
 import com.vetshop.entities.UserType;
 import com.vetshop.repositories.UserRepository;
+import com.vetshop.services.exceptions.AlreadyExistingException;
 import com.vetshop.services.exceptions.InvalidCredentialsException;
+import com.vetshop.util.ActiveUsersStore;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,13 +25,16 @@ class LoginServiceImplTest {
 
     private LoginServiceImpl loginService;
 
+    private ActiveUsersStore activeUsersStore;
+
     /**
      * On set up.
      */
     @BeforeEach
     public void onSetUp() {
         userRepository = Mockito.mock(UserRepository.class);
-        loginService = new LoginServiceImpl(userRepository);
+        activeUsersStore = Mockito.mock(ActiveUsersStore.class);
+        loginService = new LoginServiceImpl(userRepository, activeUsersStore);
     }
 
     /**
@@ -38,7 +43,7 @@ class LoginServiceImplTest {
      * @throws InvalidCredentialsException the invalid credentials exception
      */
     @Test
-    public void loginRegularUserTest() throws InvalidCredentialsException {
+    public void loginRegularUserTest() throws InvalidCredentialsException, AlreadyExistingException {
 
         RegularUser ru = RegularUser.builder().build();
         ru.setFullName("user");
@@ -58,7 +63,7 @@ class LoginServiceImplTest {
      * @throws InvalidCredentialsException the invalid credentials exception
      */
     @Test
-    public void loginAdminUserTest() throws InvalidCredentialsException {
+    public void loginAdminUserTest() throws InvalidCredentialsException, AlreadyExistingException {
 
         RegularUser ru = RegularUser.builder().build();
         ru.setFullName("admin");

@@ -46,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
         TypeDTO result = restTemplate.postForObject(uri, regularUserDTO, TypeDTO.class);
 
         if (result == null)
-            throw new InvalidCredentialsException("Invalid credentials");
+            throw new InvalidCredentialsException("Invalid credentials or already logged");
 
         Authentication auth = new UsernamePasswordAuthenticationToken(UserDTO.builder().userType(result).username(username).build(), null);
         SecurityContextHolder.getContext().setAuthentication(auth);

@@ -3,6 +3,7 @@ package com.vetshop.controllers;
 import com.vetshop.dtos.RegularUserDTO;
 import com.vetshop.dtos.TypeDTO;
 import com.vetshop.services.LoginService;
+import com.vetshop.services.exceptions.AlreadyExistingException;
 import com.vetshop.services.exceptions.InvalidCredentialsException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +37,7 @@ public class LoginController {
         TypeDTO type = null;
         try {
             type = loginService.loginUser(regularUserDTO.getUsername(), regularUserDTO.getPassword());
-        } catch (InvalidCredentialsException e) {
+        } catch (InvalidCredentialsException | AlreadyExistingException e) {
             e.printStackTrace();
         }
         return type;

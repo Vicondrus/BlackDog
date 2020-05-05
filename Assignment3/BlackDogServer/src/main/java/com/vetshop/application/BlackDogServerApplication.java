@@ -1,9 +1,11 @@
 package com.vetshop.application;
 
+import com.vetshop.util.ActiveUsersStore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -31,5 +33,11 @@ public class BlackDogServerApplication {
 			System.out.println("BEAN :: " + beanName);
 		}
 	}
+
+	@Bean
+	public ActiveUsersStore activeUserStore(){
+		return new ActiveUsersStore();
+	}
+
 
 }
