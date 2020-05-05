@@ -8,6 +8,7 @@ import com.vetshop.report.Report;
 import com.vetshop.report.ReportFactory;
 import com.vetshop.report.ReportType;
 import com.vetshop.services.ConsultationService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -23,7 +24,17 @@ import java.util.List;
 @Service
 public class ConsultationServiceImpl implements ConsultationService {
 
+    private final String uriRoot;
     private RestTemplate restTemplate = new RestTemplate();
+
+    /**
+     * Instantiates a new Consultation service.
+     *
+     * @param hostAndPort the host and port
+     */
+    public ConsultationServiceImpl(@Value("${server.host-and-port}") String hostAndPort) {
+        this.uriRoot = "http://" + hostAndPort;
+    }
 
     /**
      * Sets rest template.
@@ -36,7 +47,7 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     @Override
     public List<ConsultationDTO> postFindAllForLoggedUser() {
-        final String uri = "http://localhost:8080/getAllConsultationsForUser";
+        final String uri = uriRoot + "/getAllConsultationsForUser";
 
         UserDTO principal = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -55,7 +66,7 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     @Override
     public ConsultationDTO postCreateConsultation(AnimalDTO patient, UserDTO doctor, String diagnostic, String details, String recommendations, String hour, String minute, Date date, StatusDTO status) throws FieldException {
-        final String uri = "http://localhost:8080/createConsultation";
+        final String uri = uriRoot + "/createConsultation";
 
         Calendar cal = Calendar.getInstance(); // locale-specific
         cal.setTime(date);
@@ -81,7 +92,7 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     @Override
     public ConsultationDTO postScheduleConsultation(AnimalDTO patinet, UserDTO doctor, String hour, String minute, Date date, List<ItemDTO> neededItems) throws FieldException {
-        final String uri = "http://localhost:8080/scheduleConsultation";
+        final String uri = uriRoot + "/scheduleConsultation";
 
         Calendar cal = Calendar.getInstance(); // locale-specific
         cal.setTime(date);
@@ -110,7 +121,7 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     @Override
     public ConsultationDTO postUpdateConsultation(int id, AnimalDTO patinet, UserDTO doctor, String diagnostic, String details, String recommendations, String hour, String minute, Date date, StatusDTO status) throws FieldException {
-        final String uri = "http://localhost:8080/updateConsultation";
+        final String uri = uriRoot + "/updateConsultation";
 
         Calendar cal = Calendar.getInstance(); // locale-specific
         cal.setTime(date);
@@ -135,7 +146,7 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     @Override
     public ConsultationDTO deleteConsultation(ConsultationDTO consultation) {
-        final String uri = "http://localhost:8080/deleteConsultation";
+        final String uri = uriRoot + "/deleteConsultation";
 
         consultation = restTemplate.postForObject(uri, consultation, ConsultationDTO.class);
         return consultation;
@@ -143,7 +154,7 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     @Override
     public ConsultationDTO postBeginConsultation(int consultationId) throws OutOfStockException {
-        final String uri = "http://localhost:8080/beginConsultation";
+        final String uri = uriRoot + "/beginConsultation";
 
         ConsultationDTO consultation = restTemplate.postForObject(uri, consultationId, ConsultationDTO.class);
         if (consultation == null) {
@@ -154,7 +165,7 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     @Override
     public ConsultationDTO postCompleteConsultation(ConsultationDTO consultation, String diagnostic, String details, String recommendations) {
-        final String uri = "http://localhost:8080/completeConsultation";
+        final String uri = uriRoot + "/completeConsultation";
 
         consultation.setDetails(details);
         consultation.setDiagnostic(diagnostic);

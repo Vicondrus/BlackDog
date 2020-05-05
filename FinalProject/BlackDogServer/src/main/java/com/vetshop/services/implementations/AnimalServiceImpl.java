@@ -1,10 +1,14 @@
 package com.vetshop.services.implementations;
 
 import com.vetshop.dtos.AnimalDTO;
+import com.vetshop.dtos.RegularUserDTO;
 import com.vetshop.entities.Animal;
 import com.vetshop.entities.RegularUser;
+import com.vetshop.entities.User;
+import com.vetshop.entities.UserType;
 import com.vetshop.repositories.AnimalRepository;
 import com.vetshop.repositories.RegularUserRepository;
+import com.vetshop.repositories.UserRepository;
 import com.vetshop.services.AnimalService;
 import com.vetshop.services.exceptions.NoSuchEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +27,20 @@ public class AnimalServiceImpl implements AnimalService {
 
     private final RegularUserRepository regularUserRepository;
 
+    private final UserRepository userRepository;
+
     /**
      * Instantiates a new Animal service.
      *
-     * @param ar  the ar
-     * @param rur the rur
+     * @param animalRepository      the animal repository
+     * @param regularUserRepository the regular user repository
+     * @param userRepository        the user repository
      */
     @Autowired
-    public AnimalServiceImpl(AnimalRepository ar, RegularUserRepository rur) {
-        animalRepo = ar;
-        regularUserRepository = rur;
+    public AnimalServiceImpl(AnimalRepository animalRepository, RegularUserRepository regularUserRepository, UserRepository userRepository) {
+        this.animalRepo = animalRepository;
+        this.regularUserRepository = regularUserRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -50,15 +58,17 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public List<AnimalDTO> getCorrespondingAnimals() throws NoSuchEntityException {
-        // User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //if(principal.getUserType().equals(UserType.ADMIN)) {
-        //    return getAll();
-        //}
-        //else{
-        //   return getAllAnimalsConsultedBy((RegularUser) principal);
-        //}
-        return null;
+    public List<AnimalDTO> getCorrespondingAnimals(RegularUserDTO regularUserDTO) throws NoSuchEntityException {
+        User principal = userRepository.findByUsername(regularUserDTO.getUsername());
+        if (principal != null) {
+            if (principal.getUserType().equals(UserType.ADMIN)) {
+                return getAll();
+            } else {
+                return getAllAnimalsConsultedBy((RegularUser) principal);
+            }
+        } else {
+            return null;
+        }
     }
 
     @Override

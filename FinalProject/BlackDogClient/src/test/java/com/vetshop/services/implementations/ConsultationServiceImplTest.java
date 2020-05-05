@@ -29,7 +29,7 @@ class ConsultationServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        consultationService = new ConsultationServiceImpl();
+        consultationService = new ConsultationServiceImpl("localhost:8080");
         consultationService.setRestTemplate(restTemplate);
     }
 

@@ -6,6 +6,7 @@ import com.vetshop.entities.Consultation;
 import com.vetshop.entities.RegularUser;
 import com.vetshop.repositories.AnimalRepository;
 import com.vetshop.repositories.RegularUserRepository;
+import com.vetshop.repositories.UserRepository;
 import com.vetshop.services.exceptions.FieldException;
 import com.vetshop.services.exceptions.NoSuchEntityException;
 import org.hamcrest.CoreMatchers;
@@ -30,6 +31,8 @@ class AnimalServiceImplTest {
 
     private RegularUserRepository regularUserRepository;
 
+    private UserRepository userRepository;
+
     /**
      * Sets up.
      */
@@ -37,7 +40,8 @@ class AnimalServiceImplTest {
     void setUp() {
         animalRepository = Mockito.mock(AnimalRepository.class);
         regularUserRepository = Mockito.mock(RegularUserRepository.class);
-        animalService = new AnimalServiceImpl(animalRepository, regularUserRepository);
+        userRepository = Mockito.mock(UserRepository.class);
+        animalService = new AnimalServiceImpl(animalRepository, regularUserRepository, userRepository);
     }
 
     /**

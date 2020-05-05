@@ -5,10 +5,11 @@ import com.vetshop.dtos.UserDTO;
 import com.vetshop.exceptions.InvalidCredentialsException;
 import com.vetshop.notifications.NotificationWebSocketHandler;
 import com.vetshop.services.AuthService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -16,23 +17,27 @@ import java.io.IOException;
 /**
  * The type Auth service.
  */
-@Component
+@Service
 public class AuthServiceImpl implements AuthService {
 
     private final NotificationWebSocketHandler notificationWebSocketHandler;
+
+    private final String uriRoot;
 
     /**
      * Instantiates a new Auth service.
      *
      * @param notificationWebSocketHandler the notification web socket handler
+     * @param hostAndPort                  the host and port
      */
-    public AuthServiceImpl(NotificationWebSocketHandler notificationWebSocketHandler) {
+    public AuthServiceImpl(NotificationWebSocketHandler notificationWebSocketHandler, @Value("${server.host-and-port}") String hostAndPort) {
         this.notificationWebSocketHandler = notificationWebSocketHandler;
+        this.uriRoot = "http://" + hostAndPort;
     }
 
     @Override
     public TypeDTO postLogin(String username, String password) throws InvalidCredentialsException, IOException {
-        final String uri = "http://localhost:8080/login";
+        final String uri = uriRoot + "/login";
 
         RestTemplate restTemplate = new RestTemplate();
 

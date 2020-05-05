@@ -1,6 +1,7 @@
 package com.vetshop.services;
 
 import com.vetshop.dtos.AnimalDTO;
+import com.vetshop.dtos.RegularUserDTO;
 import com.vetshop.entities.RegularUser;
 import com.vetshop.services.exceptions.NoSuchEntityException;
 import org.springframework.stereotype.Service;
@@ -60,19 +61,20 @@ public interface AnimalService {
     List<AnimalDTO> getAllAnimalsConsultedBy(RegularUser regularUser) throws NoSuchEntityException;
 
     /**
-     * Gets corresponding animals.
-     *
-     * @return the corresponding animals
-     * @throws NoSuchEntityException the no such entity exception
-     */
-    List<AnimalDTO> getCorrespondingAnimals() throws NoSuchEntityException;
-
-    /**
      * Gets by name.
      *
      * @param name the name
      * @return the by name
      */
     AnimalDTO getByName(String name);
+
+    /**
+     * Gets corresponding animals.
+     *
+     * @param regularUserDTO the regular user dto
+     * @return the corresponding animals
+     * @throws NoSuchEntityException the no such entity exception
+     */
+    List<AnimalDTO> getCorrespondingAnimals(RegularUserDTO regularUserDTO) throws NoSuchEntityException;
 
 }

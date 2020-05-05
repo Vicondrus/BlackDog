@@ -2,7 +2,10 @@ package com.vetshop.services.implementations;
 
 import com.vetshop.dtos.AnimalDTO;
 import com.vetshop.dtos.AnimalsListWrapperDTO;
+import com.vetshop.dtos.UserDTO;
 import com.vetshop.services.AnimalService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,20 +17,33 @@ import java.util.List;
 @Service
 public class AnimalServiceImpl implements AnimalService {
 
+    private final String uriRoot;
+
+    /**
+     * Instantiates a new Animal service.
+     *
+     * @param hostAndPort the host and port
+     */
+    public AnimalServiceImpl(@Value("${server.host-and-port}") String hostAndPort) {
+        this.uriRoot = "http://" + hostAndPort;
+    }
+
     @Override
     public List<AnimalDTO> findAllAnimals() {
-        final String uri = "http://localhost:8080/getAllAnimals";
+        final String uri = uriRoot + "/getAllAnimals";
 
         RestTemplate restTemplate = new RestTemplate();
 
-        AnimalsListWrapperDTO consultations = restTemplate.getForObject(uri, AnimalsListWrapperDTO.class);
+        UserDTO principal = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        AnimalsListWrapperDTO consultations = restTemplate.postForObject(uri, principal, AnimalsListWrapperDTO.class);
 
         return consultations.getList();
     }
 
     @Override
     public AnimalDTO deleteAnimal(AnimalDTO animalDTO) {
-        final String uri = "http://localhost:8080/deleteAnimal";
+        final String uri = uriRoot + "/deleteAnimal";
 
         RestTemplate restTemplate = new RestTemplate();
         animalDTO = restTemplate.postForObject(uri, animalDTO, AnimalDTO.class);
@@ -36,7 +52,7 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Override
     public AnimalDTO postCreateAnimal(String name, String owner, String species) {
-        final String uri = "http://localhost:8080/createAnimal";
+        final String uri = uriRoot + "/createAnimal";
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -49,7 +65,7 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Override
     public AnimalDTO postUpdateAnimal(int id, String name, String owner, String species) {
-        final String uri = "http://localhost:8080/updateAnimal";
+        final String uri = uriRoot + "/updateAnimal";
 
         RestTemplate restTemplate = new RestTemplate();
 

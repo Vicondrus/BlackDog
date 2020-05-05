@@ -2,10 +2,10 @@ package com.vetshop.controllers;
 
 import com.vetshop.dtos.AnimalDTO;
 import com.vetshop.dtos.AnimalsListWrapperDTO;
+import com.vetshop.dtos.RegularUserDTO;
 import com.vetshop.services.AnimalService;
 import com.vetshop.services.exceptions.NoSuchEntityException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,11 +31,13 @@ public class AnimalController {
     /**
      * Gets all animals.
      *
+     * @param regularUserDTO the regular user dto
      * @return the all animals
+     * @throws NoSuchEntityException the no such entity exception
      */
-    @GetMapping(value = "/getAllAnimals")
-    public AnimalsListWrapperDTO getAllAnimals() {
-        return AnimalsListWrapperDTO.builder().list(animalService.getAll()).build();
+    @PostMapping(value = "/getAllAnimals")
+    public AnimalsListWrapperDTO getAllAnimals(@RequestBody RegularUserDTO regularUserDTO) throws NoSuchEntityException {
+        return AnimalsListWrapperDTO.builder().list(animalService.getCorrespondingAnimals(regularUserDTO)).build();
     }
 
     /**

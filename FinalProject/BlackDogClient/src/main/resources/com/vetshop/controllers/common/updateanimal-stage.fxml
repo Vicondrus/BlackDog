@@ -3,7 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="432.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.vetshop.controllers.common.UpdateAnimalController">
+            xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="com.vetshop.controllers.common.UpdateAnimalController">
     <children>
         <Label layoutX="157.0" layoutY="58.0" text="Name"/>
         <Label layoutX="157.0" layoutY="150.0" text="Owner"/>

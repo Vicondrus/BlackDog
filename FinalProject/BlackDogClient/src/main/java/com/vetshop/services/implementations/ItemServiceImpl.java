@@ -5,6 +5,7 @@ import com.vetshop.dtos.ItemListWrapperDTO;
 import com.vetshop.dtos.StringsListWrapperDTO;
 import com.vetshop.exceptions.FieldException;
 import com.vetshop.services.ItemService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,7 +17,17 @@ import java.util.List;
 @Service
 public class ItemServiceImpl implements ItemService {
 
+    private final String uriRoot;
     private RestTemplate restTemplate = new RestTemplate();
+
+    /**
+     * Instantiates a new Item service.
+     *
+     * @param hostAndPort the host and port
+     */
+    public ItemServiceImpl(@Value("${server.host-and-port}") String hostAndPort) {
+        this.uriRoot = "http://" + hostAndPort;
+    }
 
     /**
      * Sets rest template.
@@ -29,7 +40,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<String> getAllItemsNames() {
-        final String uri = "http://localhost:8080/getAllItemsNames";
+        final String uri = uriRoot + "/getAllItemsNames";
 
         StringsListWrapperDTO strings = restTemplate.getForObject(uri, StringsListWrapperDTO.class);
 
@@ -38,7 +49,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemDTO> getAllItems() {
-        final String uri = "http://localhost:8080/getAllItems";
+        final String uri = uriRoot + "/getAllItems";
 
         ItemListWrapperDTO items = restTemplate.getForObject(uri, ItemListWrapperDTO.class);
 
@@ -47,7 +58,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemDTO postCreateItem(String name, String quantity) throws FieldException {
-        final String uri = "http://localhost:8080/createItem";
+        final String uri = uriRoot + "/createItem";
 
         int quant;
         try {
@@ -65,7 +76,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemDTO deleteItem(ItemDTO item) {
-        final String uri = "http://localhost:8080/deleteItem";
+        final String uri = uriRoot + "/deleteItem";
 
         item = restTemplate.postForObject(uri, item, ItemDTO.class);
         return item;
@@ -73,7 +84,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemDTO postUpdateItem(int itemId, String name, String quantity) throws FieldException {
-        final String uri = "http://localhost:8080/updateItem";
+        final String uri = uriRoot + "/updateItem";
 
         int quant;
         try {

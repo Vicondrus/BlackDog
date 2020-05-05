@@ -3,7 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="447.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.vetshop.controllers.admin.InspectUsersController">
+            xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="com.vetshop.controllers.admin.InspectUsersController">
     <children>
         <SplitPane dividerPositions="0.6652719665271967" layoutX="251.0" layoutY="42.0" orientation="VERTICAL"
                    prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"

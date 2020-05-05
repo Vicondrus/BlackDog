@@ -4,6 +4,7 @@ import com.vetshop.dtos.TypeDTO;
 import com.vetshop.dtos.UserDTO;
 import com.vetshop.dtos.UsersListWrapperDTO;
 import com.vetshop.services.RegularUserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,9 +16,20 @@ import java.util.List;
 @Service
 public class RegularUserServiceImpl implements RegularUserService {
 
+    private final String uriRoot;
+
+    /**
+     * Instantiates a new Regular user service.
+     *
+     * @param hostAndPort the host and port
+     */
+    public RegularUserServiceImpl(@Value("${server.host-and-port}") String hostAndPort) {
+        this.uriRoot = "http://" + hostAndPort;
+    }
+
     @Override
     public List<UserDTO> findAllRegularUsers() {
-        final String uri = "http://localhost:8080/getAllRegularUsers";
+        final String uri = uriRoot + "/getAllRegularUsers";
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -32,7 +44,7 @@ public class RegularUserServiceImpl implements RegularUserService {
 
     @Override
     public UserDTO deleteUser(UserDTO userDTO) {
-        final String uri = "http://localhost:8080/deleteUser";
+        final String uri = uriRoot + "/deleteUser";
 
         RestTemplate restTemplate = new RestTemplate();
         userDTO = restTemplate.postForObject(uri, userDTO, UserDTO.class);
@@ -41,7 +53,7 @@ public class RegularUserServiceImpl implements RegularUserService {
 
     @Override
     public UserDTO postCreateUser(String username, String password, String fullName) {
-        final String uri = "http://localhost:8080/createUser";
+        final String uri = uriRoot + "/createUser";
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -54,7 +66,7 @@ public class RegularUserServiceImpl implements RegularUserService {
 
     @Override
     public UserDTO postUpdateUser(int id, String username, String password, String fullName) {
-        final String uri = "http://localhost:8080/updateUser";
+        final String uri = uriRoot + "/updateUser";
 
         RestTemplate restTemplate = new RestTemplate();
 
