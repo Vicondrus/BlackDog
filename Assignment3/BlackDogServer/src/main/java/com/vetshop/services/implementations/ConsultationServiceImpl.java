@@ -45,7 +45,7 @@ public class ConsultationServiceImpl implements ConsultationService {
      * @param notificationService   the notification service
      */
     @Autowired
-    public ConsultationServiceImpl(ConsultationRepository consultationRepo, AnimalRepository animalRepository, RegularUserRepository regularUserRepository, NotificationService notificationService){
+    public ConsultationServiceImpl(ConsultationRepository consultationRepo, AnimalRepository animalRepository, RegularUserRepository regularUserRepository, NotificationService notificationService) {
         this.consultationRepo = consultationRepo;
         this.animalRepository = animalRepository;
         this.regularUserRepository = regularUserRepository;
@@ -94,8 +94,7 @@ public class ConsultationServiceImpl implements ConsultationService {
         Consultation consultation = consultationRepo.findById(id).orElse(null);
         if (consultation != null) {
             consultationRepo.delete(consultation);
-        }
-        else{
+        } else {
             throw new NoSuchEntityException("Consultation with given id doesn't exist");
         }
         return new ConsultationDTO(consultation);
@@ -112,7 +111,7 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     @Override
     public List<ConsultationDTO> findAllForLoggedUser(RegularUserDTO regularUserDTO) {
-        if(regularUserDTO.getUserType().equals(TypeDTO.REGULAR))
+        if (regularUserDTO.getUserType().equals(TypeDTO.REGULAR))
             return consultationRepo.findByDoctorUsername(regularUserDTO.getUsername()).stream().map(ConsultationDTO::new).collect(Collectors.toList());
         else
             return consultationRepo.findAll().stream().map(ConsultationDTO::new).collect(Collectors.toList());
@@ -139,7 +138,7 @@ public class ConsultationServiceImpl implements ConsultationService {
         Animal animal = animalRepository.findById(Integer.parseInt(patientId)).orElse(null);
         RegularUser doctor = regularUserRepository.findById(Integer.parseInt(doctorId)).orElse(null);
         Consultation consultation = Consultation.builder().animal(animal).details(details).diagnostic(diagnostic).doctor(doctor).status(Status.valueOf(status.toString())).recommendations(recommendations).date(date).build();
-        notificationService.updateSubjectByTopic(doctor.getUsername(),consultation);
+        notificationService.updateSubjectByTopic(doctor.getUsername(), consultation);
         return new ConsultationDTO(consultationRepo.save(consultation));
     }
 }

@@ -2,7 +2,6 @@ package com.vetshop.controllers.admin;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.DTOController;
-import com.vetshop.controllers.user.InspectConsultationsController;
 import com.vetshop.dtos.DTO;
 import com.vetshop.dtos.UserDTO;
 import javafx.fxml.FXML;
@@ -30,9 +29,9 @@ public class ViewUserController implements DTOController {
     private TextField password;
 
     @Override
-    public void refresh(){
+    public void refresh() {
         username.setText(regularUserDTO.getUsername());
-        password.setText(regularUserDTO.getPassword());
+        password.setText("<<Hidden>>");
         fullname.setText(regularUserDTO.getFullName());
     }
 
@@ -48,6 +47,6 @@ public class ViewUserController implements DTOController {
         Stage stage = (Stage) username.getScene().getWindow();
         stage.close();
 
-        JavaFXApplication.changeScene(InspectConsultationsController.class);
+        JavaFXApplication.changeScene(InspectUsersController.class);
     }
 }

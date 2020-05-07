@@ -8,7 +8,7 @@ public interface Controller {
     /**
      * Refresh.
      */
-    default void refresh(){
+    default void refresh() {
 
     }
 

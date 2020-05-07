@@ -24,7 +24,7 @@ public class AnimalController {
      * @param animalService the animal service
      */
     @Autowired
-    public AnimalController(AnimalService animalService){
+    public AnimalController(AnimalService animalService) {
         this.animalService = animalService;
     }
 

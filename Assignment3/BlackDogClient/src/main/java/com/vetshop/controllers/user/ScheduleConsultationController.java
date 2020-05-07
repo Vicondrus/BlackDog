@@ -80,7 +80,7 @@ public class ScheduleConsultationController implements Controller, Initializable
         Date d = Date.from(instant);
 
         try {
-            consultationService.postScheduleConsultation(animalDTO,regularUserDTO,hour.getText(),minute.getText(),d);
+            consultationService.postScheduleConsultation(animalDTO, regularUserDTO, hour.getText(), minute.getText(), d);
 
             Stage stage = (Stage) minute.getScene().getWindow();
             stage.close();
@@ -99,11 +99,11 @@ public class ScheduleConsultationController implements Controller, Initializable
         doctor.setItems(FXCollections.observableList(users));
         doctor.getSelectionModel().selectFirst();
 
-        doctor.setCellFactory(new Callback<ListView<UserDTO>, ListCell<UserDTO>>(){
+        doctor.setCellFactory(new Callback<ListView<UserDTO>, ListCell<UserDTO>>() {
 
             @Override
-            public ListCell<UserDTO> call(ListView<UserDTO> l){
-                return new ListCell<UserDTO>(){
+            public ListCell<UserDTO> call(ListView<UserDTO> l) {
+                return new ListCell<UserDTO>() {
                     @Override
                     protected void updateItem(UserDTO item, boolean empty) {
                         super.updateItem(item, empty);
@@ -113,17 +113,17 @@ public class ScheduleConsultationController implements Controller, Initializable
                             setText(item.getUsername());
                         }
                     }
-                } ;
+                };
             }
         });
 
         doctor.setConverter(new StringConverter<UserDTO>() {
             @Override
             public String toString(UserDTO user) {
-                if (user == null){
+                if (user == null) {
                     return null;
                 } else {
-                    return user.getUsername()+"";
+                    return user.getUsername() + "";
                 }
             }
 
@@ -136,31 +136,31 @@ public class ScheduleConsultationController implements Controller, Initializable
         patient.setItems(FXCollections.observableList(animals));
         patient.getSelectionModel().selectFirst();
 
-        patient.setCellFactory(new Callback<ListView<AnimalDTO>, ListCell<AnimalDTO>>(){
+        patient.setCellFactory(new Callback<ListView<AnimalDTO>, ListCell<AnimalDTO>>() {
 
             @Override
-            public ListCell<AnimalDTO> call(ListView<AnimalDTO> l){
-                return new ListCell<AnimalDTO>(){
+            public ListCell<AnimalDTO> call(ListView<AnimalDTO> l) {
+                return new ListCell<AnimalDTO>() {
                     @Override
                     protected void updateItem(AnimalDTO item, boolean empty) {
                         super.updateItem(item, empty);
                         if (item == null || empty) {
                             setGraphic(null);
                         } else {
-                            setText(item.getName()+ " - " +item.getOwner()+"'s " + item.getSpecies());
+                            setText(item.getName() + " - " + item.getOwner() + "'s " + item.getSpecies());
                         }
                     }
-                } ;
+                };
             }
         });
 
         patient.setConverter(new StringConverter<AnimalDTO>() {
             @Override
             public String toString(AnimalDTO animal) {
-                if (animal == null){
+                if (animal == null) {
                     return null;
                 } else {
-                    return animal.getName()+ " - " +animal.getOwner()+"'s " + animal.getSpecies();
+                    return animal.getName() + " - " + animal.getOwner() + "'s " + animal.getSpecies();
                 }
             }
 

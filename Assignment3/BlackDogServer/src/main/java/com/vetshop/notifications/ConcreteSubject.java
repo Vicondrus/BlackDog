@@ -24,7 +24,7 @@ public class ConcreteSubject extends Observable {
      *
      * @param topic the topic
      */
-    public ConcreteSubject(String topic){
+    public ConcreteSubject(String topic) {
         this.topic = topic;
     }
 
@@ -33,7 +33,7 @@ public class ConcreteSubject extends Observable {
      *
      * @param consultation the consultation
      */
-    public void addConsultation(Consultation consultation){
+    public void addConsultation(Consultation consultation) {
         newlyAddedConsultations.add(consultation);
         this.setChanged();
         this.notifyObservers("Consultation added for " + consultation.getDate());

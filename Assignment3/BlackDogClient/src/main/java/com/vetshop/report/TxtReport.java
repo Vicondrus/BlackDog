@@ -14,7 +14,7 @@ public class TxtReport implements Report {
     @Override
     public void generateReport(ConsultationDTO consultation, String path) throws IOException {
 
-        FileWriter fileWriter = new FileWriter(path+" -  Consultation"+consultation.getConsultationId()+".txt");
+        FileWriter fileWriter = new FileWriter(path + " -  Consultation" + consultation.getConsultationId() + ".txt");
         PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.println("Consultation Report");
         printWriter.println(consultation.getDate().toString());

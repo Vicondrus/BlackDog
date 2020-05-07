@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane prefHeight="457.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vetshop.controllers.user.ScheduleConsultationController">
-   <children>
-      <Label layoutX="163.0" layoutY="70.0" text="Doctor" />
-      <Label layoutX="164.0" layoutY="136.0" text="Patient" />
-      <Label layoutX="170.0" layoutY="208.0" text="Date" />
-      <Label layoutX="170.0" layoutY="278.0" text="Time" />
-      <ComboBox fx:id="doctor" layoutX="300.0" layoutY="66.0" prefWidth="150.0" />
-      <ComboBox fx:id="patient" layoutX="300.0" layoutY="132.0" prefWidth="150.0" />
-      <DatePicker fx:id="date" layoutX="300.0" layoutY="204.0" />
-      <Label layoutX="374.0" layoutY="278.0" text=":" />
-      <TextField fx:id="minute" layoutX="387.0" layoutY="274.0" prefHeight="25.0" prefWidth="63.0" />
-      <TextField fx:id="hour" layoutX="300.0" layoutY="274.0" prefHeight="25.0" prefWidth="63.0" />
-      <Button layoutX="268.0" layoutY="351.0" mnemonicParsing="false" onAction="#schedule" text="Schedule" />
-      <Button layoutX="280.0" layoutY="399.0" mnemonicParsing="false" text="Back" onAction="#back" />
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="457.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="com.vetshop.controllers.user.ScheduleConsultationController">
+    <children>
+        <Label layoutX="163.0" layoutY="70.0" text="Doctor"/>
+        <Label layoutX="164.0" layoutY="136.0" text="Patient"/>
+        <Label layoutX="170.0" layoutY="208.0" text="Date"/>
+        <Label layoutX="170.0" layoutY="278.0" text="Time"/>
+        <ComboBox fx:id="doctor" layoutX="300.0" layoutY="66.0" prefWidth="150.0"/>
+        <ComboBox fx:id="patient" layoutX="300.0" layoutY="132.0" prefWidth="150.0"/>
+        <DatePicker fx:id="date" layoutX="300.0" layoutY="204.0"/>
+        <Label layoutX="374.0" layoutY="278.0" text=":"/>
+        <TextField fx:id="minute" layoutX="387.0" layoutY="274.0" prefHeight="25.0" prefWidth="63.0"/>
+        <TextField fx:id="hour" layoutX="300.0" layoutY="274.0" prefHeight="25.0" prefWidth="63.0"/>
+        <Button layoutX="268.0" layoutY="351.0" mnemonicParsing="false" onAction="#schedule" text="Schedule"/>
+        <Button layoutX="280.0" layoutY="399.0" mnemonicParsing="false" text="Back" onAction="#back"/>
+    </children>
 </AnchorPane>

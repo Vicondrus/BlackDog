@@ -24,12 +24,17 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     private RestTemplate restTemplate = new RestTemplate();
 
+    /**
+     * Sets rest template.
+     *
+     * @param restTemplate the rest template
+     */
     public void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
     @Override
-    public List<ConsultationDTO> postFindAllForLoggedUser(){
+    public List<ConsultationDTO> postFindAllForLoggedUser() {
         final String uri = "http://localhost:8080/getAllConsultationsForUser";
 
         UserDTO principal = (UserDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -58,7 +63,7 @@ public class ConsultationServiceImpl implements ConsultationService {
         if (Integer.parseInt(hour) >= 24 || Integer.parseInt(hour) < 0)
             throw new FieldException("Hours must be between 00 and 23");
         cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
-        if (Integer.parseInt(minute) >= 60 || Integer.parseInt(minute)<0)
+        if (Integer.parseInt(minute) >= 60 || Integer.parseInt(minute) < 0)
             throw new FieldException("Minutes must be between 00 and 59");
         cal.set(Calendar.MINUTE, Integer.parseInt(minute));
         cal.set(Calendar.SECOND, 0);
@@ -84,14 +89,14 @@ public class ConsultationServiceImpl implements ConsultationService {
         if (Integer.parseInt(hour) >= 24 || Integer.parseInt(hour) < 0)
             throw new FieldException("Hours must be between 00 and 23");
         cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
-        if (Integer.parseInt(minute) >= 60 || Integer.parseInt(minute)<0)
+        if (Integer.parseInt(minute) >= 60 || Integer.parseInt(minute) < 0)
             throw new FieldException("Minutes must be between 00 and 59");
         cal.set(Calendar.MINUTE, Integer.parseInt(minute));
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         long time = cal.getTimeInMillis();
         Date correctDate = new Date(time);
-        if (correctDate.getTime() <= new Date().getTime()){
+        if (correctDate.getTime() <= new Date().getTime()) {
             throw new FieldException("Scheduled consultations must be after this moment");
         }
 
@@ -113,7 +118,7 @@ public class ConsultationServiceImpl implements ConsultationService {
         if (Integer.parseInt(hour) >= 24 || Integer.parseInt(hour) < 0)
             throw new FieldException("Hours must be between 00 and 23");
         cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hour));
-        if (Integer.parseInt(minute) >= 60 || Integer.parseInt(minute)<0)
+        if (Integer.parseInt(minute) >= 60 || Integer.parseInt(minute) < 0)
             throw new FieldException("Minutes must be between 00 and 59");
         cal.set(Calendar.MINUTE, Integer.parseInt(minute));
         cal.set(Calendar.SECOND, 0);
@@ -128,11 +133,11 @@ public class ConsultationServiceImpl implements ConsultationService {
     }
 
     @Override
-    public ConsultationDTO deleteConsultation(ConsultationDTO consultation){
+    public ConsultationDTO deleteConsultation(ConsultationDTO consultation) {
         final String uri = "http://localhost:8080/deleteConsultation";
 
         consultation = restTemplate.postForObject(uri, consultation, ConsultationDTO.class);
-        return  consultation;
+        return consultation;
     }
 
 }

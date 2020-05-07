@@ -56,7 +56,7 @@ public class InspectConsultationsAdminController implements Controller, Initiali
      */
     public void report(String type) {
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
-        if(consultationDTO == null) {
+        if (consultationDTO == null) {
             AlertBox.display("ERROR", "A consultation must be selected");
             return;
         }
@@ -76,14 +76,14 @@ public class InspectConsultationsAdminController implements Controller, Initiali
     /**
      * Pdf report.
      */
-    public void pdfReport(){
+    public void pdfReport() {
         report("PDF");
     }
 
     /**
      * Txt report.
      */
-    public void txtReport(){
+    public void txtReport() {
         report("TXT");
     }
 

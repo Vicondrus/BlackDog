@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Setter
 @Entity
 @DiscriminatorValue("0")
-public class RegularUser extends User{
+public class RegularUser extends User {
 
     @OneToMany(mappedBy = "doctor", fetch = FetchType.EAGER)
     private List<Consultation> consultations = new ArrayList<Consultation>();
@@ -32,7 +32,7 @@ public class RegularUser extends User{
      *
      * @return the list
      */
-    public List<Animal> getConsultedAnimals(){
+    public List<Animal> getConsultedAnimals() {
         return consultations.stream().map(Consultation::getAnimal).collect(Collectors.toList());
     }
 

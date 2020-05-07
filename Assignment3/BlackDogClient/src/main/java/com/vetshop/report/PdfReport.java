@@ -12,21 +12,21 @@ import java.util.List;
 /**
  * The type Pdf report.
  */
-public class PdfReport implements Report{
+public class PdfReport implements Report {
 
     @Override
     public void generateReport(ConsultationDTO consultation, String path) throws FileNotFoundException, DocumentException {
 
         Document document = new Document();
 
-        PdfWriter.getInstance(document, new FileOutputStream(path+" - Consultation"+consultation.getConsultationId()+".pdf"));
+        PdfWriter.getInstance(document, new FileOutputStream(path + " - Consultation" + consultation.getConsultationId() + ".pdf"));
 
         document.open();
         Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
 
         document.addTitle("Consultation Report");
 
-        List<Phrase> phrases= new ArrayList<Phrase>();
+        List<Phrase> phrases = new ArrayList<Phrase>();
 
         phrases.add(new Phrase(consultation.getDate().toString() + "\n", font));
 

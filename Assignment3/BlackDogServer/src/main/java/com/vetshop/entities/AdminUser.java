@@ -15,6 +15,6 @@ import javax.persistence.Entity;
 @Setter
 @Entity
 @DiscriminatorValue("1")
-public class AdminUser extends User{
+public class AdminUser extends User {
 
 }

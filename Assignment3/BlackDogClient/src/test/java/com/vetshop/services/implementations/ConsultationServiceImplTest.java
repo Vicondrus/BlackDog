@@ -21,22 +21,36 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The type Consultation service impl test.
+ */
 class ConsultationServiceImplTest {
 
+    /**
+     * The Rest template.
+     */
+    RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
     private ConsultationServiceImpl consultationService;
 
-    RestTemplate restTemplate = Mockito.mock(RestTemplate.class);
-
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
         consultationService = new ConsultationServiceImpl();
         consultationService.setRestTemplate(restTemplate);
     }
 
+    /**
+     * Tear down.
+     */
     @AfterEach
     void tearDown() {
     }
 
+    /**
+     * Post find all for logged user.
+     */
     @Test
     void postFindAllForLoggedUser() {
         UserDTO user = UserDTO.builder().idUser(1).build();
@@ -47,7 +61,7 @@ class ConsultationServiceImplTest {
         Mockito.when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(user);
         List<ConsultationDTO> list1 = new ArrayList<>();
         List<ConsultationDTO> list2 = new ArrayList<>();
-        for(int i=0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             ConsultationDTO consultationDTO = ConsultationDTO.builder().consultationId(i).date(new Date()).build();
             list1.add(consultationDTO);
             list2.add(consultationDTO);
@@ -59,18 +73,29 @@ class ConsultationServiceImplTest {
         Assertions.assertIterableEquals(list3, list2);
     }
 
+    /**
+     * Report consultation.
+     *
+     * @throws IOException       the io exception
+     * @throws DocumentException the document exception
+     */
     @Test
     void reportConsultation() throws IOException, DocumentException {
         AnimalDTO a = AnimalDTO.builder().animalId(1).name("a").build();
         UserDTO r = UserDTO.builder().idUser(1).username("u").build();
         ConsultationDTO ru = ConsultationDTO.builder().consultationId(1).animal(a).date(new Date()).details("details").diagnostic("diagnostic").doctor(r).recommendations("recommendation").build();
 
-        Report q = consultationService.reportConsultation(ru,"lol","PDF");
+        Report q = consultationService.reportConsultation(ru, "lol", "PDF");
         Report q1 = new PdfReport();
 
         Assertions.assertTrue(new ReflectionEquals(q1).matches(q));
     }
 
+    /**
+     * Post create consultation.
+     *
+     * @throws FieldException the field exception
+     */
     @Test
     void postCreateConsultation() throws FieldException {
         AnimalDTO a = AnimalDTO.builder().animalId(1).name("a").build();
@@ -79,11 +104,16 @@ class ConsultationServiceImplTest {
 
         Mockito.doReturn(expected).when(restTemplate).postForObject(Mockito.eq("http://localhost:8080/createConsultation"), Mockito.any(ConsultationDTO.class), Mockito.eq(ConsultationDTO.class));
 
-        ConsultationDTO returned = consultationService.postCreateConsultation(a,r,"diagnostic","details","recommendations","11","12",new Date(), StatusDTO.DONE);
+        ConsultationDTO returned = consultationService.postCreateConsultation(a, r, "diagnostic", "details", "recommendations", "11", "12", new Date(), StatusDTO.DONE);
 
         Assertions.assertTrue(new ReflectionEquals(returned, "date", "consultationId").matches(expected));
     }
 
+    /**
+     * Post schedule consultation.
+     *
+     * @throws FieldException the field exception
+     */
     @Test
     void postScheduleConsultation() throws FieldException {
         AnimalDTO a = AnimalDTO.builder().animalId(1).name("a").build();
@@ -92,11 +122,16 @@ class ConsultationServiceImplTest {
 
         Mockito.doReturn(expected).when(restTemplate).postForObject(Mockito.eq("http://localhost:8080/scheduleConsultation"), Mockito.any(ConsultationDTO.class), Mockito.eq(ConsultationDTO.class));
 
-        ConsultationDTO returned = consultationService.postScheduleConsultation(a,r,"11","12",new Date(new Date().getTime() + 100000000));
+        ConsultationDTO returned = consultationService.postScheduleConsultation(a, r, "11", "12", new Date(new Date().getTime() + 100000000));
 
         Assertions.assertTrue(new ReflectionEquals(returned, "date", "consultationId").matches(expected));
     }
 
+    /**
+     * Post update consultation.
+     *
+     * @throws FieldException the field exception
+     */
     @Test
     void postUpdateConsultation() throws FieldException {
         AnimalDTO a = AnimalDTO.builder().animalId(1).name("a").build();
@@ -105,11 +140,14 @@ class ConsultationServiceImplTest {
 
         Mockito.doReturn(expected).when(restTemplate).postForObject(Mockito.eq("http://localhost:8080/updateConsultation"), Mockito.any(ConsultationDTO.class), Mockito.eq(ConsultationDTO.class));
 
-        ConsultationDTO returned = consultationService.postUpdateConsultation(1, a,r, "diagnostic", "details", "recommendations", "11","12",new Date(new Date().getTime() + 100000000), StatusDTO.DONE);
+        ConsultationDTO returned = consultationService.postUpdateConsultation(1, a, r, "diagnostic", "details", "recommendations", "11", "12", new Date(new Date().getTime() + 100000000), StatusDTO.DONE);
 
         Assertions.assertTrue(new ReflectionEquals(returned, "date", "consultationId").matches(expected));
     }
 
+    /**
+     * Delete consultation.
+     */
     @Test
     void deleteConsultation() {
         AnimalDTO a = AnimalDTO.builder().animalId(1).name("a").build();

@@ -59,7 +59,7 @@ public class InspectConsultationsController implements Controller, Initializable
     }
 
     @Override
-    public void refresh(){
+    public void refresh() {
         date.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, Date>("date"));
         animal.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("animalName"));
         recommendations.setCellValueFactory(new PropertyValueFactory<ConsultationDTO, String>("recommendations"));
@@ -80,7 +80,7 @@ public class InspectConsultationsController implements Controller, Initializable
     /**
      * Create.
      */
-    public void create(){
+    public void create() {
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
 
@@ -90,9 +90,9 @@ public class InspectConsultationsController implements Controller, Initializable
     /**
      * Update.
      */
-    public void update(){
+    public void update() {
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
-        if(consultationDTO == null){
+        if (consultationDTO == null) {
             AlertBox.display("ERROR", "A consultation must be selected");
             return;
         }
@@ -105,9 +105,9 @@ public class InspectConsultationsController implements Controller, Initializable
     /**
      * Delete.
      */
-    public void delete(){
+    public void delete() {
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
-        if(consultationDTO == null){
+        if (consultationDTO == null) {
             AlertBox.display("ERROR", "A consultation must be selected");
             return;
         }
@@ -118,16 +118,16 @@ public class InspectConsultationsController implements Controller, Initializable
     /**
      * View.
      */
-    public void view(){
+    public void view() {
         ConsultationDTO consultationDTO = table.getSelectionModel().getSelectedItem();
-        if(consultationDTO == null){
+        if (consultationDTO == null) {
             AlertBox.display("ERROR", "A consultation must be selected");
             return;
         }
         Stage stage = (Stage) table.getScene().getWindow();
         stage.close();
 
-        JavaFXApplication.changeScene(ViewConsultationController.class,consultationDTO);
+        JavaFXApplication.changeScene(ViewConsultationController.class, consultationDTO);
     }
 
     /**

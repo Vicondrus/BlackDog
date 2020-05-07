@@ -19,6 +19,7 @@ public interface LoginService {
      * @param password the password
      * @return the type dto
      * @throws InvalidCredentialsException the invalid credentials exception
+     * @throws AlreadyExistingException    the already existing exception
      */
     TypeDTO loginUser(String username, String password) throws InvalidCredentialsException, AlreadyExistingException;
 

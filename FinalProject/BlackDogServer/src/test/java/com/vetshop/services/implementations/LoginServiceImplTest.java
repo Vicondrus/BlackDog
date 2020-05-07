@@ -41,6 +41,7 @@ class LoginServiceImplTest {
      * Login regular user test.
      *
      * @throws InvalidCredentialsException the invalid credentials exception
+     * @throws AlreadyExistingException    the already existing exception
      */
     @Test
     public void loginRegularUserTest() throws InvalidCredentialsException, AlreadyExistingException {
@@ -51,7 +52,7 @@ class LoginServiceImplTest {
         ru.setUsername("user");
         ru.setUserType(UserType.REGULAR);
         ru.setIdUser(1);
-        Mockito.when(userRepository.findByUsername("user")).thenReturn( ru );
+        Mockito.when(userRepository.findByUsername("user")).thenReturn(ru);
 
         TypeDTO ut = loginService.loginUser("user", "user");
         Assert.assertEquals(ut, TypeDTO.REGULAR);
@@ -61,6 +62,7 @@ class LoginServiceImplTest {
      * Login admin user test.
      *
      * @throws InvalidCredentialsException the invalid credentials exception
+     * @throws AlreadyExistingException    the already existing exception
      */
     @Test
     public void loginAdminUserTest() throws InvalidCredentialsException, AlreadyExistingException {
@@ -91,7 +93,7 @@ class LoginServiceImplTest {
         ru.setUsername("user");
         ru.setUserType(UserType.REGULAR);
         ru.setIdUser(1);
-        Mockito.when(userRepository.findByUsername("user")).thenReturn( ru );
+        Mockito.when(userRepository.findByUsername("user")).thenReturn(ru);
 
         Assertions.assertThrows(InvalidCredentialsException.class, () -> loginService.loginUser("user", "password"));
     }

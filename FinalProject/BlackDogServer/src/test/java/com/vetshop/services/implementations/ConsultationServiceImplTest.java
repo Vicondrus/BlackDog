@@ -3,10 +3,12 @@ package com.vetshop.services.implementations;
 import com.vetshop.dtos.ConsultationDTO;
 import com.vetshop.dtos.RegularUserDTO;
 import com.vetshop.dtos.StatusDTO;
-import com.vetshop.entities.*;
+import com.vetshop.entities.Animal;
+import com.vetshop.entities.Consultation;
+import com.vetshop.entities.RegularUser;
+import com.vetshop.entities.UserType;
 import com.vetshop.notifications.NotificationService;
 import com.vetshop.repositories.*;
-import com.vetshop.services.ItemService;
 import com.vetshop.services.exceptions.FieldException;
 import com.vetshop.services.exceptions.NoSuchEntityException;
 import org.hamcrest.CoreMatchers;
@@ -16,7 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +60,7 @@ class ConsultationServiceImplTest {
     void findAllTest() {
         List<ConsultationDTO> list1 = new ArrayList<ConsultationDTO>();
         List<Consultation> list2 = new ArrayList<Consultation>();
-        for(int i = 0; i< 10; i++){
+        for (int i = 0; i < 10; i++) {
             Animal a = Animal.builder().animalId(1).name("a").build();
 
             RegularUser r = RegularUser.builder().idUser(1).username("u").build();
@@ -80,7 +81,7 @@ class ConsultationServiceImplTest {
      * Save test.
      */
     @Test
-    void saveTest(){
+    void saveTest() {
 
         Animal a = Animal.builder().animalId(1).name("a").build();
 
@@ -89,7 +90,7 @@ class ConsultationServiceImplTest {
         Consultation ru = Consultation.builder().animal(a).date(null).details("details").diagnostic("diagnostic").doctor(r).recommendations("recommendation").build();
 
         Mockito.doAnswer(invocationOnMock -> {
-            if(invocationOnMock.getArguments()[0] instanceof Consultation)
+            if (invocationOnMock.getArguments()[0] instanceof Consultation)
                 return ru;
             return null;
         }).when(consultationRepo).save(Mockito.any(Consultation.class));
@@ -100,7 +101,7 @@ class ConsultationServiceImplTest {
 
         ConsultationDTO check = new ConsultationDTO(ru);
 
-        ConsultationDTO x = consultationService.save("1", "1", "diagnostic", "details", "recommendations", "0", "0",new Date(), StatusDTO.DONE );
+        ConsultationDTO x = consultationService.save("1", "1", "diagnostic", "details", "recommendations", "0", "0", new Date(), StatusDTO.DONE);
         Assert.assertTrue(new ReflectionEquals(check, "idAnimal").matches(x));
     }
 
@@ -119,7 +120,7 @@ class ConsultationServiceImplTest {
         Consultation ru = Consultation.builder().consultationId(1).animal(a).date(null).details("details").diagnostic("diagnostic").doctor(r).recommendations("recommendation").build();
 
         Mockito.doAnswer(invocationOnMock -> {
-            if(invocationOnMock.getArguments()[0] instanceof Consultation)
+            if (invocationOnMock.getArguments()[0] instanceof Consultation)
                 return ru;
             return null;
         }).when(consultationRepo).save(Mockito.any(Consultation.class));
@@ -136,6 +137,8 @@ class ConsultationServiceImplTest {
 
     /**
      * Delete test.
+     *
+     * @throws NoSuchEntityException the no such entity exception
      */
     @Test
     void deleteTest() throws NoSuchEntityException {
@@ -147,7 +150,7 @@ class ConsultationServiceImplTest {
         Consultation ru = Consultation.builder().consultationId(1).animal(a).date(null).details("details").diagnostic("diagnostic").doctor(r).recommendations("recommendation").build();
 
         Mockito.doAnswer(invocationOnMock -> {
-            if(invocationOnMock.getArguments()[0] instanceof Consultation)
+            if (invocationOnMock.getArguments()[0] instanceof Consultation)
                 return ru;
             return null;
         }).when(consultationRepo).delete(Mockito.any(Consultation.class));
@@ -173,7 +176,7 @@ class ConsultationServiceImplTest {
 
         List<ConsultationDTO> list1 = new ArrayList<ConsultationDTO>();
         List<Consultation> list2 = new ArrayList<Consultation>();
-        for(int i = 0; i< 10; i++){
+        for (int i = 0; i < 10; i++) {
             Animal a = Animal.builder().animalId(1).name("a").build();
 
             RegularUser r = RegularUser.builder().idUser(1).username("u").build();
@@ -199,7 +202,7 @@ class ConsultationServiceImplTest {
 
         List<ConsultationDTO> list1 = new ArrayList<ConsultationDTO>();
         List<Consultation> list2 = new ArrayList<Consultation>();
-        for(int i = 0; i< 10; i++){
+        for (int i = 0; i < 10; i++) {
             Animal a = Animal.builder().animalId(1).name("a").build();
 
             RegularUser r = RegularUser.builder().idUser(1).username("u").build();

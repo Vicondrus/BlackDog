@@ -16,7 +16,7 @@ import java.util.List;
 public class RegularUserServiceImpl implements RegularUserService {
 
     @Override
-    public List<UserDTO> findAllRegularUsers(){
+    public List<UserDTO> findAllRegularUsers() {
         final String uri = "http://localhost:8080/getAllRegularUsers";
 
         RestTemplate restTemplate = new RestTemplate();
@@ -25,13 +25,13 @@ public class RegularUserServiceImpl implements RegularUserService {
 
         if (consultations != null) {
             return consultations.getList();
-        }else{
+        } else {
             return null;
         }
     }
 
     @Override
-    public UserDTO deleteUser(UserDTO userDTO){
+    public UserDTO deleteUser(UserDTO userDTO) {
         final String uri = "http://localhost:8080/deleteUser";
 
         RestTemplate restTemplate = new RestTemplate();
@@ -40,7 +40,7 @@ public class RegularUserServiceImpl implements RegularUserService {
     }
 
     @Override
-    public UserDTO postCreateUser(String username, String password, String fullName){
+    public UserDTO postCreateUser(String username, String password, String fullName) {
         final String uri = "http://localhost:8080/createUser";
 
         RestTemplate restTemplate = new RestTemplate();
@@ -53,7 +53,7 @@ public class RegularUserServiceImpl implements RegularUserService {
     }
 
     @Override
-    public UserDTO postUpdateUser(int id, String username, String password, String fullName){
+    public UserDTO postUpdateUser(int id, String username, String password, String fullName) {
         final String uri = "http://localhost:8080/updateUser";
 
         RestTemplate restTemplate = new RestTemplate();

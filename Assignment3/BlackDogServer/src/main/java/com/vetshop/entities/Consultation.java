@@ -45,7 +45,7 @@ public class Consultation {
      *
      * @return the string
      */
-    public String getDoctorName(){
+    public String getDoctorName() {
         return doctor.getFullName();
     }
 
@@ -54,7 +54,7 @@ public class Consultation {
      *
      * @return the string
      */
-    public String getAnimalName(){
+    public String getAnimalName() {
         return animal.getName();
     }
 
@@ -63,7 +63,7 @@ public class Consultation {
      *
      * @return the string
      */
-    public String getOwnerName(){
+    public String getOwnerName() {
         return animal.getOwner();
     }
 

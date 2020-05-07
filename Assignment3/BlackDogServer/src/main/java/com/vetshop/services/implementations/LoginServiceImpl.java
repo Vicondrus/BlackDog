@@ -23,10 +23,11 @@ public class LoginServiceImpl implements LoginService {
     /**
      * Instantiates a new Login service.
      *
-     * @param userRepository the user repository
+     * @param userRepository   the user repository
+     * @param activeUsersStore the active users store
      */
     @Autowired
-    public LoginServiceImpl(UserRepository userRepository, ActiveUsersStore activeUsersStore){
+    public LoginServiceImpl(UserRepository userRepository, ActiveUsersStore activeUsersStore) {
         this.userRepository = userRepository;
         this.activeUsersStore = activeUsersStore;
     }
@@ -34,15 +35,16 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public TypeDTO loginUser(String username, String password) throws InvalidCredentialsException, AlreadyExistingException {
         User user = userRepository.findByUsername(username);
-        if(user == null)
+        if (user == null)
             throw new InvalidCredentialsException("No such user");
-        else if(user.getPassword().equals(password)){
+        else if (user.getPassword().equals(password)) {
             if (!activeUsersStore.checkUser(user)) {
                 activeUsersStore.addUser(user);
                 return TypeDTO.valueOf(user.getUserTypeAsString());
-            }else{
+            } else {
                 throw new AlreadyExistingException("The user is already logged");
-            }        }else{
+            }
+        } else {
             throw new InvalidCredentialsException("Wrong Password");
         }
     }

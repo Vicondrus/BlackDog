@@ -25,13 +25,11 @@ import java.io.IOException;
 @FxmlView("main-stage.fxml")
 public class LoginController implements Controller {
 
+    private final AuthService authService;
     @FXML
     private TextField username;
-
     @FXML
     private PasswordField password;
-
-    private final AuthService authService;
 
     /**
      * Instantiates a new Login controller.
@@ -45,11 +43,11 @@ public class LoginController implements Controller {
     /**
      * Login.
      */
-    public void login(){
+    public void login() {
         TypeDTO type = null;
         try {
             type = authService.postLogin(username.getText(), password.getText());
-            if(type.equals(TypeDTO.REGULAR))
+            if (type.equals(TypeDTO.REGULAR))
                 JavaFXApplication.changeScene(RegularUserController.class);
             else
                 JavaFXApplication.changeScene(AdminUserController.class);

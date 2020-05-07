@@ -69,4 +69,14 @@ public class NotificationService {
             subjectsByTopic.get(topic).addConsultation(consultation);
     }
 
+    /**
+     * Get topic string.
+     *
+     * @param id the id
+     * @return the string
+     */
+    public String getTopic(String id) {
+        return idTopicMap.get(id);
+    }
+
 }

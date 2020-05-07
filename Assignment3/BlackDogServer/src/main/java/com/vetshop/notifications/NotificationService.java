@@ -15,9 +15,9 @@ import java.util.Observer;
 @Service
 public class NotificationService {
 
-    private Map<String, ConcreteSubject> subjectsByTopic = new HashMap<String, ConcreteSubject>();
+    private final Map<String, ConcreteSubject> subjectsByTopic = new HashMap<String, ConcreteSubject>();
 
-    private Map<String, String> idTopicMap = new HashMap<>();
+    private final Map<String, String> idTopicMap = new HashMap<>();
 
     /**
      * Add topic.
@@ -30,10 +30,10 @@ public class NotificationService {
         Observer observer = new ConcreteObserver(session);
         ConcreteSubject subject = new ConcreteSubject(topic);
         subject.addObserver(observer);
-        if(subjectsByTopic.containsKey(topic))
+        if (subjectsByTopic.containsKey(topic))
             throw new AlreadyExistingException("Topic already registered");
         subjectsByTopic.put(topic, subject);
-        idTopicMap.put(session.getId(),topic);
+        idTopicMap.put(session.getId(), topic);
     }
 
     /**
@@ -41,9 +41,9 @@ public class NotificationService {
      *
      * @param topic the topic
      */
-    public void removeSubjectAndTopic(String topic){
+    public void removeSubjectAndTopic(String topic) {
         ConcreteSubject subject = subjectsByTopic.get(topic);
-        if(subject != null)
+        if (subject != null)
             subject.deleteObservers();
         subjectsByTopic.remove(topic);
     }
@@ -53,7 +53,7 @@ public class NotificationService {
      *
      * @param id the id
      */
-    public void removeSession(String id){
+    public void removeSession(String id) {
         removeSubjectAndTopic(idTopicMap.get(id));
         idTopicMap.remove(id);
     }
@@ -64,9 +64,19 @@ public class NotificationService {
      * @param topic        the topic
      * @param consultation the consultation
      */
-    public void updateSubjectByTopic(String topic, Consultation consultation){
-        if(subjectsByTopic.containsKey(topic))
+    public void updateSubjectByTopic(String topic, Consultation consultation) {
+        if (subjectsByTopic.containsKey(topic))
             subjectsByTopic.get(topic).addConsultation(consultation);
+    }
+
+    /**
+     * Get topic string.
+     *
+     * @param id the id
+     * @return the string
+     */
+    public String getTopic(String id) {
+        return idTopicMap.get(id);
     }
 
 }

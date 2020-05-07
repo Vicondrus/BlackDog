@@ -23,7 +23,8 @@ public class LoginServiceImpl implements LoginService {
     /**
      * Instantiates a new Login service.
      *
-     * @param userRepository the user repository
+     * @param userRepository   the user repository
+     * @param activeUsersStore the active users store
      */
     @Autowired
     public LoginServiceImpl(UserRepository userRepository, ActiveUsersStore activeUsersStore) {
@@ -40,7 +41,7 @@ public class LoginServiceImpl implements LoginService {
             if (!activeUsersStore.checkUser(user)) {
                 activeUsersStore.addUser(user);
                 return TypeDTO.valueOf(user.getUserTypeAsString());
-            }else{
+            } else {
                 throw new AlreadyExistingException("The user is already logged");
             }
         } else {

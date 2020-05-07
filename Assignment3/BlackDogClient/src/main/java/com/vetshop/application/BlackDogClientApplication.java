@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
  * The type Black dog client application.
  */
 @SpringBootApplication
-@ComponentScan( basePackages = {"com.vetshop"} )
+@ComponentScan(basePackages = {"com.vetshop"})
 public class BlackDogClientApplication {
 
     /**
@@ -17,7 +17,7 @@ public class BlackDogClientApplication {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-		Application.launch(JavaFXApplication.class,args);
-	}
+        Application.launch(JavaFXApplication.class, args);
+    }
 
 }

@@ -44,8 +44,8 @@ public class ConsultationController {
      * @return the consultation dto
      */
     @PostMapping(value = "/createConsultation")
-    public ConsultationDTO createConsultation(@RequestBody ConsultationDTO consultationDTO){
-        return consultationService.save(consultationDTO.getAnimalId()+"", consultationDTO.getDoctorId()+"", consultationDTO.getDiagnostic(), consultationDTO.getDetails(), consultationDTO.getRecommendations(), consultationDTO.getDate(), consultationDTO.getStatus());
+    public ConsultationDTO createConsultation(@RequestBody ConsultationDTO consultationDTO) {
+        return consultationService.save(consultationDTO.getAnimalId() + "", consultationDTO.getDoctorId() + "", consultationDTO.getDiagnostic(), consultationDTO.getDetails(), consultationDTO.getRecommendations(), consultationDTO.getDate(), consultationDTO.getStatus());
     }
 
     /**
@@ -55,8 +55,8 @@ public class ConsultationController {
      * @return the consultation dto
      */
     @PostMapping(value = "/scheduleConsultation")
-    public ConsultationDTO scheduleConsultation(@RequestBody ConsultationDTO consultationDTO){
-        return consultationService.schedule(consultationDTO.getAnimalId()+"", consultationDTO.getDoctorId()+"", consultationDTO.getDiagnostic(), consultationDTO.getDetails(), consultationDTO.getRecommendations(), consultationDTO.getDate(), consultationDTO.getStatus());
+    public ConsultationDTO scheduleConsultation(@RequestBody ConsultationDTO consultationDTO) {
+        return consultationService.schedule(consultationDTO.getAnimalId() + "", consultationDTO.getDoctorId() + "", consultationDTO.getDiagnostic(), consultationDTO.getDetails(), consultationDTO.getRecommendations(), consultationDTO.getDate(), consultationDTO.getStatus());
     }
 
     /**
@@ -66,8 +66,8 @@ public class ConsultationController {
      * @return the consultation dto
      */
     @PostMapping(value = "/updateConsultation")
-    public ConsultationDTO updateConsultation(@RequestBody ConsultationDTO consultationDTO){
-        return consultationService.update(consultationDTO.getConsultationId(),consultationDTO.getAnimalId()+"", consultationDTO.getDoctorId()+"", consultationDTO.getDiagnostic(), consultationDTO.getDetails(), consultationDTO.getRecommendations(), consultationDTO.getDate(), consultationDTO.getStatus());
+    public ConsultationDTO updateConsultation(@RequestBody ConsultationDTO consultationDTO) {
+        return consultationService.update(consultationDTO.getConsultationId(), consultationDTO.getAnimalId() + "", consultationDTO.getDoctorId() + "", consultationDTO.getDiagnostic(), consultationDTO.getDetails(), consultationDTO.getRecommendations(), consultationDTO.getDate(), consultationDTO.getStatus());
     }
 
     /**

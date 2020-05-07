@@ -21,9 +21,9 @@ public class ReportFactory {
 
         Report r = null;
 
-        if(reportType.equals(ReportType.PDF)){
+        if (reportType.equals(ReportType.PDF)) {
             r = new PdfReport();
-        }else if(reportType.equals(ReportType.TXT)){
+        } else if (reportType.equals(ReportType.TXT)) {
             r = new TxtReport();
         }
 

@@ -34,8 +34,13 @@ public class BlackDogServerApplication {
         }
     }
 
+    /**
+     * Active user store active users store.
+     *
+     * @return the active users store
+     */
     @Bean
-    public ActiveUsersStore activeUserStore(){
+    public ActiveUsersStore activeUserStore() {
         return new ActiveUsersStore();
     }
 

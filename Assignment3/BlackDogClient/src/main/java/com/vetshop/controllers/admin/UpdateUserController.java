@@ -2,7 +2,6 @@ package com.vetshop.controllers.admin;
 
 import com.vetshop.application.JavaFXApplication;
 import com.vetshop.controllers.DTOController;
-import com.vetshop.controllers.user.InspectConsultationsController;
 import com.vetshop.dialogues.AlertBox;
 import com.vetshop.dtos.DTO;
 import com.vetshop.dtos.UserDTO;
@@ -21,10 +20,8 @@ import org.springframework.stereotype.Component;
 @FxmlView("updateuser-stage.fxml")
 public class UpdateUserController implements DTOController {
 
-    private UserDTO regularUserDTO;
-
     private final RegularUserService regularUserService;
-
+    private UserDTO regularUserDTO;
     @FXML
     private TextField username;
 
@@ -50,10 +47,10 @@ public class UpdateUserController implements DTOController {
      * Update.
      */
     public void update() {
-        if(!password.getText().equals(confirm.getText())){
+        if (!password.getText().equals(confirm.getText())) {
             AlertBox.display("ERROR", "Password mismatch");
-        }else{
-            regularUserService.postUpdateUser(regularUserDTO.getIdUser(),username.getText(),password.getText(),fullname.getText());
+        } else {
+            regularUserService.postUpdateUser(regularUserDTO.getIdUser(), username.getText(), password.getText(), fullname.getText());
 
             Stage stage = (Stage) username.getScene().getWindow();
             stage.close();
@@ -62,7 +59,7 @@ public class UpdateUserController implements DTOController {
     }
 
     @Override
-    public void refresh(){
+    public void refresh() {
         username.setText(regularUserDTO.getUsername());
         password.setText(regularUserDTO.getPassword());
         confirm.setText(regularUserDTO.getPassword());
@@ -82,6 +79,6 @@ public class UpdateUserController implements DTOController {
         Stage stage = (Stage) username.getScene().getWindow();
         stage.close();
 
-        JavaFXApplication.changeScene(InspectConsultationsController.class);
+        JavaFXApplication.changeScene(InspectUsersController.class);
     }
 }

@@ -1,4 +1,5 @@
 package com.vetshop.dtos;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -15,7 +16,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 @Setter
 @Data
-public class UserDTO implements DTO{
+public class UserDTO implements DTO {
 
     private int idUser;
 

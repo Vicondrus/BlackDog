@@ -80,8 +80,8 @@ class RegularUserServiceImplTest {
     void getAllTest() {
         List<RegularUserDTO> list1 = new ArrayList<RegularUserDTO>();
         List<RegularUser> list2 = new ArrayList<RegularUser>();
-        for(int i = 0; i< 10; i++){
-            RegularUser u = RegularUser.builder().fullName(i+"").idUser(i).password(i+"").username(i+"").userType(UserType.REGULAR).consultations(null).build();
+        for (int i = 0; i < 10; i++) {
+            RegularUser u = RegularUser.builder().fullName(i + "").idUser(i).password(i + "").username(i + "").userType(UserType.REGULAR).consultations(null).build();
             list2.add(u);
             list1.add(new RegularUserDTO(u));
         }
@@ -110,7 +110,7 @@ class RegularUserServiceImplTest {
         ru.setIdUser(1);
 
         Mockito.doAnswer(invocationOnMock -> {
-            if(invocationOnMock.getArguments()[0] instanceof RegularUser)
+            if (invocationOnMock.getArguments()[0] instanceof RegularUser)
                 return ru;
             return null;
         }).when(regularUserRepository).save(Mockito.any(RegularUser.class));
@@ -160,7 +160,7 @@ class RegularUserServiceImplTest {
         Mockito.when(regularUserRepository.findById(1)).thenReturn(Optional.of(ru));
 
         Mockito.doAnswer(invocationOnMock -> {
-            if(invocationOnMock.getArguments()[0] instanceof RegularUser)
+            if (invocationOnMock.getArguments()[0] instanceof RegularUser)
                 return ru;
             return null;
         }).when(regularUserRepository).save(Mockito.any(RegularUser.class));
@@ -199,7 +199,7 @@ class RegularUserServiceImplTest {
         Mockito.when(regularUserRepository.findById(1)).thenReturn(Optional.of(ru));
 
         Mockito.doAnswer(invocationOnMock -> {
-            if(invocationOnMock.getArguments()[0] instanceof RegularUser)
+            if (invocationOnMock.getArguments()[0] instanceof RegularUser)
                 return ru;
             return null;
         }).when(regularUserRepository).delete(Mockito.any(RegularUser.class));

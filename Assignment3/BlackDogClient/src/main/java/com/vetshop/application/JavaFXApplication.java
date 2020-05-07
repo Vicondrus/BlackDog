@@ -23,6 +23,55 @@ public class JavaFXApplication extends Application {
 
     private static ConfigurableApplicationContext applicationContext;
 
+    /**
+     * Change scene.
+     *
+     * @param <T> the type parameter
+     * @param c   the c
+     */
+    public static <T extends Controller> void changeScene(Class<T> c) {
+        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
+        Parent pane = fxWeaver.loadView(c);
+
+        Stage stage = new Stage();
+
+        Scene scene = new Scene(pane);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * Change scene.
+     *
+     * @param <T> the type parameter
+     * @param c   the c
+     * @param dto the dto
+     */
+    public static <T extends DTOController> void changeScene(Class<T> c, DTO dto) {
+        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
+
+        DTOController controller = fxWeaver.loadController(c);
+        controller.setDTO(dto);
+
+        Parent pane = fxWeaver.loadView(c);
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(pane);
+        stage.setScene(scene);
+        stage.show();
+
+        controller.refresh();
+    }
+
+    /**
+     * Show alert.
+     *
+     * @param message the message
+     */
+    public static void showAlert(String message) {
+        Platform.runLater(() -> AlertBox.display("INFO", message));
+    }
+
     @Override
     public void init() {
         String[] args = getParameters().getRaw().toArray(new String[0]);
@@ -50,54 +99,5 @@ public class JavaFXApplication extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    /**
-     * Change scene.
-     *
-     * @param <T> the type parameter
-     * @param c   the c
-     */
-    public static <T extends Controller> void changeScene(Class<T> c){
-        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
-        Parent pane = fxWeaver.loadView(c);
-
-        Stage stage = new Stage();
-
-        Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    /**
-     * Change scene.
-     *
-     * @param <T> the type parameter
-     * @param c   the c
-     * @param dto the dto
-     */
-    public static <T extends DTOController> void changeScene(Class<T> c, DTO dto){
-        FxWeaver fxWeaver = applicationContext.getBean(FxWeaver.class);
-
-        DTOController controller = fxWeaver.loadController(c);
-        controller.setDTO(dto);
-
-        Parent pane = fxWeaver.loadView(c);
-
-        Stage stage = new Stage();
-        Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.show();
-
-        controller.refresh();
-    }
-
-    /**
-     * Show alert.
-     *
-     * @param message the message
-     */
-    public static void showAlert(String message){
-        Platform.runLater(() -> AlertBox.display("INFO", message));
     }
 }

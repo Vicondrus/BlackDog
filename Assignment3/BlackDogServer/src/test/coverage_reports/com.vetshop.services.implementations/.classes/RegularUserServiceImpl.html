@@ -1,162 +1,162 @@
-
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html id="htmlId">
 <head>
-  <title>Coverage Report :: RegularUserServiceImpl</title>
-  <style type="text/css">
-    @import "../../.css/coverage.css";
-  </style>
+    <title>Coverage Report :: RegularUserServiceImpl</title>
+    <style type="text/css">
+        @import "../../.css/coverage.css";
+    </style>
 </head>
 
 <body>
 <div class="header"></div>
 
 <div class="content">
-<div class="breadCrumbs">
-    [ <a href="../../index.html">all classes</a> ]
-    [ <a href="../index.html">com.vetshop.services.implementations</a> ]
-</div>
+    <div class="breadCrumbs">
+        [ <a href="../../index.html">all classes</a> ]
+        [ <a href="../index.html">com.vetshop.services.implementations</a> ]
+    </div>
 
-<h1>Coverage Summary for Class: RegularUserServiceImpl (com.vetshop.services.implementations)</h1>
+    <h1>Coverage Summary for Class: RegularUserServiceImpl (com.vetshop.services.implementations)</h1>
 
-<table class="coverageStats">
-<tr>
-  <th class="name">Class</th>
-<th class="coverageStat 
+    <table class="coverageStats">
+        <tr>
+            <th class="name">Class</th>
+            <th class="coverageStat
 ">
-  Class, %
-</th>
-<th class="coverageStat 
+                Class, %
+            </th>
+            <th class="coverageStat
 ">
-  Method, %
-</th>
-<th class="coverageStat 
+                Method, %
+            </th>
+            <th class="coverageStat
 ">
-  Line, %
-</th>
-</tr>
-<tr>
-  <td class="name">RegularUserServiceImpl</td>
-<td class="coverageStat">
+                Line, %
+            </th>
+        </tr>
+        <tr>
+            <td class="name">RegularUserServiceImpl</td>
+            <td class="coverageStat">
   <span class="percent">
     100%
   </span>
-  <span class="absValue">
+                <span class="absValue">
     (1/ 1)
   </span>
-</td>
-<td class="coverageStat">
+            </td>
+            <td class="coverageStat">
   <span class="percent">
     100%
   </span>
-  <span class="absValue">
+                <span class="absValue">
     (6/ 6)
   </span>
-</td>
-<td class="coverageStat">
+            </td>
+            <td class="coverageStat">
   <span class="percent">
     100%
   </span>
-  <span class="absValue">
+                <span class="absValue">
     (29/ 29)
   </span>
-</td>
-</tr>
+            </td>
+        </tr>
 
-</table>
+    </table>
 
-<br/>
-<br/>
+    <br/>
+    <br/>
 
 
-<div class="sourceCode"><i>1</i>&nbsp;package com.vetshop.services.implementations;
-<i>2</i>&nbsp;
-<i>3</i>&nbsp;import com.vetshop.dtos.RegularUserDTO;
-<i>4</i>&nbsp;import com.vetshop.entities.RegularUser;
-<i>5</i>&nbsp;import com.vetshop.entities.UserType;
-<i>6</i>&nbsp;import com.vetshop.repositories.RegularUserRepository;
-<i>7</i>&nbsp;import com.vetshop.services.RegularUserService;
-<i>8</i>&nbsp;import com.vetshop.services.exceptions.AlreadyExistingException;
-<i>9</i>&nbsp;import com.vetshop.services.exceptions.NoSuchEntityException;
-<i>10</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
-<i>11</i>&nbsp;import org.springframework.stereotype.Service;
-<i>12</i>&nbsp;
-<i>13</i>&nbsp;import java.util.ArrayList;
-<i>14</i>&nbsp;import java.util.List;
-<i>15</i>&nbsp;import java.util.stream.Collectors;
-<i>16</i>&nbsp;
-<i>17</i>&nbsp;/**
-<i>18</i>&nbsp; * The type Regular user service.
-<i>19</i>&nbsp; */
-<i>20</i>&nbsp;@Service
-<i>21</i>&nbsp;public class RegularUserServiceImpl implements RegularUserService {
-<i>22</i>&nbsp;
-<i>23</i>&nbsp;    private final RegularUserRepository regUserRepo;
-<i>24</i>&nbsp;
-<i>25</i>&nbsp;    /**
-<i>26</i>&nbsp;     * Instantiates a new Regular user service.
-<i>27</i>&nbsp;     *
-<i>28</i>&nbsp;     * @param regularUserRepository the regular user repository
-<i>29</i>&nbsp;     */
-<i>30</i>&nbsp;    @Autowired
-<b class="fc"><i>31</i>&nbsp;    public RegularUserServiceImpl(RegularUserRepository regularUserRepository){</b>
-<b class="fc"><i>32</i>&nbsp;        regUserRepo = regularUserRepository;</b>
-<b class="fc"><i>33</i>&nbsp;    }</b>
-<i>34</i>&nbsp;
-<i>35</i>&nbsp;    @Override
-<i>36</i>&nbsp;    public RegularUserDTO getByUsername(String username) throws NoSuchEntityException {
-<b class="fc"><i>37</i>&nbsp;        RegularUser found = regUserRepo.findByUsername(username);</b>
-<b class="fc"><i>38</i>&nbsp;        if(found == null)</b>
-<b class="fc"><i>39</i>&nbsp;            throw new NoSuchEntityException(&quot;Invalid username&quot;);</b>
-<b class="fc"><i>40</i>&nbsp;        return new RegularUserDTO(found);</b>
-<i>41</i>&nbsp;    }
-<i>42</i>&nbsp;
-<i>43</i>&nbsp;    @Override
-<i>44</i>&nbsp;    public List&lt;RegularUserDTO&gt; getAll() {
-<b class="fc"><i>45</i>&nbsp;        return regUserRepo.findAll().stream().map(RegularUserDTO::new).collect(Collectors.toList());</b>
-<i>46</i>&nbsp;    }
-<i>47</i>&nbsp;
-<i>48</i>&nbsp;    @Override
-<i>49</i>&nbsp;    public RegularUserDTO save(String username, String password, String fullName, String userType) throws AlreadyExistingException, NoSuchEntityException {
-<b class="fc"><i>50</i>&nbsp;        if(regUserRepo.findByUsername(username)!=null)</b>
-<b class="fc"><i>51</i>&nbsp;            throw new AlreadyExistingException(&quot;Username taken&quot;);</b>
-<b class="fc"><i>52</i>&nbsp;        RegularUser regularUser = RegularUser.builder().consultations(new ArrayList&lt;&gt;()).build();</b>
-<b class="fc"><i>53</i>&nbsp;        regularUser.setFullName(fullName);</b>
-<b class="fc"><i>54</i>&nbsp;        regularUser.setPassword(password);</b>
-<b class="fc"><i>55</i>&nbsp;        regularUser.setUsername(username);</b>
-<b class="fc"><i>56</i>&nbsp;        regularUser.setUserType(UserType.valueOf(userType));</b>
-<b class="fc"><i>57</i>&nbsp;        return new RegularUserDTO(regUserRepo.save(regularUser));</b>
-<i>58</i>&nbsp;    }
-<i>59</i>&nbsp;
-<i>60</i>&nbsp;    @Override
-<i>61</i>&nbsp;    public RegularUserDTO update(int id, String username, String password, String fullName) throws NoSuchEntityException {
-<b class="fc"><i>62</i>&nbsp;        RegularUser regularUser = regUserRepo.findById(id).orElse(null);</b>
-<b class="fc"><i>63</i>&nbsp;        if(regularUser == null)</b>
-<b class="fc"><i>64</i>&nbsp;            throw new NoSuchEntityException(&quot;No such username&quot;);</b>
-<b class="fc"><i>65</i>&nbsp;        regularUser.setUsername(username);</b>
-<b class="fc"><i>66</i>&nbsp;        regularUser.setPassword(password);</b>
-<b class="fc"><i>67</i>&nbsp;        regularUser.setFullName(fullName);</b>
-<b class="fc"><i>68</i>&nbsp;        regUserRepo.save(regularUser);</b>
-<b class="fc"><i>69</i>&nbsp;        return new RegularUserDTO(regularUser);</b>
-<i>70</i>&nbsp;    }
-<i>71</i>&nbsp;
-<i>72</i>&nbsp;    @Override
-<i>73</i>&nbsp;    public RegularUserDTO delete(int id) throws NoSuchEntityException {
-<b class="fc"><i>74</i>&nbsp;        RegularUser regularUser = regUserRepo.findById(id).orElse(null);</b>
-<b class="fc"><i>75</i>&nbsp;        if(regularUser == null)</b>
-<b class="fc"><i>76</i>&nbsp;            throw new NoSuchEntityException(&quot;No such username&quot;);</b>
-<b class="fc"><i>77</i>&nbsp;        regUserRepo.delete(regularUser);</b>
-<b class="fc"><i>78</i>&nbsp;        return new RegularUserDTO(regularUser);</b>
-<i>79</i>&nbsp;    }
-<i>80</i>&nbsp;}
-</div>
+    <div class="sourceCode"><i>1</i>&nbsp;package com.vetshop.services.implementations;
+        <i>2</i>&nbsp;
+        <i>3</i>&nbsp;import com.vetshop.dtos.RegularUserDTO;
+        <i>4</i>&nbsp;import com.vetshop.entities.RegularUser;
+        <i>5</i>&nbsp;import com.vetshop.entities.UserType;
+        <i>6</i>&nbsp;import com.vetshop.repositories.RegularUserRepository;
+        <i>7</i>&nbsp;import com.vetshop.services.RegularUserService;
+        <i>8</i>&nbsp;import com.vetshop.services.exceptions.AlreadyExistingException;
+        <i>9</i>&nbsp;import com.vetshop.services.exceptions.NoSuchEntityException;
+        <i>10</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+        <i>11</i>&nbsp;import org.springframework.stereotype.Service;
+        <i>12</i>&nbsp;
+        <i>13</i>&nbsp;import java.util.ArrayList;
+        <i>14</i>&nbsp;import java.util.List;
+        <i>15</i>&nbsp;import java.util.stream.Collectors;
+        <i>16</i>&nbsp;
+        <i>17</i>&nbsp;/**
+        <i>18</i>&nbsp; * The type Regular user service.
+        <i>19</i>&nbsp; */
+        <i>20</i>&nbsp;@Service
+        <i>21</i>&nbsp;public class RegularUserServiceImpl implements RegularUserService {
+        <i>22</i>&nbsp;
+        <i>23</i>&nbsp; private final RegularUserRepository regUserRepo;
+        <i>24</i>&nbsp;
+        <i>25</i>&nbsp; /**
+        <i>26</i>&nbsp; * Instantiates a new Regular user service.
+        <i>27</i>&nbsp; *
+        <i>28</i>&nbsp; * @param regularUserRepository the regular user repository
+        <i>29</i>&nbsp; */
+        <i>30</i>&nbsp; @Autowired
+        <b class="fc"><i>31</i>&nbsp; public RegularUserServiceImpl(RegularUserRepository regularUserRepository){</b>
+        <b class="fc"><i>32</i>&nbsp; regUserRepo = regularUserRepository;</b>
+        <b class="fc"><i>33</i>&nbsp; }</b>
+        <i>34</i>&nbsp;
+        <i>35</i>&nbsp; @Override
+        <i>36</i>&nbsp; public RegularUserDTO getByUsername(String username) throws NoSuchEntityException {
+        <b class="fc"><i>37</i>&nbsp; RegularUser found = regUserRepo.findByUsername(username);</b>
+        <b class="fc"><i>38</i>&nbsp; if(found == null)</b>
+        <b class="fc"><i>39</i>&nbsp; throw new NoSuchEntityException(&quot;Invalid username&quot;);</b>
+        <b class="fc"><i>40</i>&nbsp; return new RegularUserDTO(found);</b>
+        <i>41</i>&nbsp; }
+        <i>42</i>&nbsp;
+        <i>43</i>&nbsp; @Override
+        <i>44</i>&nbsp; public List&lt;RegularUserDTO&gt; getAll() {
+        <b class="fc"><i>45</i>&nbsp; return
+            regUserRepo.findAll().stream().map(RegularUserDTO::new).collect(Collectors.toList());</b>
+        <i>46</i>&nbsp; }
+        <i>47</i>&nbsp;
+        <i>48</i>&nbsp; @Override
+        <i>49</i>&nbsp; public RegularUserDTO save(String username, String password, String fullName, String userType)
+        throws AlreadyExistingException, NoSuchEntityException {
+        <b class="fc"><i>50</i>&nbsp; if(regUserRepo.findByUsername(username)!=null)</b>
+        <b class="fc"><i>51</i>&nbsp; throw new AlreadyExistingException(&quot;Username taken&quot;);</b>
+        <b class="fc"><i>52</i>&nbsp; RegularUser regularUser = RegularUser.builder().consultations(new ArrayList&lt;&gt;()).build();</b>
+        <b class="fc"><i>53</i>&nbsp; regularUser.setFullName(fullName);</b>
+        <b class="fc"><i>54</i>&nbsp; regularUser.setPassword(password);</b>
+        <b class="fc"><i>55</i>&nbsp; regularUser.setUsername(username);</b>
+        <b class="fc"><i>56</i>&nbsp; regularUser.setUserType(UserType.valueOf(userType));</b>
+        <b class="fc"><i>57</i>&nbsp; return new RegularUserDTO(regUserRepo.save(regularUser));</b>
+        <i>58</i>&nbsp; }
+        <i>59</i>&nbsp;
+        <i>60</i>&nbsp; @Override
+        <i>61</i>&nbsp; public RegularUserDTO update(int id, String username, String password, String fullName) throws
+        NoSuchEntityException {
+        <b class="fc"><i>62</i>&nbsp; RegularUser regularUser = regUserRepo.findById(id).orElse(null);</b>
+        <b class="fc"><i>63</i>&nbsp; if(regularUser == null)</b>
+        <b class="fc"><i>64</i>&nbsp; throw new NoSuchEntityException(&quot;No such username&quot;);</b>
+        <b class="fc"><i>65</i>&nbsp; regularUser.setUsername(username);</b>
+        <b class="fc"><i>66</i>&nbsp; regularUser.setPassword(password);</b>
+        <b class="fc"><i>67</i>&nbsp; regularUser.setFullName(fullName);</b>
+        <b class="fc"><i>68</i>&nbsp; regUserRepo.save(regularUser);</b>
+        <b class="fc"><i>69</i>&nbsp; return new RegularUserDTO(regularUser);</b>
+        <i>70</i>&nbsp; }
+        <i>71</i>&nbsp;
+        <i>72</i>&nbsp; @Override
+        <i>73</i>&nbsp; public RegularUserDTO delete(int id) throws NoSuchEntityException {
+        <b class="fc"><i>74</i>&nbsp; RegularUser regularUser = regUserRepo.findById(id).orElse(null);</b>
+        <b class="fc"><i>75</i>&nbsp; if(regularUser == null)</b>
+        <b class="fc"><i>76</i>&nbsp; throw new NoSuchEntityException(&quot;No such username&quot;);</b>
+        <b class="fc"><i>77</i>&nbsp; regUserRepo.delete(regularUser);</b>
+        <b class="fc"><i>78</i>&nbsp; return new RegularUserDTO(regularUser);</b>
+        <i>79</i>&nbsp; }
+        <i>80</i>&nbsp;}
+    </div>
 </div>
 
 <div class="footer">
-    
+
     <div style="float:right;">generated on 2020-04-21 16:06</div>
 </div>
 </body>

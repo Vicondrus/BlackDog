@@ -32,7 +32,7 @@ public class CreateAnimalController implements Controller {
     /**
      * Create.
      */
-    public void create(){
+    public void create() {
 
         animalService.postCreateAnimal(name.getText(), owner.getText(), species.getText());
 
